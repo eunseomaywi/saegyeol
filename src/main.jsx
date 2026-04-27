@@ -202,10 +202,10 @@ function App() {
           </div>
           <form
             className="submit-form fade-in"
-            action="YOUR_FORMSPREE_ENDPOINT"
+            action="https://formspree.io/f/mvzdnlll"
             method="POST"
           >
-            {/* Formspree 사용 시 위 action 값에 실제 endpoint를 넣어주세요. */}
+            <input type="hidden" name="_subject" value="새결 웹 문예지 기고문이 도착했습니다" />
             <label>
               이름 또는 필명
               <input name="name" type="text" required placeholder="예: 새결" />
