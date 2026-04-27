@@ -395,8 +395,7 @@ function CommentsPanel({ poem }) {
 
     const script = document.createElement("script");
     script.id = "disqus-script";
-    // Disqus 사용 시 YOUR_DISQUS_SHORTNAME을 실제 shortname으로 교체해주세요.
-    script.src = "https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js";
+    script.src = "https://saegyeol.disqus.com/embed.js";
     script.setAttribute("data-timestamp", `${Date.now()}`);
     (document.head || document.body).appendChild(script);
   }, [poem]);
