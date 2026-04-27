@@ -104,6 +104,13 @@ function App() {
   const [activeCommentPoem, setActiveCommentPoem] = useState(poems[0]);
   const featuredPoem = useMemo(() => poems[0], []);
 
+  const openComments = (poem) => {
+    setActiveCommentPoem(poem);
+    window.setTimeout(() => {
+      document.getElementById("comments")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -166,7 +173,7 @@ function App() {
                 key={poem.id}
                 poem={poem}
                 index={index}
-                onOpenComments={() => setActiveCommentPoem(poem)}
+                onOpenComments={() => openComments(poem)}
               />
             ))}
           </div>
@@ -315,14 +322,13 @@ function CommentsPanel({ poem }) {
 
     const script = document.createElement("script");
     script.id = "disqus-script";
-    // Disqus 사용 시 YOUR_DISQUS_SHORTNAME을 실제 shortname으로 교체해주세요.
-    script.src = "https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js";
+    script.src = "https://saegyeol.disqus.com/embed.js";
     script.setAttribute("data-timestamp", `${Date.now()}`);
-    document.body.appendChild(script);
+    (document.head || document.body).appendChild(script);
   }, [poem]);
 
   return (
-    <aside className="comments-panel fade-in" aria-label="댓글 영역">
+    <aside id="comments" className="comments-panel fade-in" aria-label="댓글 영역">
       <div>
         <p>Comments</p>
         <h2>{poem.title}</h2>
@@ -330,9 +336,13 @@ function CommentsPanel({ poem }) {
       </div>
       <div id="disqus_thread">
         <p className="disqus-placeholder">
-          Disqus shortname을 넣으면 이 영역에 작품별 댓글이 표시됩니다.
+          댓글을 불러오는 중입니다.
         </p>
       </div>
+      <noscript>
+        Please enable JavaScript to view the{" "}
+        <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
     </aside>
   );
 }
