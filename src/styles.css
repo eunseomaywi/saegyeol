@@ -208,12 +208,14 @@ h3 {
 
 .poem-section {
   padding: 5.5rem 0 0;
-  background: #1f1d1a;
-  color: #f8f1e5;
+  background:
+    linear-gradient(180deg, rgba(245, 239, 227, 0.92), rgba(232, 222, 205, 0.96)),
+    #f5efe3;
+  color: #24211d;
 }
 
 .poem-section .section-heading p {
-  color: #d8b5be;
+  color: #6f1e32;
 }
 
 .poem-reels {
@@ -227,66 +229,110 @@ h3 {
 .poem-card {
   position: relative;
   min-height: 100svh;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
-  gap: 1.2rem;
+  justify-content: center;
   scroll-snap-align: start;
-  padding: clamp(5rem, 10vw, 8rem) clamp(1rem, 8vw, 7rem);
+  padding: clamp(4.8rem, 7vw, 6.2rem) clamp(1rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
   background:
-    linear-gradient(120deg, rgba(18, 50, 95, 0.28), transparent 52%),
-    linear-gradient(180deg, #26231f 0%, #161514 100%);
+    linear-gradient(120deg, rgba(18, 50, 95, 0.08), transparent 45%),
+    linear-gradient(180deg, #f6efe4 0%, #eadfcd 100%);
+}
+
+.poem-frame {
+  width: min(100%, 66rem);
+  min-height: min(84svh, 54rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+}
+
+.poem-panel {
+  position: relative;
+  width: min(100%, 48rem);
+  height: min(84svh, 54rem);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.2rem, 3vw, 2.2rem);
+  color: #24211d;
+  background: rgba(255, 252, 246, 0.84);
+  border: 1px solid rgba(36, 33, 29, 0.13);
+  box-shadow: 0 1.7rem 4.5rem rgba(36, 33, 29, 0.12);
 }
 
 .poem-meta {
-  position: absolute;
-  inset: 5.2rem auto auto clamp(1rem, 5vw, 4rem);
   display: flex;
-  gap: 0.8rem;
-  color: rgba(248, 241, 229, 0.56);
-  font-size: 0.76rem;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgba(36, 33, 29, 0.46);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .poem-content {
-  width: min(100%, 42rem);
-  margin-inline: auto;
+  min-height: 0;
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(1rem, 2.6vw, 1.8rem);
+  padding-top: clamp(1rem, 3vw, 2rem);
 }
 
 .poem-author {
-  margin: 0 0 0.7rem;
-  color: #d8b5be;
+  margin: 0 0 0.6rem;
+  color: #6f1e32;
   font-weight: 700;
 }
 
 .poem-content h3 {
-  color: #fff8ec;
-  font-size: clamp(2.4rem, 9vw, 6.8rem);
-  line-height: 1.02;
+  color: #12325f;
+  font-size: clamp(2.4rem, 7vw, 5.6rem);
+  line-height: 1.04;
+  word-break: keep-all;
 }
 
 .poem-body {
-  margin-top: clamp(1.4rem, 4vw, 2.5rem);
+  max-height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.3rem clamp(0.7rem, 2vw, 1.4rem) 0.3rem 0;
   font-family: "Noto Serif KR", serif;
-  color: rgba(248, 241, 229, 0.88);
-  font-size: clamp(1.05rem, 3.2vw, 1.62rem);
-  line-height: 1.95;
+  color: rgba(36, 33, 29, 0.84);
+  font-size: clamp(1rem, 2vw, 1.38rem);
+  line-height: 2.08;
   word-break: keep-all;
+  scrollbar-color: rgba(111, 30, 50, 0.38) transparent;
 }
 
 .poem-body p {
   margin: 0;
 }
 
+.poem-footer {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(36, 33, 29, 0.1);
+}
+
+.poem-footer p {
+  margin: 0;
+  color: rgba(36, 33, 29, 0.66);
+  font-size: 0.94rem;
+  word-break: keep-all;
+}
+
 .tag-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  margin-top: 1.5rem;
 }
 
 .tag-list span {
-  color: #e6d8c4;
-  border-bottom: 1px solid rgba(230, 216, 196, 0.42);
+  color: #6f1e32;
+  border-bottom: 1px solid rgba(111, 30, 50, 0.32);
   font-size: 0.9rem;
 }
 
@@ -296,15 +342,16 @@ h3 {
 }
 
 .poem-tools button {
-  width: 4.1rem;
+  width: 4.35rem;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
   gap: 0.1rem;
-  color: #f8f1e5;
-  background: rgba(248, 241, 229, 0.08);
-  border: 1px solid rgba(248, 241, 229, 0.16);
+  color: #24211d;
+  background: rgba(255, 252, 246, 0.72);
+  border: 1px solid rgba(36, 33, 29, 0.13);
   border-radius: 50%;
+  box-shadow: 0 0.8rem 1.8rem rgba(36, 33, 29, 0.08);
   cursor: pointer;
 }
 
@@ -365,21 +412,59 @@ h3 {
   background: #f8f1e5;
 }
 
+.member-group {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding-top: clamp(1.2rem, 3vw, 2rem);
+}
+
+.member-group + .member-group {
+  margin-top: clamp(2.2rem, 5vw, 4rem);
+  padding-top: clamp(2rem, 5vw, 3.5rem);
+  border-top: 1px solid rgba(36, 33, 29, 0.12);
+}
+
+.member-group-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.member-group-heading p {
+  margin: 0;
+  color: #6f1e32;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.member-group-heading h3 {
+  color: #12325f;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
 .member-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
+.member-grid.is-editors {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .member-card {
-  min-height: 22rem;
+  min-height: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1.3rem;
-  padding: 1.3rem;
-  background: rgba(255, 252, 246, 0.64);
+  padding: clamp(1.2rem, 2vw, 1.6rem);
+  background: rgba(255, 252, 246, 0.76);
   border: 1px solid rgba(36, 33, 29, 0.12);
+  box-shadow: 0 1rem 2.6rem rgba(36, 33, 29, 0.06);
 }
 
 .member-role {
@@ -389,7 +474,10 @@ h3 {
   font-weight: 700;
 }
 
-.member-card h3 {
+.member-card h4 {
+  margin: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  color: #24211d;
   font-size: 2rem;
 }
 
@@ -512,6 +600,10 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .member-grid.is-editors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .submit-copy {
     position: static;
   }
@@ -562,27 +654,50 @@ h3 {
   }
 
   .poem-card {
-    grid-template-columns: 1fr;
-    align-content: center;
-    padding: 5.5rem 1rem 2rem;
+    padding: 4.6rem 0 0;
+    align-items: stretch;
+  }
+
+  .poem-frame {
+    width: 100%;
+    min-height: 100svh;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .poem-panel {
+    width: 100%;
+    height: 100svh;
+    border-inline: 0;
+    box-shadow: none;
+    padding: 1rem;
   }
 
   .poem-content {
-    margin: 0;
+    gap: 1rem;
+    padding-top: 1rem;
   }
 
-  .poem-tools {
-    position: absolute;
-    right: 0.8rem;
-    bottom: 2rem;
-  }
-
-  .poem-tools button {
-    width: 3.65rem;
+  .poem-content h3 {
+    font-size: clamp(2.2rem, 13vw, 4.2rem);
   }
 
   .poem-body {
-    max-width: calc(100% - 4.7rem);
+    padding-right: 4.8rem;
+    font-size: clamp(1rem, 4.4vw, 1.22rem);
+    line-height: 2.02;
+  }
+
+  .poem-tools {
+    position: fixed;
+    z-index: 12;
+    right: 0.75rem;
+    bottom: 1.2rem;
+  }
+
+  .poem-tools button {
+    width: 3.55rem;
+    background: rgba(255, 252, 246, 0.86);
   }
 
   .comments-panel {
@@ -591,6 +706,15 @@ h3 {
 
   .member-grid {
     grid-template-columns: 1fr;
+  }
+
+  .member-grid.is-editors {
+    grid-template-columns: 1fr;
+  }
+
+  .member-group-heading {
+    display: grid;
+    align-items: start;
   }
 
   .member-card {

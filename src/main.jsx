@@ -7,6 +7,7 @@ const poems = [
     id: "saegyeol-poem-001",
     title: "물결의 첫 문장",
     author: "윤서하",
+    description: "아직 쓰이지 않은 아침을 건너는 짧은 시.",
     tags: ["새벽", "물결", "첫문장"],
     body: [
       "아직 아무도 펼치지 않은 아침에",
@@ -21,6 +22,7 @@ const poems = [
     id: "saegyeol-poem-002",
     title: "종이의 오후",
     author: "한이결",
+    description: "햇빛과 말하지 못한 마음이 접히는 오후의 기록.",
     tags: ["오후", "종이", "기록"],
     body: [
       "책상 위에 남은 햇빛을 접으면",
@@ -35,6 +37,7 @@ const poems = [
     id: "saegyeol-poem-003",
     title: "긴 숨",
     author: "문해린",
+    description: "긴 밤을 지나며 끝내 지워지지 않는 이름들.",
     tags: ["숨", "밤", "머무름"],
     body: [
       "밤은 늘 긴 숨으로 온다.",
@@ -49,6 +52,7 @@ const poems = [
     id: "saegyeol-poem-004",
     title: "낮은 파란색",
     author: "서도윤",
+    description: "멀리 있는 마음이 파란 여백으로 번지는 편지.",
     tags: ["딥블루", "편지", "거리"],
     body: [
       "멀리 있는 마음은",
@@ -59,37 +63,87 @@ const poems = [
       "우리는 서로의 여백을 오래 바라본다.",
     ],
   },
+  {
+    id: "saegyeol-poem-005",
+    title: "여백의 속도",
+    author: "이루안",
+    description: "조금 긴 호흡으로 읽는 새결의 저녁 산책.",
+    tags: ["긴시", "저녁", "여백"],
+    body: [
+      "저녁은 늘 같은 속도로 내려오지 않는다.",
+      "어떤 날의 저녁은 문턱에 앉아",
+      "신발 끈을 오래 묶고",
+      "어떤 날의 저녁은 이미 방 안 깊숙한 곳에서",
+      "우리의 이름을 낮게 불러본다.",
+      "",
+      "나는 식어가는 찻잔 옆에 앉아",
+      "오늘 하지 못한 말을 순서대로 접는다.",
+      "첫 번째 접힌 말은 미안하다는 말이고",
+      "두 번째 접힌 말은 괜찮다는 말이고",
+      "세 번째 접힌 말은",
+      "사실은 오래 괜찮지 않았다는 말이다.",
+      "",
+      "창밖의 나무들은 서로에게 기대지 않고도 흔들린다.",
+      "그 장면을 오래 바라보면",
+      "사람도 가끔은 멀리서만 서로를 지킬 수 있다는 생각이 든다.",
+      "",
+      "여백은 비어 있는 자리가 아니라",
+      "돌아올 마음을 위해 남겨둔 가장 조용한 의자.",
+      "나는 그 의자 하나를 밤 쪽으로 조금 밀어두고",
+      "다시 읽히기를 기다리는 문장처럼",
+      "천천히 어두워진다.",
+    ],
+  },
 ];
 
 const members = [
   {
     name: "윤서하",
-    role: "편집장 / 시",
+    role: "편집위원",
     intro: "문장 사이의 침묵을 오래 듣는 사람.",
     quote: "천천히 읽힌 문장은 오래 남는다.",
     instagram: "https://instagram.com/YOUR_MEMBER_ACCOUNT",
   },
   {
     name: "한이결",
-    role: "기획 / 산문",
+    role: "편집위원",
     intro: "작은 감각을 지면의 리듬으로 엮습니다.",
     quote: "우리가 놓친 하루에도 결은 있다.",
     instagram: "https://instagram.com/YOUR_MEMBER_ACCOUNT",
   },
   {
     name: "문해린",
-    role: "디자인 / 큐레이션",
-    intro: "읽는 경험의 온도와 여백을 설계합니다.",
+    role: "기고가",
+    intro: "밤의 감각과 오래 남는 목소리를 씁니다.",
     quote: "좋은 여백은 문장을 더 가까이 데려온다.",
     instagram: "https://instagram.com/YOUR_MEMBER_ACCOUNT",
   },
   {
     name: "서도윤",
-    role: "커뮤니티 / 낭독",
-    intro: "독자와 작가가 만나는 장면을 만듭니다.",
+    role: "기고가",
+    intro: "도시의 낮은 파란색을 시로 옮깁니다.",
     quote: "목소리가 닿으면 문장은 다시 태어난다.",
     instagram: "https://instagram.com/YOUR_MEMBER_ACCOUNT",
   },
+  {
+    name: "이루안",
+    role: "기고가",
+    intro: "일상의 느린 장면에서 긴 호흡을 발견합니다.",
+    quote: "돌아올 마음을 위해 여백을 남겨둔다.",
+    instagram: "https://instagram.com/YOUR_MEMBER_ACCOUNT",
+  },
+  {
+    name: "정하온",
+    role: "기고가",
+    intro: "사소한 빛과 지나간 계절을 기록합니다.",
+    quote: "작은 문장도 오래 빛날 수 있다.",
+    instagram: "https://instagram.com/YOUR_MEMBER_ACCOUNT",
+  },
+];
+
+const memberGroups = [
+  { role: "편집위원", label: "Editorial Board" },
+  { role: "기고가", label: "Contributors" },
 ];
 
 const navItems = [
@@ -185,21 +239,31 @@ function App() {
             <p>Members</p>
             <h2>새결을 함께 만드는 사람들</h2>
           </div>
-          <div className="member-grid">
-            {members.map((member) => (
-              <article className="member-card fade-in" key={member.name}>
-                <div>
-                  <p className="member-role">{member.role}</p>
-                  <h3>{member.name}</h3>
-                  <p>{member.intro}</p>
-                </div>
-                <blockquote>{member.quote}</blockquote>
-                <a href={member.instagram} target="_blank" rel="noreferrer">
-                  Instagram
-                </a>
-              </article>
-            ))}
-          </div>
+          {memberGroups.map((group) => (
+            <section className="member-group fade-in" key={group.role}>
+              <div className="member-group-heading">
+                <p>{group.label}</p>
+                <h3>{group.role}</h3>
+              </div>
+              <div className={`member-grid ${group.role === "편집위원" ? "is-editors" : ""}`}>
+                {members
+                  .filter((member) => member.role === group.role)
+                  .map((member) => (
+                    <article className="member-card" key={member.name}>
+                      <div>
+                        <p className="member-role">{member.role}</p>
+                        <h4>{member.name}</h4>
+                        <p>{member.intro}</p>
+                      </div>
+                      <blockquote>{member.quote}</blockquote>
+                      <a href={member.instagram} target="_blank" rel="noreferrer">
+                        Instagram
+                      </a>
+                    </article>
+                  ))}
+              </div>
+            </section>
+          ))}
         </section>
 
         <section id="submit" className="submit-section section-band">
@@ -209,10 +273,10 @@ function App() {
           </div>
           <form
             className="submit-form fade-in"
-            action="https://formspree.io/f/mvzdnlll"
+            action="YOUR_FORMSPREE_ENDPOINT"
             method="POST"
           >
-            <input type="hidden" name="_subject" value="새결 웹 문예지 기고문이 도착했습니다" />
+            {/* Formspree 사용 시 action 값에 실제 endpoint를 넣어주세요. */}
             <label>
               이름 또는 필명
               <input name="name" type="text" required placeholder="예: 새결" />
@@ -263,41 +327,50 @@ function PoemCard({ poem, index, onOpenComments }) {
 
   return (
     <article className="poem-card fade-in" style={{ "--delay": `${index * 80}ms` }}>
-      <div className="poem-meta">
-        <span>{String(index + 1).padStart(2, "0")}</span>
-        <span>scroll to read</span>
-      </div>
-      <div className="poem-content">
-        <p className="poem-author">{poem.author}</p>
-        <h3>{poem.title}</h3>
-        <div className="poem-body">
-          {poem.body.map((line, lineIndex) =>
-            line ? <p key={lineIndex}>{line}</p> : <br key={lineIndex} />,
-          )}
+      <div className="poem-frame">
+        <div className="poem-panel">
+          <div className="poem-meta">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <span>the_saegyeol</span>
+          </div>
+          <div className="poem-content">
+            <div className="poem-title-block">
+              <p className="poem-author">{poem.author}</p>
+              <h3>{poem.title}</h3>
+            </div>
+            <div className="poem-body" tabIndex="0" aria-label={`${poem.title} 본문`}>
+              {poem.body.map((line, lineIndex) =>
+                line ? <p key={lineIndex}>{line}</p> : <br key={lineIndex} />,
+              )}
+            </div>
+            <div className="poem-footer">
+              <p>{poem.description}</p>
+              <div className="tag-list">
+                {poem.tags.map((tag) => (
+                  <span key={tag}>#{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="tag-list">
-          {poem.tags.map((tag) => (
-            <span key={tag}>#{tag}</span>
-          ))}
+        <div className="poem-tools" aria-label={`${poem.title} 도구`}>
+          <button type="button" className={liked ? "is-active" : ""} onClick={() => setLiked(!liked)} aria-label="좋아요">
+            <span>♡</span>
+            <small>좋아요</small>
+          </button>
+          <button type="button" onClick={onOpenComments} aria-label="댓글">
+            <span>”</span>
+            <small>댓글</small>
+          </button>
+          <button type="button" className={saved ? "is-active" : ""} onClick={() => setSaved(!saved)} aria-label="저장">
+            <span>□</span>
+            <small>저장</small>
+          </button>
+          <button type="button" onClick={sharePoem} aria-label="공유">
+            <span>↗</span>
+            <small>공유</small>
+          </button>
         </div>
-      </div>
-      <div className="poem-tools" aria-label={`${poem.title} 도구`}>
-        <button type="button" className={liked ? "is-active" : ""} onClick={() => setLiked(!liked)} aria-label="좋아요">
-          <span>♡</span>
-          <small>좋아요</small>
-        </button>
-        <button type="button" className={saved ? "is-active" : ""} onClick={() => setSaved(!saved)} aria-label="저장">
-          <span>□</span>
-          <small>저장</small>
-        </button>
-        <button type="button" onClick={sharePoem} aria-label="공유">
-          <span>↗</span>
-          <small>공유</small>
-        </button>
-        <button type="button" onClick={onOpenComments} aria-label="댓글">
-          <span>”</span>
-          <small>댓글</small>
-        </button>
       </div>
     </article>
   );
@@ -322,7 +395,8 @@ function CommentsPanel({ poem }) {
 
     const script = document.createElement("script");
     script.id = "disqus-script";
-    script.src = "https://saegyeol.disqus.com/embed.js";
+    // Disqus 사용 시 YOUR_DISQUS_SHORTNAME을 실제 shortname으로 교체해주세요.
+    script.src = "https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js";
     script.setAttribute("data-timestamp", `${Date.now()}`);
     (document.head || document.body).appendChild(script);
   }, [poem]);
