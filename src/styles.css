@@ -1,0 +1,599 @@
+:root {
+  color: #24211d;
+  background: #f5efe3;
+  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgba(111, 30, 50, 0.11), transparent 34rem),
+    linear-gradient(180deg, #f8f1e5 0%, #eee4d3 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  color: #25221f;
+  background: rgba(248, 241, 229, 0.78);
+  border-bottom: 1px solid rgba(36, 33, 29, 0.1);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-family: "Noto Serif KR", serif;
+  font-weight: 700;
+}
+
+.brand span {
+  font-size: 1.35rem;
+}
+
+.brand small,
+.site-header nav a,
+.issue-mark,
+.section-heading p,
+.submit-copy p,
+.about-card p {
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.brand small {
+  color: #12325f;
+}
+
+.site-header nav {
+  display: flex;
+  gap: clamp(0.7rem, 2vw, 1.4rem);
+  font-size: 0.82rem;
+  color: rgba(36, 33, 29, 0.72);
+}
+
+.section-band {
+  padding: clamp(5.6rem, 10vw, 8rem) clamp(1rem, 5vw, 5rem);
+}
+
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+  align-items: end;
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-top: 8rem;
+}
+
+.hero-inner {
+  max-width: 56rem;
+}
+
+.issue-mark,
+.section-heading p,
+.submit-copy p,
+.about-card p {
+  margin: 0 0 1rem;
+  color: #6f1e32;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Noto Serif KR", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.hero h1 {
+  max-width: 12ch;
+  font-size: clamp(3.7rem, 12vw, 8.6rem);
+  line-height: 1.02;
+}
+
+.hero-copy {
+  margin: 1.4rem 0 2.2rem;
+  color: rgba(36, 33, 29, 0.76);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-actions a,
+.submit-form button {
+  display: inline-flex;
+  min-height: 2.85rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.15rem;
+  color: #f8f1e5;
+  background: #12325f;
+  border: 1px solid #12325f;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.hero-actions a:nth-child(2) {
+  color: #12325f;
+  background: transparent;
+}
+
+.hero-actions a:nth-child(3) {
+  background: #6f1e32;
+  border-color: #6f1e32;
+}
+
+.hero-actions a:hover,
+.submit-form button:hover {
+  transform: translateY(-2px);
+}
+
+.hero-poem {
+  padding: clamp(1.4rem, 4vw, 2rem);
+  border-left: 1px solid rgba(18, 50, 95, 0.32);
+}
+
+.hero-poem span {
+  color: #6f1e32;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.hero-poem h2 {
+  margin-top: 0.8rem;
+  color: #12325f;
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+}
+
+.hero-poem p {
+  margin: 1rem 0 0;
+  color: rgba(36, 33, 29, 0.72);
+  word-break: keep-all;
+}
+
+.section-heading {
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.section-heading h2,
+.submit-copy h2,
+.about-card h2 {
+  font-size: clamp(2rem, 5vw, 4.4rem);
+  line-height: 1.16;
+  word-break: keep-all;
+}
+
+.poem-section {
+  padding: 5.5rem 0 0;
+  background: #1f1d1a;
+  color: #f8f1e5;
+}
+
+.poem-section .section-heading p {
+  color: #d8b5be;
+}
+
+.poem-reels {
+  height: 100svh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+  border-block: 1px solid rgba(248, 241, 229, 0.14);
+}
+
+.poem-card {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.2rem;
+  scroll-snap-align: start;
+  padding: clamp(5rem, 10vw, 8rem) clamp(1rem, 8vw, 7rem);
+  background:
+    linear-gradient(120deg, rgba(18, 50, 95, 0.28), transparent 52%),
+    linear-gradient(180deg, #26231f 0%, #161514 100%);
+}
+
+.poem-meta {
+  position: absolute;
+  inset: 5.2rem auto auto clamp(1rem, 5vw, 4rem);
+  display: flex;
+  gap: 0.8rem;
+  color: rgba(248, 241, 229, 0.56);
+  font-size: 0.76rem;
+}
+
+.poem-content {
+  width: min(100%, 42rem);
+  margin-inline: auto;
+}
+
+.poem-author {
+  margin: 0 0 0.7rem;
+  color: #d8b5be;
+  font-weight: 700;
+}
+
+.poem-content h3 {
+  color: #fff8ec;
+  font-size: clamp(2.4rem, 9vw, 6.8rem);
+  line-height: 1.02;
+}
+
+.poem-body {
+  margin-top: clamp(1.4rem, 4vw, 2.5rem);
+  font-family: "Noto Serif KR", serif;
+  color: rgba(248, 241, 229, 0.88);
+  font-size: clamp(1.05rem, 3.2vw, 1.62rem);
+  line-height: 1.95;
+  word-break: keep-all;
+}
+
+.poem-body p {
+  margin: 0;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+}
+
+.tag-list span {
+  color: #e6d8c4;
+  border-bottom: 1px solid rgba(230, 216, 196, 0.42);
+  font-size: 0.9rem;
+}
+
+.poem-tools {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.poem-tools button {
+  width: 4.1rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  gap: 0.1rem;
+  color: #f8f1e5;
+  background: rgba(248, 241, 229, 0.08);
+  border: 1px solid rgba(248, 241, 229, 0.16);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.poem-tools button span {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.poem-tools button small {
+  font-size: 0.68rem;
+}
+
+.poem-tools button.is-active {
+  color: #fff;
+  background: #6f1e32;
+  border-color: #a44e65;
+}
+
+.comments-panel {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.6fr) minmax(0, 1fr);
+  gap: 2rem;
+  padding: clamp(2rem, 6vw, 4.5rem);
+  background: #f5efe3;
+  color: #24211d;
+}
+
+.comments-panel p {
+  margin: 0 0 0.4rem;
+  color: #6f1e32;
+  font-weight: 700;
+}
+
+.comments-panel h2 {
+  margin-bottom: 0.7rem;
+  color: #12325f;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+}
+
+.comments-panel span {
+  color: rgba(36, 33, 29, 0.6);
+  font-size: 0.85rem;
+}
+
+#disqus_thread {
+  min-height: 12rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(36, 33, 29, 0.16);
+  background: rgba(255, 252, 246, 0.55);
+}
+
+.disqus-placeholder {
+  color: rgba(36, 33, 29, 0.62);
+  font-weight: 400;
+}
+
+.members-section {
+  background: #f8f1e5;
+}
+
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.member-card {
+  min-height: 22rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.3rem;
+  padding: 1.3rem;
+  background: rgba(255, 252, 246, 0.64);
+  border: 1px solid rgba(36, 33, 29, 0.12);
+}
+
+.member-role {
+  margin: 0 0 0.7rem;
+  color: #12325f;
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.member-card h3 {
+  font-size: 2rem;
+}
+
+.member-card p {
+  color: rgba(36, 33, 29, 0.72);
+  word-break: keep-all;
+}
+
+.member-card blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  color: #6f1e32;
+  border-left: 2px solid #6f1e32;
+  font-family: "Noto Serif KR", serif;
+}
+
+.member-card a {
+  width: fit-content;
+  color: #12325f;
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+}
+
+.submit-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(18rem, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+  background: #ebe0ce;
+}
+
+.submit-copy {
+  position: sticky;
+  top: 7rem;
+}
+
+.submit-form {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: rgba(255, 252, 246, 0.68);
+  border: 1px solid rgba(36, 33, 29, 0.12);
+}
+
+.submit-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: rgba(36, 33, 29, 0.74);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.submit-form input,
+.submit-form textarea {
+  width: 100%;
+  color: #24211d;
+  background: #fffaf0;
+  border: 1px solid rgba(36, 33, 29, 0.18);
+  border-radius: 0;
+  padding: 0.9rem 1rem;
+  outline: none;
+  resize: vertical;
+}
+
+.submit-form input:focus,
+.submit-form textarea:focus {
+  border-color: #12325f;
+  box-shadow: 0 0 0 3px rgba(18, 50, 95, 0.12);
+}
+
+.submit-form button {
+  width: 100%;
+  margin-top: 0.4rem;
+  cursor: pointer;
+}
+
+.about-section {
+  padding: clamp(5.5rem, 12vw, 9rem) clamp(1rem, 8vw, 7rem);
+  background: #12325f;
+  color: #f8f1e5;
+}
+
+.about-card {
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.about-card p {
+  color: #d8b5be;
+}
+
+.about-card h2 {
+  color: #fff8ec;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms ease, transform 700ms ease;
+  transition-delay: var(--delay, 0ms);
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 980px) {
+  .hero,
+  .submit-section,
+  .comments-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    align-items: center;
+  }
+
+  .member-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .submit-copy {
+    position: static;
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header {
+    align-items: flex-start;
+    padding: 0.8rem 1rem;
+  }
+
+  .site-header nav {
+    max-width: 11rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 0.3rem;
+  }
+
+  .brand {
+    display: grid;
+    gap: 0;
+  }
+
+  .hero {
+    min-height: 94svh;
+    padding-top: 7.5rem;
+  }
+
+  .hero h1 {
+    max-width: 8ch;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions a {
+    width: 100%;
+  }
+
+  .poem-section {
+    padding-top: 4.7rem;
+  }
+
+  .section-heading {
+    text-align: left;
+  }
+
+  .poem-card {
+    grid-template-columns: 1fr;
+    align-content: center;
+    padding: 5.5rem 1rem 2rem;
+  }
+
+  .poem-content {
+    margin: 0;
+  }
+
+  .poem-tools {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 2rem;
+  }
+
+  .poem-tools button {
+    width: 3.65rem;
+  }
+
+  .poem-body {
+    max-width: calc(100% - 4.7rem);
+  }
+
+  .comments-panel {
+    padding: 2rem 1rem;
+  }
+
+  .member-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-card {
+    min-height: 18rem;
+  }
+}
