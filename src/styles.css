@@ -1676,6 +1676,7 @@ body {
   color: #333836;
   font-size: clamp(1.05rem, 2vw, 1.24rem);
   line-height: 2.08;
+  white-space: pre-line;
   word-break: keep-all;
 }
 
