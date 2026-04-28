@@ -129,14 +129,74 @@ export const poems = [
     tags: ["창", "빛", "계절"],
     likes: 87,
   },
+  {
+    id: "saegyeol-poem-007",
+    poetId: "yun-seoha",
+    title: "새벽의 접힌 면",
+    author: "윤서하",
+    body: ["새벽은 늘 한쪽이 접힌 종이처럼 온다.", "펴지지 않은 면마다", "어제의 물소리가 남아 있다.", "", "나는 가장 조용한 귀퉁이에", "오늘의 이름을 작게 적는다."],
+    description: "새벽의 여백과 아직 펴지지 않은 하루에 관한 시.",
+    tags: ["새벽", "여백", "물결"],
+    likes: 143,
+  },
+  {
+    id: "saegyeol-poem-008",
+    poetId: "han-igyeol",
+    title: "편집실의 빛",
+    author: "한이결",
+    body: ["낮은 책상 위로 빛이 내려앉으면", "문장들은 잠시 서로의 간격을 배운다.", "", "지워진 말 옆에 남은 말,", "그 옆에 다시 놓이는 쉼표 하나.", "", "우리는 완성보다 오래 머무는 질서를 믿는다."],
+    description: "문장을 고르고 배열하는 시간에 대한 짧은 기록.",
+    tags: ["편집", "빛", "종이"],
+    likes: 119,
+  },
+  {
+    id: "saegyeol-poem-009",
+    poetId: "moon-haerin",
+    title: "밤의 아래쪽",
+    author: "문해린",
+    body: ["밤에는 아래쪽이 있다.", "그곳에 닿으면", "잊었다고 믿은 목소리들이 다시 젖는다.", "", "나는 불을 켜지 않고", "어둠의 결을 손끝으로 읽는다.", "", "사라진 이름들은 늘", "가장 늦게 도착한 숨처럼", "문 앞에 서 있다."],
+    description: "밤의 깊은 면과 기억의 호흡을 더듬는 시.",
+    tags: ["밤", "숨", "기억"],
+    likes: 174,
+  },
+  {
+    id: "saegyeol-poem-010",
+    poetId: "seo-doyun",
+    title: "무채색 편지",
+    author: "서도윤",
+    body: ["도시는 오늘도 무채색으로 젖어 있었다.", "횡단보도 앞에서", "나는 보내지 못한 문장을 접었다.", "", "멀리 있는 사람에게는", "가끔 침묵이 더 정확한 주소가 된다.", "", "신호가 바뀌고", "사람들이 건너가고", "나는 편지의 빈칸만 들고 한참 서 있었다."],
+    description: "도시의 거리감과 말하지 못한 편지를 다룬 시.",
+    tags: ["도시", "편지", "침묵"],
+    likes: 138,
+  },
+  {
+    id: "saegyeol-poem-011",
+    poetId: "lee-ruan",
+    title: "식탁의 저녁",
+    author: "이루안",
+    body: ["저녁 식탁에는 말보다 먼저 그릇이 놓인다.", "숟가락의 둥근 등 위로", "오늘의 피로가 잠깐 비친다.", "", "우리는 서로에게 묻지 않은 질문들을", "국물의 온도만큼 식혀둔다.", "", "창밖은 조금씩 어두워지고", "누군가는 물컵을 다시 채우고", "나는 그 사소한 소리들이", "하루를 끝까지 붙들고 있다는 것을 안다.", "", "생활은 늘 대단한 문장으로 오지 않는다.", "때로는 접힌 냅킨,", "남은 밥알,", "그리고 늦게 도착한 괜찮다는 말로 온다."],
+    description: "생활의 낮은 장면에서 길어지는 저녁의 정서.",
+    tags: ["저녁", "생활", "긴시"],
+    likes: 211,
+  },
+  {
+    id: "saegyeol-poem-012",
+    poetId: "jung-haon",
+    title: "계절의 뒤표지",
+    author: "정하온",
+    body: ["계절은 끝날 때마다 뒤표지를 남긴다.", "거기에는 줄거리 대신", "빛이 지나간 방향만 적혀 있다.", "", "나는 그 얇은 페이지를 넘기며", "돌아오지 않는 오후의 온도를 읽는다."],
+    description: "지나간 계절이 남기는 빛과 온도에 대한 시.",
+    tags: ["계절", "빛", "오후"],
+    likes: 102,
+  },
 ];
 
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "Poems", href: "#poems" },
   { label: "Poets", href: "#poets" },
-  { label: "Saved", href: "#saved" },
   { label: "Submit", href: "#submit" },
+  { label: "About", href: "#about" },
 ];
 
 function readStorage(key, fallback) {
@@ -155,6 +215,28 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function getRelatedPoems(currentPoem) {
+  const currentPoet = poets.find((poet) => poet.id === currentPoem.poetId);
+  const moodWords = currentPoet?.keywords ?? [];
+
+  return poems
+    .filter((poem) => poem.id !== currentPoem.id)
+    .map((poem) => {
+      const samePoetScore = poem.poetId === currentPoem.poetId ? 4 : 0;
+      const sharedTags = poem.tags.filter((tag) => currentPoem.tags.includes(tag)).length;
+      const moodScore = poem.tags.filter((tag) => moodWords.includes(tag)).length;
+
+      return {
+        poem,
+        score: samePoetScore + sharedTags * 2 + moodScore,
+      };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score || b.poem.likes - a.poem.likes)
+    .slice(0, 4)
+    .map((item) => item.poem);
 }
 
 function App() {
@@ -193,11 +275,7 @@ function App() {
       <main>
         <section id="home" className="sg-hero">
           <div className="sg-hero-inner">
-            <div className="sg-logo-block">
-              {/* LOGO_PLACEHOLDER: 텍스트 로고 영역입니다. 추후 이미지 로고로 교체하기 쉽게 분리했습니다. */}
-              <p className="sg-logo">새결</p>
-              <span>문학의 새로운 호흡</span>
-            </div>
+            <p className="sg-hero-kicker">문학의 새로운 호흡</p>
             <h1>새로운 결의 문장들이 머무는 공간</h1>
             <div className="sg-hero-actions">
               <a href="#poems">시 읽기</a>
@@ -212,25 +290,24 @@ function App() {
             <p>Poets</p>
             <h2>새결을 이루는 여섯 개의 목소리</h2>
           </div>
-          <div className="sg-poet-grid">
-            {poets.map((poet) => (
-              <PoetCard key={poet.id} poet={poet} />
-            ))}
-          </div>
+          <PoetGroup title="편집위원" poets={poets.filter((poet) => poet.role === "편집위원")} variant="editors" />
+          <PoetGroup title="기고가" poets={poets.filter((poet) => poet.role === "기고가")} variant="contributors" />
         </section>
 
         <section id="poems" className="sg-section sg-poems-section">
           <div className="sg-section-title">
             <p>Poems</p>
-            <h2>릴스처럼 넘기되, 문장에는 오래 머무를 수 있게</h2>
+            <h2>한 편씩 천천히 이어지는 시의 피드</h2>
           </div>
           <PoetFilterTabs activeFilter={activeFilter} onChange={setActiveFilter} savedCount={savedList.length} />
           <div className="sg-poem-feed">
             {filteredPoems.length > 0 ? (
-              filteredPoems.map((poem) => (
+              filteredPoems.map((poem, index) => (
                 <PoemCard
                   key={poem.id}
                   poem={poem}
+                  index={index}
+                  recommendations={getRelatedPoems(poem)}
                   liked={Boolean(likedPoems[poem.id])}
                   saved={Boolean(savedPoems[poem.id])}
                   likeCount={poem.likes + (likedPoems[poem.id] ? 1 : 0)}
@@ -248,6 +325,12 @@ function App() {
 
         <SavedPoems poems={savedList} onOpenPoems={() => setActiveFilter("saved")} />
         <SubmitForm />
+        <section id="about" className="sg-section sg-about">
+          <div className="sg-section-title">
+            <p>About</p>
+            <h2>새결은 하얀 지면 위에 동시대의 작은 목소리들을 차분히 배열하는 문예 공간입니다.</h2>
+          </div>
+        </section>
       </main>
     </>
   );
@@ -256,11 +339,6 @@ function App() {
 function Header() {
   return (
     <header className="sg-header">
-      <a className="sg-header-logo" href="#home" aria-label="새결 홈">
-        {/* LOGO_PLACEHOLDER: 상단 텍스트 로고. 이미지 로고 적용 시 이 앵커 내부만 교체하세요. */}
-        <strong>새결</strong>
-        <span>문학의 새로운 호흡</span>
-      </a>
       <nav aria-label="주요 메뉴">
         {navItems.map((item) => (
           <a key={item.href} href={item.href}>
@@ -269,6 +347,22 @@ function Header() {
         ))}
       </nav>
     </header>
+  );
+}
+
+function PoetGroup({ title, poets: groupedPoets, variant }) {
+  return (
+    <section className={`sg-poet-group sg-poet-group-${variant}`}>
+      <div className="sg-poet-group-title">
+        <span>{variant === "editors" ? "Editorial Board" : "Contributors"}</span>
+        <h3>{title}</h3>
+      </div>
+      <div className={`sg-poet-grid sg-poet-grid-${variant}`}>
+        {groupedPoets.map((poet) => (
+          <PoetCard key={poet.id} poet={poet} />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -318,7 +412,7 @@ function PoetFilterTabs({ activeFilter, onChange, savedCount }) {
   );
 }
 
-function PoemCard({ poem, liked, saved, likeCount, isCommentsOpen, onToggleLike, onToggleSave, onToggleComments }) {
+function PoemCard({ poem, index, recommendations, liked, saved, likeCount, isCommentsOpen, onToggleLike, onToggleSave, onToggleComments }) {
   const sharePoem = async () => {
     const text = `새결 | ${poem.title} - ${poem.author}`;
     if (navigator.share) {
@@ -371,7 +465,7 @@ function PoemCard({ poem, liked, saved, likeCount, isCommentsOpen, onToggleLike,
     <article className="sg-poem-card" id={poem.id}>
       <div className="sg-poem-paper">
         <div className="sg-poem-head">
-          <span>the_saegyeol</span>
+          <span>{String(index + 1).padStart(2, "0")} / the_saegyeol</span>
           <span>{poem.author}</span>
         </div>
         <h3>{poem.title}</h3>
@@ -407,8 +501,28 @@ function PoemCard({ poem, liked, saved, likeCount, isCommentsOpen, onToggleLike,
           <small>공유</small>
         </button>
       </div>
+      <RelatedPoems recommendations={recommendations} />
       {isCommentsOpen && <DisqusComments poem={poem} />}
     </article>
+  );
+}
+
+function RelatedPoems({ recommendations }) {
+  if (!recommendations.length) return null;
+
+  return (
+    <aside className="sg-related" aria-label="관련 시 추천">
+      <h4>관련 시</h4>
+      <div className="sg-related-list">
+        {recommendations.map((poem) => (
+          <a key={poem.id} href={`#${poem.id}`} className="sg-related-card">
+            <span>{poem.author}</span>
+            <strong>{poem.title}</strong>
+            <p>{poem.body.filter(Boolean).slice(0, 2).join(" / ")}</p>
+          </a>
+        ))}
+      </div>
+    </aside>
   );
 }
 
