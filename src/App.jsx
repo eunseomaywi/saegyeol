@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Route, Routes, useParams } from "react-router-dom";
 
 const STORAGE_KEYS = {
@@ -257,11 +257,30 @@ function App() {
 }
 
 function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCommentId, setOpenCommentId, toggleSave }) {
+  const poemsSectionRef = useRef(null);
+
   const filteredPoems = useMemo(() => {
     if (activeFilter === "saved") return poems.filter((poem) => savedPoems[poem.id]);
     if (activeFilter === "all") return poems;
     return poems.filter((poem) => poem.poetId === activeFilter);
   }, [activeFilter, savedPoems]);
+
+  const scrollToPoemsTop = () => {
+    if (!poemsSectionRef.current) return;
+
+    const headerHeight = document.querySelector(".sg-header")?.getBoundingClientRect().height ?? 0;
+    const sectionTop = poemsSectionRef.current.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: Math.max(0, sectionTop - headerHeight - 8),
+      behavior: "smooth",
+    });
+  };
+
+  const handleFilterChange = (filterId) => {
+    setActiveFilter(filterId);
+    window.requestAnimationFrame(scrollToPoemsTop);
+  };
 
   return (
     <main>
@@ -277,13 +296,13 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
           </div>
         </section>
 
-        <section id="poems" className="sg-section sg-poems-section">
+        <section id="poems" ref={poemsSectionRef} className="sg-section sg-poems-section">
           <div className="sg-section-title">
             <p>Poems</p>
             <h2>한 편씩 천천히 이어지는 시의 피드</h2>
           </div>
-          <PoetFilterTabs activeFilter={activeFilter} onChange={setActiveFilter} savedCount={savedList.length} />
-          <div className="sg-poem-feed">
+          <PoetFilterTabs activeFilter={activeFilter} onChange={handleFilterChange} savedCount={savedList.length} />
+          <div key={activeFilter} className="sg-poem-feed">
             {filteredPoems.length > 0 ? (
               filteredPoems.map((poem, index) => (
                 <PoemCard

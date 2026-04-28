@@ -993,6 +993,19 @@ button {
   display: grid;
   gap: clamp(1.4rem, 5vw, 4rem);
   padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 5vw, 4rem);
+  animation: sg-poem-feed-fade 220ms ease;
+}
+
+@keyframes sg-poem-feed-fade {
+  from {
+    opacity: 0.68;
+    transform: translateY(0.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .sg-poem-card {
