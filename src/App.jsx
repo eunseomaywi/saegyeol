@@ -13,9 +13,7 @@ export const poets = [
     role: "편집위원",
     bio: "윤서하는 새결의 첫 문장과 마지막 여백을 함께 살피는 편집위원입니다. 지나치게 설명하지 않는 문장, 오래 남는 침묵, 낮은 목소리의 리듬을 중요하게 여깁니다. 독자가 시를 읽는 속도를 존중하는 지면을 만들고자 하며, 짧은 시 안에서도 생활의 깊은 결을 발견합니다.",
     keywords: ["여백", "새벽", "낮은 목소리"],
-    representativePoem: "물결의 첫 문장",
-    instagram: "https://instagram.com/YOUR_POET_ACCOUNT",
-    imagePlaceholder: "YS",
+    quote: "빛은 오래 머뭇거리다 끝내 한 줄의 물결이 되었다.",
   },
   {
     id: "han-igyeol",
@@ -23,9 +21,7 @@ export const poets = [
     role: "편집위원",
     bio: "한이결은 감각의 밀도와 지면의 질서를 함께 다루는 편집위원입니다. 일상에서 흘려보내기 쉬운 장면을 붙잡아 문장의 호흡으로 정돈합니다. 새결 안에서 기고자의 개별적인 결이 흐려지지 않도록, 작품의 리듬과 배열을 세심하게 조율합니다.",
     keywords: ["종이", "오후", "편집"],
-    representativePoem: "종이의 오후",
-    instagram: "https://instagram.com/YOUR_POET_ACCOUNT",
-    imagePlaceholder: "HI",
+    quote: "우리는 완성보다 오래 머무는 질서를 믿는다.",
   },
   {
     id: "moon-haerin",
@@ -33,9 +29,7 @@ export const poets = [
     role: "기고가",
     bio: "문해린은 밤과 호흡, 오래 지워지지 않는 이름들을 주로 씁니다. 선명한 사건보다 사건 이후에 남는 감각에 관심이 많습니다. 그의 시는 조용하지만 쉽게 닫히지 않고, 독자가 자기 기억을 천천히 겹쳐 읽을 수 있는 여지를 남깁니다.",
     keywords: ["밤", "호흡", "기억"],
-    representativePoem: "긴 숨",
-    instagram: "https://instagram.com/YOUR_POET_ACCOUNT",
-    imagePlaceholder: "MH",
+    quote: "밤은 늘 긴 숨으로 온다.",
   },
   {
     id: "seo-doyun",
@@ -43,9 +37,7 @@ export const poets = [
     role: "기고가",
     bio: "서도윤은 도시의 거리감과 닿지 못한 마음을 맑은 문장으로 옮깁니다. 멀리 있는 사람에게 보내는 편지처럼, 그의 시는 말보다 여백을 먼저 건넵니다. 차가운 풍경 안에서도 다정함이 사라지지 않는 순간을 오래 바라봅니다.",
     keywords: ["도시", "편지", "거리"],
-    representativePoem: "낮은 파란색",
-    instagram: "https://instagram.com/YOUR_POET_ACCOUNT",
-    imagePlaceholder: "SD",
+    quote: "우리는 서로의 여백을 오래 바라본다.",
   },
   {
     id: "lee-ruan",
@@ -53,9 +45,7 @@ export const poets = [
     role: "기고가",
     bio: "이루안은 긴 호흡의 산문성과 시의 압축 사이를 오갑니다. 저녁, 찻잔, 창문처럼 익숙한 사물에서 마음이 머무는 방식을 발견합니다. 그의 작품은 느리게 읽을수록 선명해지는 구조를 갖고 있어, 새결의 독서 경험과 잘 맞닿아 있습니다.",
     keywords: ["저녁", "긴 호흡", "생활"],
-    representativePoem: "여백의 속도",
-    instagram: "https://instagram.com/YOUR_POET_ACCOUNT",
-    imagePlaceholder: "LR",
+    quote: "여백은 돌아올 마음을 위해 남겨둔 가장 조용한 의자.",
   },
   {
     id: "jung-haon",
@@ -63,9 +53,7 @@ export const poets = [
     role: "기고가",
     bio: "정하온은 계절의 변화와 작은 빛의 방향을 기록합니다. 지나간 것들을 과장하지 않고, 남은 온도만 조용히 문장 안에 들입니다. 그의 시는 짧은 장면으로 시작해 독자의 하루 속에서 천천히 길어지는 잔상을 만듭니다.",
     keywords: ["계절", "빛", "잔상"],
-    representativePoem: "흰 창",
-    instagram: "https://instagram.com/YOUR_POET_ACCOUNT",
-    imagePlaceholder: "JH",
+    quote: "계절은 끝날 때마다 뒤표지를 남긴다.",
   },
 ];
 
@@ -380,34 +368,27 @@ function PoetGroup({ title, poets: groupedPoets, variant }) {
       </div>
       <div className={`sg-poet-grid sg-poet-grid-${variant}`}>
         {groupedPoets.map((poet) => (
-          <PoetCard key={poet.id} poet={poet} />
+          <PoetCard key={poet.id} poet={poet} variant={variant} />
         ))}
       </div>
     </section>
   );
 }
 
-function PoetCard({ poet }) {
+function PoetCard({ poet, variant }) {
   return (
-    <article className="sg-poet-card">
-      <div className="sg-poet-photo" aria-hidden="true">{poet.imagePlaceholder}</div>
+    <article className={`sg-poet-card sg-poet-card-${variant}`}>
       <div className="sg-poet-meta">
-        <span>{poet.role}</span>
         <h3>{poet.name}</h3>
+        <span>{poet.role}</span>
       </div>
       <p>{poet.bio}</p>
+      <blockquote>{poet.quote}</blockquote>
       <div className="sg-keywords">
         {poet.keywords.map((keyword) => (
           <span key={keyword}>#{keyword}</span>
         ))}
       </div>
-      <dl>
-        <div>
-          <dt>대표 시</dt>
-          <dd>{poet.representativePoem}</dd>
-        </div>
-      </dl>
-      <a href={poet.instagram} target="_blank" rel="noreferrer">Instagram</a>
     </article>
   );
 }
