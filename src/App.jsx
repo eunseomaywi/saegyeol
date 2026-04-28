@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link, Route, Routes, useParams } from "react-router-dom";
 
 const STORAGE_KEYS = {
   saved: "saegyeol_saved_v2",
@@ -167,11 +168,11 @@ export const poems = [
 ];
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "Poems", href: "#poems" },
-  { label: "Poets", href: "#poets" },
-  { label: "Submit", href: "#submit" },
-  { label: "About", href: "#about" },
+  { label: "Home", href: "/#home" },
+  { label: "Poems", href: "/#poems" },
+  { label: "Poets", href: "/poets" },
+  { label: "Submit", href: "/#submit" },
+  { label: "About", href: "/#about" },
 ];
 
 function readStorage(key, fallback) {
@@ -223,12 +224,6 @@ function App() {
     localStorage.setItem(STORAGE_KEYS.saved, JSON.stringify(savedPoems));
   }, [savedPoems]);
 
-  const filteredPoems = useMemo(() => {
-    if (activeFilter === "saved") return poems.filter((poem) => savedPoems[poem.id]);
-    if (activeFilter === "all") return poems;
-    return poems.filter((poem) => poem.poetId === activeFilter);
-  }, [activeFilter, savedPoems]);
-
   const savedList = useMemo(() => poems.filter((poem) => savedPoems[poem.id]), [savedPoems]);
 
   const toggleSave = (poemId) => {
@@ -238,26 +233,48 @@ function App() {
   return (
     <>
       <Header />
-      <main>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              activeFilter={activeFilter}
+              setActiveFilter={setActiveFilter}
+              savedPoems={savedPoems}
+              savedList={savedList}
+              openCommentId={openCommentId}
+              setOpenCommentId={setOpenCommentId}
+              toggleSave={toggleSave}
+            />
+          }
+        />
+        <Route path="/poets" element={<PoetsPage />} />
+        <Route path="/poet/:id" element={<PoetDetailPage />} />
+        <Route path="*" element={<PoetsPage />} />
+      </Routes>
+    </>
+  );
+}
+
+function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCommentId, setOpenCommentId, toggleSave }) {
+  const filteredPoems = useMemo(() => {
+    if (activeFilter === "saved") return poems.filter((poem) => savedPoems[poem.id]);
+    if (activeFilter === "all") return poems;
+    return poems.filter((poem) => poem.poetId === activeFilter);
+  }, [activeFilter, savedPoems]);
+
+  return (
+    <main>
         <section id="home" className="sg-hero">
           <div className="sg-hero-inner">
             <p className="sg-hero-kicker">문학의 새로운 호흡</p>
             <h1>새로운 결의 문장들이 머무는 공간</h1>
             <div className="sg-hero-actions">
               <a href="#poems">시 읽기</a>
-              <a href="#poets">시인 보기</a>
+              <Link to="/poets">시인 보기</Link>
               <a href="#submit">기고하기</a>
             </div>
           </div>
-        </section>
-
-        <section id="poets" className="sg-section">
-          <div className="sg-section-title">
-            <p>Poets</p>
-            <h2>새결을 이루는 여섯 개의 목소리</h2>
-          </div>
-          <PoetGroup title="편집위원" poets={poets.filter((poet) => poet.role === "편집위원")} variant="editors" />
-          <PoetGroup title="기고가" poets={poets.filter((poet) => poet.role === "기고가")} variant="contributors" />
         </section>
 
         <section id="poems" className="sg-section sg-poems-section">
@@ -295,7 +312,6 @@ function App() {
           </div>
         </section>
       </main>
-    </>
   );
 }
 
@@ -304,12 +320,95 @@ function Header() {
     <header className="sg-header">
       <nav aria-label="주요 메뉴">
         {navItems.map((item) => (
-          <a key={item.href} href={item.href}>
-            {item.label}
-          </a>
+          item.href.startsWith("/#") ? (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ) : (
+            <Link key={item.href} to={item.href}>
+              {item.label}
+            </Link>
+          )
         ))}
       </nav>
     </header>
+  );
+}
+
+function PoetsPage() {
+  return (
+    <main>
+      <section id="poets" className="sg-section sg-poets-page">
+        <div className="sg-section-title">
+          <p>Poets</p>
+          <h2>새결을 이루는 여섯 개의 목소리</h2>
+        </div>
+        <PoetGroup title="편집위원" poets={poets.filter((poet) => poet.role === "편집위원")} variant="editors" />
+        <PoetGroup title="기고가" poets={poets.filter((poet) => poet.role === "기고가")} variant="contributors" />
+      </section>
+    </main>
+  );
+}
+
+function PoetDetailPage() {
+  const { id } = useParams();
+  const poet = poets.find((item) => item.id === id);
+
+  if (!poet) {
+    return (
+      <main>
+        <section className="sg-section sg-poet-detail">
+          <div className="sg-poet-detail-shell">
+            <Link className="sg-back-link" to="/poets">← 목록으로 돌아가기</Link>
+            <h1>시인을 찾을 수 없습니다</h1>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  const poetPoems = poems.filter((poem) => poem.poetId === poet.id);
+
+  return (
+    <main>
+      <article className="sg-section sg-poet-detail">
+        <div className="sg-poet-detail-shell">
+          <nav className="sg-breadcrumb" aria-label="시인 상세 경로">
+            <Link to="/poets">Poets</Link>
+            <span>/</span>
+            <span>{poet.name}</span>
+          </nav>
+          <header className="sg-poet-detail-head">
+            <Link className="sg-back-link" to="/poets">← 목록으로 돌아가기</Link>
+            <h1>{poet.name}</h1>
+            <p>{poet.role}</p>
+          </header>
+          <div className="sg-poet-detail-divider" />
+          <p className="sg-poet-detail-bio">{poet.bio}</p>
+          <blockquote className="sg-poet-detail-quote">{poet.quote}</blockquote>
+          <div className="sg-keywords sg-poet-detail-keywords">
+            {poet.keywords.map((keyword) => (
+              <span key={keyword}>#{keyword}</span>
+            ))}
+          </div>
+          <section className="sg-poet-works" aria-labelledby="poet-works-title">
+            <div className="sg-poet-works-title">
+              <p>Works</p>
+              <h2 id="poet-works-title">이 시인의 작품</h2>
+            </div>
+            <div className="sg-poet-works-list">
+              {poetPoems.map((poem) => (
+                <Link key={poem.id} to={`/#${poem.id}`} className="sg-poet-work-link">
+                  <span>{poem.tags.map((tag) => `#${tag}`).join(" ")}</span>
+                  <strong>{poem.title}</strong>
+                  <p>{poem.description}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
   );
 }
 
@@ -331,19 +430,15 @@ function PoetGroup({ title, poets: groupedPoets, variant }) {
 
 function PoetCard({ poet, variant }) {
   return (
-    <article className={`sg-poet-card sg-poet-card-${variant}`}>
+    <Link className={`sg-poet-card sg-poet-card-${variant}`} to={`/poet/${poet.id}`}>
       <div className="sg-poet-meta">
         <h3>{poet.name}</h3>
         <span>{poet.role}</span>
       </div>
       <p>{poet.bio}</p>
       <blockquote>{poet.quote}</blockquote>
-      <div className="sg-keywords">
-        {poet.keywords.map((keyword) => (
-          <span key={keyword}>#{keyword}</span>
-        ))}
-      </div>
-    </article>
+      <span className="sg-poet-card-more">자세히 보기 →</span>
+    </Link>
   );
 }
 

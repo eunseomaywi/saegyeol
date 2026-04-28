@@ -856,8 +856,10 @@ button {
   display: flex;
   flex-direction: column;
   gap: 1.05rem;
-  min-height: 24rem;
+  min-height: 17rem;
   padding: clamp(1.25rem, 2.4vw, 1.8rem);
+  color: inherit;
+  text-decoration: none;
   background: #fff;
   border: 1px solid #e3dfd6;
   transition:
@@ -895,14 +897,20 @@ button {
 }
 
 .sg-poet-card p {
+  display: -webkit-box;
+  overflow: hidden;
   margin: 0;
   color: #4f4f4b;
   font-size: 0.95rem;
   line-height: 1.82;
   word-break: keep-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .sg-poet-card blockquote {
+  display: -webkit-box;
+  overflow: hidden;
   margin: 0;
   padding: 0.85rem 0 0 1rem;
   color: #2f343b;
@@ -913,6 +921,20 @@ button {
   font-style: italic;
   line-height: 1.65;
   word-break: keep-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.sg-poet-card-more {
+  margin-top: auto;
+  color: #6f756f;
+  font-size: 0.84rem;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.sg-poet-card:hover .sg-poet-card-more {
+  color: #283445;
+  transform: translateX(0.25rem);
 }
 
 .sg-keywords,
@@ -1346,6 +1368,12 @@ body {
     linear-gradient(180deg, #eeeeea 0%, #f7f5ef 100%);
 }
 
+.sg-poets-page {
+  min-height: calc(100svh - 3.7rem);
+  background:
+    linear-gradient(180deg, #f0f1ef 0%, #f6f5f1 100%);
+}
+
 .sg-poet-group {
   width: min(100%, 68rem);
   margin: 0 auto;
@@ -1406,7 +1434,7 @@ body {
 }
 
 .sg-poet-card-editors {
-  min-height: 19rem;
+  min-height: 15.5rem;
   padding: clamp(1.05rem, 2.2vw, 1.45rem);
 }
 
@@ -1415,12 +1443,8 @@ body {
 }
 
 .sg-poet-card-editors p {
-  display: -webkit-box;
-  overflow: hidden;
   font-size: 0.9rem;
   line-height: 1.75;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
 }
 
 .sg-poet-card-editors blockquote {
@@ -1428,15 +1452,8 @@ body {
 }
 
 .sg-poet-card-contributors {
-  min-height: 25.5rem;
+  min-height: 18rem;
   padding: clamp(1.35rem, 2.8vw, 2rem);
-}
-
-.sg-poet-card-contributors p {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
 }
 
 .sg-filter-tabs {
@@ -1577,6 +1594,155 @@ body {
   word-break: keep-all;
 }
 
+.sg-poet-detail {
+  min-height: calc(100svh - 3.7rem);
+  background:
+    linear-gradient(180deg, rgba(250, 249, 245, 0.98) 0%, rgba(243, 240, 232, 0.98) 100%),
+    #f7f5ef;
+}
+
+.sg-poet-detail-shell {
+  width: min(100%, 58rem);
+  margin: 0 auto;
+}
+
+.sg-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: clamp(2rem, 5vw, 3.4rem);
+  color: #77736c;
+  font-size: 0.84rem;
+}
+
+.sg-breadcrumb a,
+.sg-back-link {
+  color: #445064;
+  border-bottom: 1px solid rgba(68, 80, 100, 0.28);
+}
+
+.sg-poet-detail-head {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.sg-poet-detail-head h1,
+.sg-poet-detail-shell > h1 {
+  margin: 0;
+  color: #202326;
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.sg-poet-detail-head p {
+  margin: 0;
+  color: #77736c;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sg-back-link {
+  width: fit-content;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.sg-poet-detail-divider {
+  height: 1px;
+  margin: clamp(2rem, 5vw, 3.4rem) 0;
+  background: #d8d3ca;
+}
+
+.sg-poet-detail-bio {
+  width: min(100%, 46rem);
+  margin: 0;
+  color: #333836;
+  font-size: clamp(1.05rem, 2vw, 1.24rem);
+  line-height: 2.08;
+  word-break: keep-all;
+}
+
+.sg-poet-detail-quote {
+  width: min(100%, 48rem);
+  margin: clamp(2.4rem, 6vw, 4rem) 0 0;
+  padding: clamp(1.3rem, 3vw, 2rem) 0 0 clamp(1.2rem, 3vw, 2rem);
+  color: #283445;
+  border-top: 1px solid #d8d3ca;
+  border-left: 1px solid #bfb8ab;
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-style: italic;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.sg-poet-detail-keywords {
+  margin-top: clamp(1.3rem, 3vw, 2rem);
+}
+
+.sg-poet-works {
+  margin-top: clamp(4rem, 9vw, 7rem);
+  padding-top: clamp(2rem, 5vw, 3.2rem);
+  border-top: 1px solid #d8d3ca;
+}
+
+.sg-poet-works-title {
+  margin-bottom: clamp(1.4rem, 4vw, 2.4rem);
+}
+
+.sg-poet-works-title p {
+  margin: 0 0 0.45rem;
+  color: #77736c;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.sg-poet-works-title h2 {
+  margin: 0;
+  color: #202326;
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  font-weight: 500;
+}
+
+.sg-poet-works-list {
+  display: grid;
+  border-top: 1px solid #ded9d0;
+}
+
+.sg-poet-work-link {
+  display: grid;
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: clamp(0.8rem, 2vw, 1.5rem);
+  align-items: baseline;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid #ded9d0;
+}
+
+.sg-poet-work-link span {
+  color: #77736c;
+  font-size: 0.82rem;
+}
+
+.sg-poet-work-link strong {
+  color: #202326;
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight: 500;
+}
+
+.sg-poet-work-link p {
+  margin: 0;
+  color: #555;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
 .sg-comments {
   grid-column: 1 / -1;
   background: rgba(255, 255, 255, 0.74);
@@ -1627,6 +1793,11 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sg-poet-work-link {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
   .sg-poem-actions {
     position: static;
   }
@@ -1660,6 +1831,15 @@ body {
   .sg-poet-grid-editors,
   .sg-poet-grid-contributors {
     grid-template-columns: 1fr;
+  }
+
+  .sg-poet-card-editors,
+  .sg-poet-card-contributors {
+    min-height: auto;
+  }
+
+  .sg-poet-detail {
+    padding-top: 3rem;
   }
 
   .sg-poem-card {
