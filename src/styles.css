@@ -785,6 +785,7 @@ button {
 }
 
 .sg-hero-actions a,
+.sg-hero-actions button,
 .sg-submit-form button {
   min-height: 2.75rem;
   display: inline-flex;
@@ -1313,6 +1314,7 @@ body {
 }
 
 .sg-hero-actions a,
+.sg-hero-actions button,
 .sg-submit-form button {
   background: #283445;
   border-color: #283445;
@@ -1826,6 +1828,7 @@ body {
 }
 
 .sg-hero-actions a:hover,
+.sg-hero-actions button:hover,
 .sg-submit-form button:hover {
   background: #171717;
   border-color: #171717;

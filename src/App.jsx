@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 
 const STORAGE_KEYS = {
   saved: "saegyeol_saved_v2",
@@ -194,7 +194,7 @@ const navItems = [
 ];
 
 const sectionPathMap = {
-  "/poems": "poems",
+  "/poems": "poems-section",
   "/submit": "submit",
   "/about": "about",
 };
@@ -315,6 +315,7 @@ function ScrollToRouteTarget({ location }) {
 }
 
 function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCommentId, setOpenCommentId, toggleSave }) {
+  const navigate = useNavigate();
   const poemsSectionRef = useRef(null);
 
   const filteredPoems = useMemo(() => {
@@ -333,6 +334,21 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
     window.requestAnimationFrame(scrollToPoemsTop);
   };
 
+  const handleGoToPoems = () => {
+    navigate("/poems");
+    window.setTimeout(() => {
+      if (poemsSectionRef.current) {
+        scrollElementIntoView(poemsSectionRef.current);
+        return;
+      }
+
+      document.getElementById("poems-section")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 0);
+  };
+
   return (
     <main>
         <section id="home" className="sg-hero">
@@ -340,14 +356,14 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
             <p className="sg-hero-kicker">문학의 새로운 호흡</p>
             <h1>새로운 결의 문장들이 머무는 공간</h1>
             <div className="sg-hero-actions">
-              <Link to="/poems">시 읽기</Link>
+              <button type="button" onClick={handleGoToPoems}>시 읽기</button>
               <Link to="/poets">시인 보기</Link>
               <Link to="/submit">기고하기</Link>
             </div>
           </div>
         </section>
 
-        <section id="poems" ref={poemsSectionRef} className="sg-section sg-poems-section">
+        <section id="poems-section" ref={poemsSectionRef} className="sg-section sg-poems-section">
           <div className="sg-section-title">
             <p>Poems</p>
             <h2>한 편씩 천천히 이어지는 시의 피드</h2>
