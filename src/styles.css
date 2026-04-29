@@ -2003,8 +2003,8 @@ body {
 }
 
 .sg-poem-card {
-  width: min(100%, 62rem);
-  grid-template-columns: minmax(0, 1fr) 3.8rem minmax(10rem, 14rem);
+  width: min(100%, 66rem);
+  grid-template-columns: minmax(0, 1fr) 3.8rem minmax(11rem, 15rem);
   gap: clamp(0.9rem, 2vw, 1.4rem);
 }
 
@@ -2034,7 +2034,7 @@ body {
 }
 
 .sg-poem-body {
-  max-width: 34rem;
+  max-width: 38rem;
   color: #171717;
   font-size: clamp(1.08rem, 2vw, 1.34rem);
   line-height: 2.18;
@@ -2086,8 +2086,59 @@ body {
 }
 
 .sg-poet-card blockquote {
-  margin-top: auto;
+  margin-top: 0;
   border-top: 0;
+}
+
+.sg-poet-card-more {
+  margin-top: auto;
+  color: #1f2a44;
+  border-bottom: 1px solid rgba(31, 42, 68, 0.28);
+  width: fit-content;
+  font-size: 0.84rem;
+}
+
+.sg-poet-works {
+  margin-top: clamp(3.5rem, 8vw, 6rem);
+  padding-top: clamp(1.8rem, 4vw, 3rem);
+  border-top: 1px solid rgba(31, 42, 68, 0.14);
+}
+
+.sg-poet-works-title {
+  margin-bottom: clamp(1rem, 3vw, 1.8rem);
+}
+
+.sg-poet-works-title p {
+  margin: 0 0 0.45rem;
+  color: #475569;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.sg-poet-works-title h2 {
+  margin: 0;
+  color: #171717;
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-weight: 500;
+}
+
+.sg-poet-works-list {
+  display: grid;
+  border-top: 1px solid rgba(31, 42, 68, 0.12);
+}
+
+.sg-poet-work-link {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(31, 42, 68, 0.12);
+}
+
+.sg-poet-work-link strong {
+  color: #1f2a44;
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(1.12rem, 2vw, 1.45rem);
+  font-weight: 500;
 }
 
 .sg-poet-detail-shell {
@@ -2121,6 +2172,7 @@ body {
 @media (max-width: 1100px) {
   .sg-poem-card {
     grid-template-columns: minmax(0, 1fr) 3.8rem;
+    width: min(100%, 62rem);
   }
 }
 

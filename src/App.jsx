@@ -3,7 +3,6 @@ import { Link, NavLink, Route, Routes, useLocation, useParams } from "react-rout
 
 const STORAGE_KEYS = {
   saved: "saegyeol_saved_v2",
-  liked: "saegyeol_liked_v1",
 };
 
 export const poets = [
@@ -209,6 +208,15 @@ function readStorage(key, fallback) {
   }
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 function getScrollTargetTop(element) {
   const headerHeight = document.querySelector(".sg-header")?.getBoundingClientRect().height ?? 0;
   const targetTop = element.getBoundingClientRect().top + window.scrollY;
@@ -239,22 +247,13 @@ function App() {
   const location = useLocation();
   const [activeFilter, setActiveFilter] = useState("all");
   const [savedPoems, setSavedPoems] = useState(() => readStorage(STORAGE_KEYS.saved, {}));
-  const [likedPoems, setLikedPoems] = useState(() => readStorage(STORAGE_KEYS.liked, {}));
   const [openCommentId, setOpenCommentId] = useState(null);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.saved, JSON.stringify(savedPoems));
   }, [savedPoems]);
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.liked, JSON.stringify(likedPoems));
-  }, [likedPoems]);
-
   const savedList = useMemo(() => poems.filter((poem) => savedPoems[poem.id]), [savedPoems]);
-
-  const toggleLike = (poemId) => {
-    setLikedPoems((current) => ({ ...current, [poemId]: !current[poemId] }));
-  };
 
   const toggleSave = (poemId) => {
     setSavedPoems((current) => ({ ...current, [poemId]: !current[poemId] }));
@@ -265,11 +264,9 @@ function App() {
       activeFilter={activeFilter}
       setActiveFilter={setActiveFilter}
       savedPoems={savedPoems}
-      likedPoems={likedPoems}
       savedList={savedList}
       openCommentId={openCommentId}
       setOpenCommentId={setOpenCommentId}
-      toggleLike={toggleLike}
       toggleSave={toggleSave}
     />
   );
@@ -317,7 +314,7 @@ function ScrollToRouteTarget({ location }) {
   return null;
 }
 
-function HomePage({ activeFilter, setActiveFilter, savedPoems, likedPoems, savedList, openCommentId, setOpenCommentId, toggleLike, toggleSave }) {
+function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCommentId, setOpenCommentId, toggleSave }) {
   const poemsSectionRef = useRef(null);
 
   const filteredPoems = useMemo(() => {
@@ -363,10 +360,8 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, likedPoems, saved
                   key={poem.id}
                   poem={poem}
                   recommendations={getRelatedPoems(poem)}
-                  liked={Boolean(likedPoems[poem.id])}
                   saved={Boolean(savedPoems[poem.id])}
                   isCommentsOpen={openCommentId === poem.id}
-                  onToggleLike={() => toggleLike(poem.id)}
                   onToggleSave={() => toggleSave(poem.id)}
                   onToggleComments={() => setOpenCommentId((current) => (current === poem.id ? null : poem.id))}
                 />
@@ -405,7 +400,14 @@ function Header() {
     <header className="sg-header">
       <nav aria-label="주요 메뉴">
         {navItems.map((item) => (
-          <NavLink key={item.href} to={item.href} end={item.href === "/"}>
+          <NavLink
+            key={item.href}
+            to={item.href}
+            end={item.href === "/"}
+            onClick={() => {
+              if (item.href === "/") window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
+          >
             {item.label}
           </NavLink>
         ))}
@@ -446,6 +448,8 @@ function PoetDetailPage() {
     );
   }
 
+  const poetPoems = poems.filter((poem) => poem.poetId === poet.id);
+
   return (
     <main>
       <article className="sg-section sg-poet-detail">
@@ -463,6 +467,19 @@ function PoetDetailPage() {
           <div className="sg-poet-detail-divider" />
           <p className="sg-poet-detail-bio">{poet.bio}</p>
           <blockquote className="sg-poet-detail-quote">{poet.representativeLine}</blockquote>
+          <section className="sg-poet-works" aria-labelledby="poet-works-title">
+            <div className="sg-poet-works-title">
+              <p>Works</p>
+              <h2 id="poet-works-title">이 시인의 작품</h2>
+            </div>
+            <div className="sg-poet-works-list">
+              {poetPoems.map((poem) => (
+                <Link key={poem.id} to={`/poems#${poem.id}`} className="sg-poet-work-link">
+                  <strong>{poem.title}</strong>
+                </Link>
+              ))}
+            </div>
+          </section>
         </div>
       </article>
     </main>
@@ -493,6 +510,7 @@ function PoetCard({ poet, variant }) {
         <span>{poet.role}</span>
       </div>
       <blockquote>{poet.representativeLine}</blockquote>
+      <span className="sg-poet-card-more">자세히 보기 →</span>
     </Link>
   );
 }
@@ -518,7 +536,49 @@ function PoetFilterTabs({ activeFilter, onChange, savedCount }) {
   );
 }
 
-function PoemCard({ poem, recommendations, liked, saved, isCommentsOpen, onToggleLike, onToggleSave, onToggleComments }) {
+function PoemCard({ poem, recommendations, saved, isCommentsOpen, onToggleSave, onToggleComments }) {
+  const sharePoem = async () => {
+    const text = `새결 | ${poem.title} - ${poem.author}`;
+    if (navigator.share) {
+      await navigator.share({ title: text, text: poem.body.join("\n"), url: window.location.href });
+      return;
+    }
+    await navigator.clipboard.writeText(`${text}\n${window.location.href}`);
+  };
+
+  const saveAsPdf = () => {
+    const printWindow = window.open("", "_blank", "width=720,height=900");
+    if (!printWindow) {
+      window.print();
+      return;
+    }
+
+    printWindow.document.write(`
+      <!doctype html>
+      <html lang="ko">
+        <head>
+          <meta charset="utf-8" />
+          <title>새결 - ${escapeHtml(poem.title)}</title>
+          <style>
+            body { margin: 48px; color: #171717; font-family: "Noto Serif KR", serif; line-height: 1.9; }
+            .logo { margin-bottom: 44px; font-family: sans-serif; font-size: 30px; font-weight: 700; }
+            h1 { margin: 0; font-size: 30px; font-weight: 500; }
+            .author { margin: 8px 0 32px; color: #555; font-family: sans-serif; }
+            .body { white-space: pre-line; font-size: 18px; }
+          </style>
+        </head>
+        <body>
+          <div class="logo">새결</div>
+          <h1>${escapeHtml(poem.title)}</h1>
+          <p class="author">${escapeHtml(poem.author)}</p>
+          <div class="body">${escapeHtml(poem.body.join("\n"))}</div>
+          <script>window.onload = function () { window.print(); };</script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
   return (
     <article className="sg-poem-card" id={poem.id}>
       <div className="sg-poem-paper">
@@ -535,13 +595,17 @@ function PoemCard({ poem, recommendations, liked, saved, isCommentsOpen, onToggl
           <span>말</span>
           <small>댓글</small>
         </button>
-        <button type="button" className={liked ? "is-active" : ""} onClick={onToggleLike}>
-          <span>{liked ? "●" : "○"}</span>
-          <small>좋아요</small>
-        </button>
         <button type="button" className={saved ? "is-active" : ""} onClick={onToggleSave}>
           <span>{saved ? "▣" : "□"}</span>
           <small>저장</small>
+        </button>
+        <button type="button" onClick={saveAsPdf}>
+          <span>PDF</span>
+          <small>저장</small>
+        </button>
+        <button type="button" onClick={sharePoem}>
+          <span>↗</span>
+          <small>공유</small>
         </button>
       </div>
       <RelatedPoems recommendations={recommendations} />
