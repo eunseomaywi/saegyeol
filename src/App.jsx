@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
 
 const STORAGE_KEYS = {
   saved: "saegyeol_saved_v2",
@@ -216,12 +216,18 @@ export const poems = [
 ];
 
 const navItems = [
-  { label: "Home", href: "/#home" },
-  { label: "Poems", href: "/#poems" },
+  { label: "Home", href: "/" },
+  { label: "Poems", href: "/poems" },
   { label: "Poets", href: "/poets" },
-  { label: "Submit", href: "/#submit" },
-  { label: "About", href: "/#about" },
+  { label: "Submit", href: "/submit" },
+  { label: "About", href: "/about" },
 ];
+
+const sectionPathMap = {
+  "/poems": "poems",
+  "/submit": "submit",
+  "/about": "about",
+};
 
 function readStorage(key, fallback) {
   try {
@@ -239,6 +245,25 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function formatTerms(items) {
+  return items.join(" · ");
+}
+
+function getScrollTargetTop(element) {
+  const headerHeight = document.querySelector(".sg-header")?.getBoundingClientRect().height ?? 0;
+  const targetTop = element.getBoundingClientRect().top + window.scrollY;
+
+  return Math.max(0, targetTop - headerHeight - 12);
+}
+
+function scrollElementIntoView(element, behavior = "smooth") {
+  window.scrollTo({
+    top: getScrollTargetTop(element),
+    left: 0,
+    behavior,
+  });
 }
 
 function getRelatedPoems(currentPoem) {
@@ -264,6 +289,7 @@ function getRelatedPoems(currentPoem) {
 }
 
 function App() {
+  const location = useLocation();
   const [activeFilter, setActiveFilter] = useState("all");
   const [savedPoems, setSavedPoems] = useState(() => readStorage(STORAGE_KEYS.saved, {}));
   const [openCommentId, setOpenCommentId] = useState(null);
@@ -278,30 +304,59 @@ function App() {
     setSavedPoems((current) => ({ ...current, [poemId]: !current[poemId] }));
   };
 
+  const homeElement = (
+    <HomePage
+      activeFilter={activeFilter}
+      setActiveFilter={setActiveFilter}
+      savedPoems={savedPoems}
+      savedList={savedList}
+      openCommentId={openCommentId}
+      setOpenCommentId={setOpenCommentId}
+      toggleSave={toggleSave}
+    />
+  );
+
   return (
     <>
+      <ScrollToTop pathname={location.pathname} />
+      <ScrollToRouteTarget location={location} />
       <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              activeFilter={activeFilter}
-              setActiveFilter={setActiveFilter}
-              savedPoems={savedPoems}
-              savedList={savedList}
-              openCommentId={openCommentId}
-              setOpenCommentId={setOpenCommentId}
-              toggleSave={toggleSave}
-            />
-          }
-        />
+        <Route path="/" element={homeElement} />
+        <Route path="/poems" element={homeElement} />
+        <Route path="/submit" element={homeElement} />
+        <Route path="/about" element={homeElement} />
         <Route path="/poets" element={<PoetsPage />} />
         <Route path="/poet/:id" element={<PoetDetailPage />} />
         <Route path="*" element={<PoetsPage />} />
       </Routes>
     </>
   );
+}
+
+function ScrollToTop({ pathname }) {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  return null;
+}
+
+function ScrollToRouteTarget({ location }) {
+  useEffect(() => {
+    const targetId = location.hash ? location.hash.slice(1) : sectionPathMap[location.pathname];
+    if (!targetId) return;
+
+    const scrollToTarget = () => {
+      const target = document.getElementById(targetId);
+      if (target) scrollElementIntoView(target);
+    };
+
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scrollToTarget, 80));
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash]);
+
+  return null;
 }
 
 function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCommentId, setOpenCommentId, toggleSave }) {
@@ -315,14 +370,7 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
 
   const scrollToPoemsTop = () => {
     if (!poemsSectionRef.current) return;
-
-    const headerHeight = document.querySelector(".sg-header")?.getBoundingClientRect().height ?? 0;
-    const sectionTop = poemsSectionRef.current.getBoundingClientRect().top + window.scrollY;
-
-    window.scrollTo({
-      top: Math.max(0, sectionTop - headerHeight - 8),
-      behavior: "smooth",
-    });
+    scrollElementIntoView(poemsSectionRef.current);
   };
 
   const handleFilterChange = (filterId) => {
@@ -337,9 +385,9 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
             <p className="sg-hero-kicker">문학의 새로운 호흡</p>
             <h1>새로운 결의 문장들이 머무는 공간</h1>
             <div className="sg-hero-actions">
-              <a href="#poems">시 읽기</a>
+              <Link to="/poems">시 읽기</Link>
               <Link to="/poets">시인 보기</Link>
-              <a href="#submit">기고하기</a>
+              <Link to="/submit">기고하기</Link>
             </div>
           </div>
         </section>
@@ -370,7 +418,18 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
           </div>
         </section>
 
-        <SavedPoems poems={savedList} onOpenPoems={() => setActiveFilter("saved")} />
+        <SavedPoems
+          poems={savedList}
+          onOpenPoem={(poemId) => {
+            setActiveFilter("saved");
+            window.requestAnimationFrame(() => {
+              window.setTimeout(() => {
+                const target = document.getElementById(poemId);
+                if (target) scrollElementIntoView(target);
+              }, 80);
+            });
+          }}
+        />
         <SubmitForm />
         <section id="about" className="sg-section sg-about">
           <div className="sg-section-title">
@@ -387,15 +446,9 @@ function Header() {
     <header className="sg-header">
       <nav aria-label="주요 메뉴">
         {navItems.map((item) => (
-          item.href.startsWith("/#") ? (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ) : (
-            <Link key={item.href} to={item.href}>
-              {item.label}
-            </Link>
-          )
+          <NavLink key={item.href} to={item.href} end={item.href === "/"}>
+            {item.label}
+          </NavLink>
         ))}
       </nav>
     </header>
@@ -454,9 +507,7 @@ function PoetDetailPage() {
           <p className="sg-poet-detail-bio">{poet.bio}</p>
           <blockquote className="sg-poet-detail-quote">{poet.representativeLine}</blockquote>
           <div className="sg-keywords sg-poet-detail-keywords">
-            {poet.keywords.map((keyword) => (
-              <span key={keyword}>#{keyword}</span>
-            ))}
+            {formatTerms(poet.keywords)}
           </div>
           <section className="sg-poet-works" aria-labelledby="poet-works-title">
             <div className="sg-poet-works-title">
@@ -465,8 +516,8 @@ function PoetDetailPage() {
             </div>
             <div className="sg-poet-works-list">
               {poetPoems.map((poem) => (
-                <Link key={poem.id} to={`/#${poem.id}`} className="sg-poet-work-link">
-                  <span>{poem.tags.map((tag) => `#${tag}`).join(" ")}</span>
+                <Link key={poem.id} to={`/poems#${poem.id}`} className="sg-poet-work-link">
+                  <span>{formatTerms(poem.tags)}</span>
                   <strong>{poem.title}</strong>
                   <p>{poem.description}</p>
                 </Link>
@@ -504,9 +555,7 @@ function PoetCard({ poet, variant }) {
       </div>
       <blockquote>{poet.representativeLine}</blockquote>
       <div className="sg-keywords">
-        {poet.keywords.map((keyword) => (
-          <span key={keyword}>#{keyword}</span>
-        ))}
+        {formatTerms(poet.keywords)}
       </div>
       <span className="sg-poet-card-more">자세히 보기 →</span>
     </Link>
@@ -575,7 +624,7 @@ function PoemCard({ poem, index, recommendations, saved, isCommentsOpen, onToggl
           <h1>${escapeHtml(poem.title)}</h1>
           <p class="author">${escapeHtml(poem.author)}</p>
           <div class="body">${escapeHtml(poem.body.join("\n"))}</div>
-          <p class="tags">${escapeHtml(poem.tags.map((tag) => `#${tag}`).join(" "))}</p>
+          <p class="tags">${escapeHtml(formatTerms(poem.tags))}</p>
           <script>window.onload = function () { window.print(); };</script>
         </body>
       </html>
@@ -596,9 +645,7 @@ function PoemCard({ poem, index, recommendations, saved, isCommentsOpen, onToggl
         </div>
         <p className="sg-poem-desc">{poem.description}</p>
         <div className="sg-tags">
-          {poem.tags.map((tag) => (
-            <span key={tag}>#{tag}</span>
-          ))}
+          {formatTerms(poem.tags)}
         </div>
       </div>
       <div className="sg-poem-actions" aria-label={`${poem.title} 액션`}>
@@ -636,6 +683,7 @@ function RelatedPoems({ recommendations }) {
           <a key={poem.id} href={`#${poem.id}`} className="sg-related-card">
             <span>{poem.author}</span>
             <strong>{poem.title}</strong>
+            <small>{formatTerms(poem.tags)}</small>
             <p>{poem.body.filter(Boolean).slice(0, 2).join(" / ")}</p>
           </a>
         ))}
@@ -644,7 +692,7 @@ function RelatedPoems({ recommendations }) {
   );
 }
 
-function SavedPoems({ poems: savedItems, onOpenPoems }) {
+function SavedPoems({ poems: savedItems, onOpenPoem }) {
   return (
     <section id="saved" className="sg-section sg-saved">
       <div className="sg-section-title">
@@ -654,10 +702,18 @@ function SavedPoems({ poems: savedItems, onOpenPoems }) {
       {savedItems.length ? (
         <div className="sg-saved-grid">
           {savedItems.map((poem) => (
-            <a key={poem.id} href={`#${poem.id}`} onClick={onOpenPoems}>
+            <a
+              key={poem.id}
+              href={`#${poem.id}`}
+              onClick={(event) => {
+                event.preventDefault();
+                window.history.replaceState(null, "", `/poems#${poem.id}`);
+                onOpenPoem(poem.id);
+              }}
+            >
               <span>{poem.author}</span>
               <strong>{poem.title}</strong>
-              <small>{poem.tags.map((tag) => `#${tag}`).join(" ")}</small>
+              <small>{formatTerms(poem.tags)}</small>
             </a>
           ))}
         </div>

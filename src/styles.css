@@ -1871,3 +1871,248 @@ body {
     padding: 0.9rem;
   }
 }
+
+/* Saegyeol navy refinement */
+:root {
+  color: #171717;
+  background: #faf8f3;
+}
+
+body {
+  background:
+    linear-gradient(180deg, rgba(250, 248, 243, 0.9), rgba(245, 242, 236, 0.96)),
+    repeating-linear-gradient(90deg, rgba(31, 42, 68, 0.018) 0 1px, transparent 1px 7px),
+    #faf8f3;
+}
+
+.sg-header {
+  background: rgba(250, 248, 243, 0.92);
+  border-bottom: 1px solid rgba(31, 42, 68, 0.34);
+  box-shadow: 0 1px 0 rgba(31, 42, 68, 0.12);
+}
+
+.sg-header nav {
+  color: #475569;
+}
+
+.sg-header nav a {
+  border-bottom: 1px solid transparent;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.sg-header nav a:hover,
+.sg-header nav a.active {
+  color: #1f2a44;
+  border-bottom-color: rgba(31, 42, 68, 0.48);
+}
+
+.sg-hero {
+  background:
+    linear-gradient(135deg, rgba(250, 248, 243, 0.94) 0%, rgba(244, 241, 234, 0.98) 58%, rgba(231, 226, 218, 0.8) 100%),
+    #faf8f3;
+}
+
+.sg-hero-kicker,
+.sg-section-title p,
+.sg-poet-group-title span,
+.sg-poet-works-title p {
+  color: #475569;
+}
+
+.sg-hero h1,
+.sg-section-title h2,
+.sg-poet-card h3,
+.sg-poem-paper h3,
+.sg-poet-detail-head h1,
+.sg-poet-detail-shell > h1,
+.sg-poet-works-title h2 {
+  color: #171717;
+}
+
+.sg-hero-actions a,
+.sg-submit-form button {
+  color: #fff;
+  background: #1f2a44;
+  border-color: #1f2a44;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.sg-hero-actions a:hover,
+.sg-submit-form button:hover {
+  background: #171717;
+  border-color: #171717;
+  transform: translateY(-2px);
+}
+
+.sg-hero-actions a:nth-child(n + 2) {
+  color: #1f2a44;
+  background: rgba(255, 255, 255, 0.74);
+  border-color: rgba(31, 42, 68, 0.28);
+}
+
+.sg-hero-actions a:nth-child(n + 2):hover {
+  color: #fff;
+  background: #1f2a44;
+  border-color: #1f2a44;
+}
+
+.sg-section {
+  border-bottom-color: rgba(31, 42, 68, 0.14);
+}
+
+.sg-section-title::before {
+  content: "";
+  display: block;
+  width: 3.2rem;
+  height: 2px;
+  margin-bottom: 0.85rem;
+  background: #1f2a44;
+}
+
+.sg-poets-section,
+.sg-poets-page {
+  background:
+    linear-gradient(180deg, #f3f4f2 0%, #faf8f3 100%);
+}
+
+.sg-poems-section,
+.sg-saved {
+  background:
+    linear-gradient(180deg, #faf8f3 0%, #f3f0e8 100%);
+}
+
+.sg-submit {
+  background:
+    linear-gradient(180deg, #f1ece3 0%, #e7e2da 100%);
+}
+
+.sg-about {
+  background:
+    linear-gradient(180deg, #eef0ef 0%, #faf8f3 100%);
+}
+
+.sg-poet-group + .sg-poet-group,
+.sg-poet-works,
+.sg-poet-detail-divider {
+  border-color: rgba(31, 42, 68, 0.18);
+}
+
+.sg-poet-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(253, 252, 249, 0.98));
+  border-color: rgba(31, 42, 68, 0.16);
+}
+
+.sg-poet-card:hover {
+  border-color: rgba(31, 42, 68, 0.42);
+  box-shadow: 0 1rem 2.2rem rgba(31, 42, 68, 0.08);
+}
+
+.sg-poet-card blockquote,
+.sg-poet-detail-quote {
+  color: #1f2a44;
+  border-left-color: rgba(31, 42, 68, 0.34);
+}
+
+.sg-poet-card-more,
+.sg-breadcrumb a,
+.sg-back-link {
+  color: #1f2a44;
+}
+
+.sg-keywords,
+.sg-tags {
+  color: #475569;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.sg-filter-tabs {
+  background: rgba(250, 248, 243, 0.94);
+  border-bottom-color: rgba(31, 42, 68, 0.2);
+}
+
+.sg-filter-tabs button {
+  color: #64748b;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.sg-filter-tabs button:hover,
+.sg-filter-tabs button.is-active {
+  color: #1f2a44;
+  border-bottom-color: #1f2a44;
+}
+
+.sg-poem-paper {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.99), rgba(250, 248, 243, 0.99));
+  border-color: rgba(31, 42, 68, 0.18);
+  box-shadow: 0 1.2rem 3rem rgba(31, 42, 68, 0.075);
+}
+
+.sg-poem-paper::before,
+.sg-poem-paper::after {
+  background: rgba(31, 42, 68, 0.14);
+}
+
+.sg-poem-head {
+  color: #1f2a44;
+}
+
+.sg-poem-actions button {
+  color: #1f2a44;
+  border-color: rgba(31, 42, 68, 0.2);
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.sg-poem-actions button:hover {
+  border-color: rgba(31, 42, 68, 0.46);
+  transform: translateY(-2px);
+}
+
+.sg-poem-actions button.is-active {
+  color: #fff;
+  background: #1f2a44;
+  border-color: #1f2a44;
+}
+
+.sg-related {
+  border-color: rgba(31, 42, 68, 0.18);
+}
+
+.sg-related h4,
+.sg-related-card strong {
+  color: #1f2a44;
+}
+
+.sg-related-card {
+  border-color: rgba(31, 42, 68, 0.13);
+}
+
+.sg-related-card:hover {
+  border-color: rgba(31, 42, 68, 0.3);
+}
+
+.sg-related-card small,
+.sg-saved-grid small,
+.sg-poet-work-link span {
+  color: #475569;
+  font-size: 0.82rem;
+}
+
+.sg-saved-grid {
+  background: rgba(31, 42, 68, 0.14);
+  border-color: rgba(31, 42, 68, 0.14);
+}
+
+.sg-saved-grid a,
+.sg-submit-form {
+  border-color: rgba(31, 42, 68, 0.14);
+}
+
+.sg-submit-form input:focus,
+.sg-submit-form textarea:focus {
+  border-color: #1f2a44;
+  box-shadow: 0 0 0 3px rgba(31, 42, 68, 0.1);
+}
