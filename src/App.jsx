@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, NavLink, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 
-const STORAGE_KEYS = {
-  saved: "saegyeol_saved_v2",
-};
+const DISQUS_SHORTNAME = import.meta.env.VITE_DISQUS_SHORTNAME || "saegyeol";
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || "https://formspree.io/f/saegyeol";
 
 export const poets = [
   {
@@ -199,15 +198,6 @@ const sectionPathMap = {
   "/about": "about",
 };
 
-function readStorage(key, fallback) {
-  try {
-    const value = window.localStorage.getItem(key);
-    return value ? JSON.parse(value) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -246,28 +236,11 @@ function getRelatedPoems(currentPoem) {
 function App() {
   const location = useLocation();
   const [activeFilter, setActiveFilter] = useState("all");
-  const [savedPoems, setSavedPoems] = useState(() => readStorage(STORAGE_KEYS.saved, {}));
-  const [openCommentId, setOpenCommentId] = useState(null);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.saved, JSON.stringify(savedPoems));
-  }, [savedPoems]);
-
-  const savedList = useMemo(() => poems.filter((poem) => savedPoems[poem.id]), [savedPoems]);
-
-  const toggleSave = (poemId) => {
-    setSavedPoems((current) => ({ ...current, [poemId]: !current[poemId] }));
-  };
 
   const homeElement = (
     <HomePage
       activeFilter={activeFilter}
       setActiveFilter={setActiveFilter}
-      savedPoems={savedPoems}
-      savedList={savedList}
-      openCommentId={openCommentId}
-      setOpenCommentId={setOpenCommentId}
-      toggleSave={toggleSave}
     />
   );
 
@@ -314,15 +287,14 @@ function ScrollToRouteTarget({ location }) {
   return null;
 }
 
-function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCommentId, setOpenCommentId, toggleSave }) {
+function HomePage({ activeFilter, setActiveFilter }) {
   const navigate = useNavigate();
   const poemsSectionRef = useRef(null);
 
   const filteredPoems = useMemo(() => {
-    if (activeFilter === "saved") return poems.filter((poem) => savedPoems[poem.id]);
     if (activeFilter === "all") return poems;
     return poems.filter((poem) => poem.poetId === activeFilter);
-  }, [activeFilter, savedPoems]);
+  }, [activeFilter]);
 
   const scrollToPoemsTop = () => {
     if (!poemsSectionRef.current) return;
@@ -368,18 +340,14 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
             <p>Poems</p>
             <h2>한 편씩 천천히 이어지는 시의 피드</h2>
           </div>
-          <PoetFilterTabs activeFilter={activeFilter} onChange={handleFilterChange} savedCount={savedList.length} />
+          <PoetFilterTabs activeFilter={activeFilter} onChange={handleFilterChange} />
           <div key={activeFilter} className="sg-poem-feed">
             {filteredPoems.length > 0 ? (
-              filteredPoems.map((poem, index) => (
+              filteredPoems.map((poem) => (
                 <PoemCard
                   key={poem.id}
                   poem={poem}
                   recommendations={getRelatedPoems(poem)}
-                  saved={Boolean(savedPoems[poem.id])}
-                  isCommentsOpen={openCommentId === poem.id}
-                  onToggleSave={() => toggleSave(poem.id)}
-                  onToggleComments={() => setOpenCommentId((current) => (current === poem.id ? null : poem.id))}
                 />
               ))
             ) : (
@@ -388,18 +356,6 @@ function HomePage({ activeFilter, setActiveFilter, savedPoems, savedList, openCo
           </div>
         </section>
 
-        <SavedPoems
-          poems={savedList}
-          onOpenPoem={(poemId) => {
-            setActiveFilter("saved");
-            window.requestAnimationFrame(() => {
-              window.setTimeout(() => {
-                const target = document.getElementById(poemId);
-                if (target) scrollElementIntoView(target);
-              }, 80);
-            });
-          }}
-        />
         <SubmitForm />
         <section id="about" className="sg-section sg-about">
           <div className="sg-section-title">
@@ -531,8 +487,8 @@ function PoetCard({ poet, variant }) {
   );
 }
 
-function PoetFilterTabs({ activeFilter, onChange, savedCount }) {
-  const tabs = [{ id: "all", label: "전체" }, ...poets.map((poet) => ({ id: poet.id, label: poet.name })), { id: "saved", label: `저장한 시 ${savedCount}` }];
+function PoetFilterTabs({ activeFilter, onChange }) {
+  const tabs = [{ id: "all", label: "전체" }, ...poets.map((poet) => ({ id: poet.id, label: poet.name }))];
 
   return (
     <div className="sg-filter-tabs" role="tablist" aria-label="시인별 작품 필터">
@@ -552,7 +508,7 @@ function PoetFilterTabs({ activeFilter, onChange, savedCount }) {
   );
 }
 
-function PoemCard({ poem, recommendations, saved, isCommentsOpen, onToggleSave, onToggleComments }) {
+function PoemCard({ poem, recommendations }) {
   const sharePoem = async () => {
     const text = `새결 | ${poem.title} - ${poem.author}`;
     if (navigator.share) {
@@ -607,14 +563,6 @@ function PoemCard({ poem, recommendations, saved, isCommentsOpen, onToggleSave, 
         </div>
       </div>
       <div className="sg-poem-actions" aria-label={`${poem.title} 액션`}>
-        <button type="button" className={isCommentsOpen ? "is-active" : ""} onClick={onToggleComments}>
-          <span>말</span>
-          <small>댓글</small>
-        </button>
-        <button type="button" className={saved ? "is-active" : ""} onClick={onToggleSave}>
-          <span>{saved ? "▣" : "□"}</span>
-          <small>저장</small>
-        </button>
         <button type="button" onClick={saveAsPdf}>
           <span>PDF</span>
           <small>저장</small>
@@ -625,7 +573,7 @@ function PoemCard({ poem, recommendations, saved, isCommentsOpen, onToggleSave, 
         </button>
       </div>
       <RelatedPoems recommendations={recommendations} />
-      {isCommentsOpen && <DisqusComments poem={poem} />}
+      <DisqusComments poem={poem} />
     </article>
   );
 }
@@ -648,37 +596,6 @@ function RelatedPoems({ recommendations }) {
   );
 }
 
-function SavedPoems({ poems: savedItems, onOpenPoem }) {
-  return (
-    <section id="saved" className="sg-section sg-saved">
-      <div className="sg-section-title">
-        <p>Saved</p>
-        <h2>저장한 시</h2>
-      </div>
-      {savedItems.length ? (
-        <div className="sg-saved-grid">
-          {savedItems.map((poem) => (
-            <a
-              key={poem.id}
-              href={`#${poem.id}`}
-              onClick={(event) => {
-                event.preventDefault();
-                window.history.replaceState(null, "", `/poems#${poem.id}`);
-                onOpenPoem(poem.id);
-              }}
-            >
-              <span>{poem.author}</span>
-              <strong>{poem.title}</strong>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p className="sg-empty">아직 저장한 시가 없습니다. 마음에 남는 시의 저장 버튼을 눌러 북마크하세요.</p>
-      )}
-    </section>
-  );
-}
-
 function SubmitForm() {
   return (
     <section id="submit" className="sg-section sg-submit">
@@ -686,7 +603,7 @@ function SubmitForm() {
         <p>Submit</p>
         <h2>당신의 문장이 새결에 닿는 자리</h2>
       </div>
-      <form className="sg-submit-form" action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <form className="sg-submit-form" action={FORMSPREE_ENDPOINT} method="POST">
         <label>이름 또는 필명<input name="name" type="text" required placeholder="예: 새결" /></label>
         <label>이메일<input name="email" type="email" required placeholder="you@example.com" /></label>
         <label>작품 제목<input name="workTitle" type="text" required placeholder="작품 제목" /></label>
@@ -699,25 +616,15 @@ function SubmitForm() {
 }
 
 function DisqusComments({ poem }) {
-  useEffect(() => {
-    window.disqus_config = function disqusConfig() {
-      this.page.url = `${window.location.origin}${window.location.pathname}#${poem.id}`;
-      this.page.identifier = poem.id;
-      this.page.title = `새결 - ${poem.title}`;
-    };
-
-    const existingScript = document.getElementById("disqus-script");
-    if (existingScript && window.DISQUS) {
-      window.DISQUS.reset({ reload: true, config: window.disqus_config });
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.id = "disqus-script";
-    script.src = "https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js";
-    script.setAttribute("data-timestamp", `${Date.now()}`);
-    document.body.appendChild(script);
-  }, [poem]);
+  const pageUrl = `${window.location.origin}${window.location.pathname}#${poem.id}`;
+  const params = new URLSearchParams({
+    base: "default",
+    f: DISQUS_SHORTNAME,
+    t_i: poem.id,
+    t_u: pageUrl,
+    t_e: `새결 - ${poem.title}`,
+    t_d: `새결 - ${poem.title}`,
+  });
 
   return (
     <section className="sg-comments" aria-label={`${poem.title} 댓글`}>
@@ -726,9 +633,12 @@ function DisqusComments({ poem }) {
         <strong>{poem.title}</strong>
         <span>identifier: {poem.id}</span>
       </div>
-      <div id="disqus_thread">
-        <p>댓글을 불러오는 중입니다.</p>
-      </div>
+      <iframe
+        className="sg-disqus-frame"
+        title={`${poem.title} 댓글`}
+        src={`https://${DISQUS_SHORTNAME}.disqus.com/embed/comments/?${params.toString()}`}
+        loading="lazy"
+      />
     </section>
   );
 }

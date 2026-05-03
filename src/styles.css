@@ -384,18 +384,6 @@ h3 {
   font-size: 0.85rem;
 }
 
-#disqus_thread {
-  min-height: 12rem;
-  padding: 1.2rem;
-  border: 1px solid rgba(36, 33, 29, 0.16);
-  background: rgba(255, 252, 246, 0.55);
-}
-
-.disqus-placeholder {
-  color: rgba(36, 33, 29, 0.62);
-  font-weight: 400;
-}
-
 .members-section {
   background: #f8f1e5;
 }
@@ -1098,42 +1086,12 @@ button {
   font-weight: 500;
 }
 
-#disqus_thread {
+.sg-disqus-frame {
+  width: 100%;
   min-height: 10rem;
-  padding: 1rem;
   background: #fbfbfa;
   border: 1px solid #ededeb;
-}
-
-.sg-saved-grid {
-  width: min(100%, 68rem);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  background: #e5e5e1;
-  border: 1px solid #e5e5e1;
-}
-
-.sg-saved-grid a {
-  min-height: 10rem;
-  display: grid;
-  align-content: space-between;
-  gap: 0.7rem;
-  padding: 1rem;
-  background: #fff;
-}
-
-.sg-saved-grid span,
-.sg-saved-grid small {
-  color: #777;
-}
-
-.sg-saved-grid strong {
-  color: #202020;
-  font-family: "Noto Serif KR", serif;
-  font-size: 1.45rem;
-  font-weight: 500;
+  height: 24rem;
 }
 
 .sg-empty {
@@ -1180,8 +1138,7 @@ button {
 }
 
 @media (max-width: 900px) {
-  .sg-poet-grid,
-  .sg-saved-grid {
+  .sg-poet-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1215,8 +1172,7 @@ button {
     display: grid;
   }
 
-  .sg-poet-grid,
-  .sg-saved-grid {
+  .sg-poet-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1655,12 +1611,6 @@ body {
   border-color: #ded9d0;
 }
 
-.sg-saved {
-  background:
-    linear-gradient(180deg, #f3f0e8 0%, #f7f5ef 100%);
-}
-
-.sg-saved-grid,
 .sg-submit-form {
   box-shadow: 0 1rem 2rem rgba(38, 38, 38, 0.04);
 }
@@ -1866,8 +1816,7 @@ body {
     linear-gradient(180deg, #f3f4f2 0%, #faf8f3 100%);
 }
 
-.sg-poems-section,
-.sg-saved {
+.sg-poems-section {
   background:
     linear-gradient(180deg, #faf8f3 0%, #f3f0e8 100%);
 }
@@ -1975,12 +1924,6 @@ body {
   border-color: rgba(31, 42, 68, 0.3);
 }
 
-.sg-saved-grid {
-  background: rgba(31, 42, 68, 0.14);
-  border-color: rgba(31, 42, 68, 0.14);
-}
-
-.sg-saved-grid a,
 .sg-submit-form {
   border-color: rgba(31, 42, 68, 0.14);
 }
@@ -2156,22 +2099,6 @@ body {
   margin-top: clamp(1.8rem, 5vw, 3rem);
 }
 
-.sg-saved-grid {
-  grid-template-columns: 1fr;
-  gap: 0;
-  background: transparent;
-  border-color: rgba(31, 42, 68, 0.14);
-}
-
-.sg-saved-grid a {
-  min-height: auto;
-  grid-template-columns: minmax(7rem, 0.3fr) minmax(0, 1fr);
-  align-items: baseline;
-  padding: 1.1rem 0;
-  background: transparent;
-  border-bottom: 1px solid rgba(31, 42, 68, 0.12);
-}
-
 @media (max-width: 1100px) {
   .sg-poem-card {
     grid-template-columns: minmax(0, 1fr) 3.8rem;
@@ -2192,9 +2119,5 @@ body {
 @media (max-width: 640px) {
   .sg-poem-paper {
     min-height: 64svh;
-  }
-
-  .sg-saved-grid a {
-    grid-template-columns: 1fr;
   }
 }
