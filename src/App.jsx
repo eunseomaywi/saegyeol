@@ -414,8 +414,6 @@ function PoetDetailPage() {
     );
   }
 
-  const poetPoems = poems.filter((poem) => poem.poetId === poet.id);
-
   return (
     <main>
       <article className="sg-section sg-poet-detail">
@@ -433,19 +431,6 @@ function PoetDetailPage() {
           <div className="sg-poet-detail-divider" />
           <p className="sg-poet-detail-bio">{poet.bio}</p>
           <blockquote className="sg-poet-detail-quote">{poet.representativeLine}</blockquote>
-          <section className="sg-poet-works" aria-labelledby="poet-works-title">
-            <div className="sg-poet-works-title">
-              <p>Works</p>
-              <h2 id="poet-works-title">이 시인의 작품</h2>
-            </div>
-            <div className="sg-poet-works-list">
-              {poetPoems.map((poem) => (
-                <Link key={poem.id} to={`/poems#${poem.id}`} className="sg-poet-work-link">
-                  <strong>{poem.title}</strong>
-                </Link>
-              ))}
-            </div>
-          </section>
         </div>
       </article>
     </main>
