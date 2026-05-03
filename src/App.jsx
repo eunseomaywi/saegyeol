@@ -222,25 +222,17 @@ function scrollElementIntoView(element, behavior = "smooth") {
   });
 }
 
-function getRelatedPoems(currentPoem) {
-  return poems
-    .filter((poem) => poem.id !== currentPoem.id)
-    .sort((a, b) => {
-      const samePoetA = a.poetId === currentPoem.poetId ? 0 : 1;
-      const samePoetB = b.poetId === currentPoem.poetId ? 0 : 1;
-      return samePoetA - samePoetB || a.title.localeCompare(b.title, "ko");
-    })
-    .slice(0, 4);
-}
-
 function App() {
   const location = useLocation();
   const [activeFilter, setActiveFilter] = useState("all");
+  const [openCommentId, setOpenCommentId] = useState(null);
 
   const homeElement = (
     <HomePage
       activeFilter={activeFilter}
       setActiveFilter={setActiveFilter}
+      openCommentId={openCommentId}
+      setOpenCommentId={setOpenCommentId}
     />
   );
 
@@ -287,7 +279,7 @@ function ScrollToRouteTarget({ location }) {
   return null;
 }
 
-function HomePage({ activeFilter, setActiveFilter }) {
+function HomePage({ activeFilter, setActiveFilter, openCommentId, setOpenCommentId }) {
   const navigate = useNavigate();
   const poemsSectionRef = useRef(null);
 
@@ -347,7 +339,8 @@ function HomePage({ activeFilter, setActiveFilter }) {
                 <PoemCard
                   key={poem.id}
                   poem={poem}
-                  recommendations={getRelatedPoems(poem)}
+                  isCommentsOpen={openCommentId === poem.id}
+                  onToggleComments={() => setOpenCommentId((current) => (current === poem.id ? null : poem.id))}
                 />
               ))
             ) : (
@@ -508,7 +501,7 @@ function PoetFilterTabs({ activeFilter, onChange }) {
   );
 }
 
-function PoemCard({ poem, recommendations }) {
+function PoemCard({ poem, isCommentsOpen, onToggleComments }) {
   const sharePoem = async () => {
     const text = `새결 | ${poem.title} - ${poem.author}`;
     if (navigator.share) {
@@ -563,6 +556,10 @@ function PoemCard({ poem, recommendations }) {
         </div>
       </div>
       <div className="sg-poem-actions" aria-label={`${poem.title} 액션`}>
+        <button type="button" className={isCommentsOpen ? "is-active" : ""} onClick={onToggleComments}>
+          <span>말</span>
+          <small>댓글</small>
+        </button>
         <button type="button" onClick={saveAsPdf}>
           <span>PDF</span>
           <small>저장</small>
@@ -572,27 +569,8 @@ function PoemCard({ poem, recommendations }) {
           <small>공유</small>
         </button>
       </div>
-      <RelatedPoems recommendations={recommendations} />
-      <DisqusComments poem={poem} />
+      {isCommentsOpen && <DisqusComments poem={poem} />}
     </article>
-  );
-}
-
-function RelatedPoems({ recommendations }) {
-  if (!recommendations.length) return null;
-
-  return (
-    <aside className="sg-related" aria-label="이어 읽기">
-      <div className="sg-related-list">
-        {recommendations.map((poem) => (
-          <a key={poem.id} href={`#${poem.id}`} className="sg-related-card">
-            <span>{poem.author}</span>
-            <strong>{poem.title}</strong>
-            <p>{poem.body.filter(Boolean).slice(0, 2).join(" / ")}</p>
-          </a>
-        ))}
-      </div>
-    </aside>
   );
 }
 
@@ -616,15 +594,26 @@ function SubmitForm() {
 }
 
 function DisqusComments({ poem }) {
-  const pageUrl = `${window.location.origin}${window.location.pathname}#${poem.id}`;
-  const params = new URLSearchParams({
-    base: "default",
-    f: DISQUS_SHORTNAME,
-    t_i: poem.id,
-    t_u: pageUrl,
-    t_e: `새결 - ${poem.title}`,
-    t_d: `새결 - ${poem.title}`,
-  });
+  useEffect(() => {
+    window.disqus_config = function disqusConfig() {
+      this.page.url = `${window.location.origin}/poems#${poem.id}`;
+      this.page.identifier = poem.id;
+      this.page.title = `새결 - ${poem.title}`;
+    };
+
+    if (window.DISQUS) {
+      window.DISQUS.reset({ reload: true, config: window.disqus_config });
+      return;
+    }
+
+    if (document.getElementById("disqus-script")) return;
+
+    const script = document.createElement("script");
+    script.id = "disqus-script";
+    script.src = `https://${DISQUS_SHORTNAME}.disqus.com/embed.js`;
+    script.setAttribute("data-timestamp", `${Date.now()}`);
+    (document.head || document.body).appendChild(script);
+  }, [poem]);
 
   return (
     <section className="sg-comments" aria-label={`${poem.title} 댓글`}>
@@ -633,12 +622,10 @@ function DisqusComments({ poem }) {
         <strong>{poem.title}</strong>
         <span>identifier: {poem.id}</span>
       </div>
-      <iframe
-        className="sg-disqus-frame"
-        title={`${poem.title} 댓글`}
-        src={`https://${DISQUS_SHORTNAME}.disqus.com/embed/comments/?${params.toString()}`}
-        loading="lazy"
-      />
+      <div id="disqus_thread" />
+      <noscript>
+        Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
     </section>
   );
 }
