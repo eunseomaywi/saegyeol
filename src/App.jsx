@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { Link, NavLink, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 
 const DISQUS_SHORTNAME = import.meta.env.VITE_DISQUS_SHORTNAME || "saegyeol";
-const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || "https://formspree.io/f/saegyeol";
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "mrejeyvg";
 
 export const poets = [
   {
@@ -575,19 +576,29 @@ function PoemCard({ poem, isCommentsOpen, onToggleComments }) {
 }
 
 function SubmitForm() {
+  const [state, handleSubmit] = useForm(FORMSPREE_FORM_ID);
+
   return (
     <section id="submit" className="sg-section sg-submit">
       <div className="sg-section-title">
         <p>Submit</p>
         <h2>당신의 문장이 새결에 닿는 자리</h2>
       </div>
-      <form className="sg-submit-form" action={FORMSPREE_ENDPOINT} method="POST">
+      <form className="sg-submit-form" onSubmit={handleSubmit}>
+        {state.succeeded && <p className="sg-form-status">기고가 접수되었습니다. 보내주신 문장을 확인하겠습니다.</p>}
+        <ValidationError className="sg-form-error" errors={state.errors} />
+        <input type="hidden" name="_subject" value="새결 기고 접수" />
         <label>이름 또는 필명<input name="name" type="text" required placeholder="예: 새결" /></label>
+        <ValidationError className="sg-form-error" field="name" errors={state.errors} />
         <label>이메일<input name="email" type="email" required placeholder="you@example.com" /></label>
+        <ValidationError className="sg-form-error" field="email" errors={state.errors} />
         <label>작품 제목<input name="workTitle" type="text" required placeholder="작품 제목" /></label>
-        <label>작품 내용<textarea name="workBody" rows="9" required placeholder="작품을 입력해주세요." /></label>
+        <ValidationError className="sg-form-error" field="workTitle" errors={state.errors} />
+        <label>작품 내용<textarea name="message" rows="9" required placeholder="작품을 입력해주세요." /></label>
+        <ValidationError className="sg-form-error" field="message" errors={state.errors} />
         <label>간단한 자기소개<textarea name="bio" rows="4" placeholder="작가 소개 또는 기고 의도를 남겨주세요." /></label>
-        <button type="submit">기고하기</button>
+        <ValidationError className="sg-form-error" field="bio" errors={state.errors} />
+        <button type="submit" disabled={state.submitting}>{state.submitting ? "보내는 중" : "기고하기"}</button>
       </form>
     </section>
   );

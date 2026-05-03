@@ -5,6 +5,7 @@
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
+    "@formspree/react": "^3.0.0",
     "@vitejs/plugin-react": "latest",
     "react": "latest",
     "react-dom": "latest",

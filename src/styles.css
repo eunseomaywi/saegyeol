@@ -787,6 +787,26 @@ button {
   cursor: pointer;
 }
 
+.sg-submit-form button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.sg-form-status,
+.sg-form-error {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.sg-form-status {
+  color: #1f2a44;
+}
+
+.sg-form-error {
+  color: #8f2434;
+}
+
 .sg-hero-actions a:nth-child(n + 2) {
   color: #202020;
   background: #fff;
