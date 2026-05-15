@@ -108,6 +108,11 @@ const issues = [
     theme: "개화",
     displayTitle: "2026년 5월호 · 개화",
     label: "창간호",
+    archiveDate: "2026. 05",
+    archiveTitle: "개화 開花",
+    archiveDescription: "시 7편 · 창간호",
+    badge: "현재 호",
+    status: "active",
     publishDate: "2026-05-01",
     nextIssueDate: "2026-06-13T00:00:00+09:00",
     pdfPath: "/saegyeol-2026-05-gaehwa.pdf",
@@ -1096,6 +1101,27 @@ const issues = [
       },
     ],
   },
+  {
+    id: "2026-06",
+    archiveDate: "2026. 06",
+    archiveTitle: "준비 중",
+    archiveDescription: "2호 · 예정",
+    status: "upcoming",
+  },
+  {
+    id: "2026-07",
+    archiveDate: "2026. 07",
+    archiveTitle: "예정",
+    archiveDescription: "3호",
+    status: "upcoming",
+  },
+  {
+    id: "2026-08",
+    archiveDate: "2026. 08",
+    archiveTitle: "예정",
+    archiveDescription: "4호",
+    status: "upcoming",
+  },
 ];
 
 const navItems = [
@@ -1154,7 +1180,7 @@ function Header() {
 }
 
 function HomePage() {
-  const currentIssue = issues[0];
+  const currentIssue = issues.find((issue) => issue.status === "active");
 
   return (
     <main>
@@ -1230,12 +1256,27 @@ function IssueCard({ issue }) {
 }
 
 function IssueShelfCard({ issue }) {
+  const content = (
+    <>
+      <span className="sg-shelf-date">{issue.archiveDate}</span>
+      <strong>{issue.archiveTitle}</strong>
+      <em>{issue.archiveDescription}</em>
+      {issue.badge && <b>{issue.badge}</b>}
+    </>
+  );
+
+  if (issue.status === "active") {
+    return (
+      <Link className="sg-shelf-card is-active" to={`/issue/${issue.slug}`}>
+        {content}
+      </Link>
+    );
+  }
+
   return (
-    <Link className="sg-shelf-card" to={`/issue/${issue.slug}`}>
-      <span>{issue.label}</span>
-      <strong>{issue.displayTitle}</strong>
-      <em>{issue.label}</em>
-    </Link>
+    <article className="sg-shelf-card is-upcoming" aria-label={`${issue.archiveDate} ${issue.archiveTitle}`}>
+      {content}
+    </article>
   );
 }
 
@@ -1273,7 +1314,7 @@ function CountdownTimer({ targetDate }) {
 
 function IssuePage() {
   const { slug } = useParams();
-  const issue = issues.find((item) => item.slug === slug);
+  const issue = issues.find((item) => item.slug === slug && item.status === "active");
   const [commentsOpen, setCommentsOpen] = useState(false);
 
   if (!issue) return <Navigate to="/" replace />;
@@ -1477,8 +1518,8 @@ function IssuesPage() {
   return (
     <main>
       <section className="sg-section" id="previous-issues">
-        <SectionTitle eyebrow="문예지모음" title="새결의 발행 목록">
-          <p className="sg-section-lead">호수를 고르면 표지, 창간사, 목차, 작품 순서로 한 권의 문예지를 읽을 수 있습니다.</p>
+        <SectionTitle eyebrow="문예지모음" title="지난 호">
+          <p className="sg-section-lead">발행된 호수와 앞으로 놓일 지면을 조용히 모아둡니다.</p>
         </SectionTitle>
         <div className="sg-issue-shelf">
           {issues.map((issue) => (
