@@ -347,23 +347,29 @@ dd {
 .sg-contributor-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 22px;
 }
 
 .sg-shelf-card,
 .sg-contributor-card {
+  position: relative;
   min-height: 180px;
-  padding: 26px;
+  padding: clamp(24px, 3.3vw, 34px);
   border: 1px solid var(--line);
-  background: rgba(251, 248, 241, 0.46);
+  border-left-color: rgba(16, 25, 38, 0.5);
+  border-left-width: 2px;
+  background: rgba(251, 248, 241, 0.52);
   text-decoration: none;
-  transition: border-color 120ms ease, background-color 120ms ease;
+  transition: border-color 120ms ease;
 }
 
 .sg-shelf-card:hover,
 .sg-contributor-card:hover {
   border-color: rgba(16, 25, 38, 0.34);
-  background: rgba(251, 248, 241, 0.64);
+}
+
+.sg-contributor-card:hover {
+  border-left-color: var(--deep);
 }
 
 .sg-shelf-card {
@@ -380,19 +386,40 @@ dd {
   font-style: normal;
 }
 
-.sg-shelf-card strong,
-.sg-contributor-card h3 {
+.sg-shelf-card strong {
   font-size: 26px;
 }
 
-.sg-contributor-card h3,
-.sg-contributor-card p {
-  margin: 10px 0 0;
+.sg-contributor-card header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.sg-contributor-card h3 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.25;
 }
 
 .sg-contributor-card p {
-  color: var(--muted);
+  max-width: 34em;
+  margin: 18px 0 0;
+}
+
+.sg-contributor-card p {
+  color: #3b352f;
   font-size: 15px;
+  line-height: 1.95;
+}
+
+.sg-contributor-card .sg-contributor-line {
+  color: var(--deep);
+  font-size: 16px;
+  font-style: italic;
   line-height: 1.75;
 }
 
@@ -401,25 +428,158 @@ dd {
 }
 
 .sg-submit {
-  width: min(100% - 40px, 980px);
+  width: min(100% - 40px, 1120px);
+  max-width: 1120px;
 }
 
 .sg-submit.is-compact {
   padding-top: 60px;
 }
 
+.sg-submit-guide {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(20px, 3vw, 34px);
+  margin-bottom: 34px;
+  animation: submitFade 420ms ease both;
+}
+
+.sg-submit-panel {
+  min-width: 0;
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  background: #eee6d8;
+  padding: clamp(24px, 4vw, 42px);
+}
+
+.sg-submit-panel header {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+}
+
+.sg-submit-panel header p {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--latin), var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+
+.sg-submit-panel h3 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.25;
+}
+
+.sg-submit-rules dl {
+  display: grid;
+  margin: 0;
+}
+
+.sg-submit-rules dl div {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 18px;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.sg-submit-rules dl div:first-child {
+  padding-top: 0;
+}
+
+.sg-submit-rules dl div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.sg-submit-rules dt {
+  color: #9a9388;
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.sg-submit-rules dd {
+  min-width: 0;
+  color: var(--ink);
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.sg-department-table {
+  display: grid;
+  min-width: 0;
+}
+
+.sg-department-row {
+  display: grid;
+  grid-template-columns: minmax(70px, 0.82fr) minmax(120px, 1.32fr) minmax(86px, 0.8fr) minmax(72px, 0.72fr);
+  gap: 14px;
+  align-items: center;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.sg-department-row:first-child {
+  padding-top: 0;
+}
+
+.sg-department-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.sg-department-row span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.sg-department-row.is-head {
+  color: #9a9388;
+  font-family: var(--sans);
+  font-size: 12px;
+}
+
+.sg-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 6px 10px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.sg-status-badge.is-open {
+  background: var(--deep);
+  color: var(--paper);
+}
+
+.sg-status-badge.is-pending {
+  background: rgba(17, 17, 17, 0.08);
+  color: var(--muted);
+}
+
 .sg-submit-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  padding: clamp(22px, 4vw, 42px);
-  border: 1px solid var(--line);
-  background: var(--card);
+  gap: 22px;
+  padding: clamp(24px, 4vw, 44px);
+  border: 1px solid rgba(17, 17, 17, 0.18);
+  background: #eee6d8;
+  animation: submitFade 420ms ease both;
+  overflow: hidden;
 }
 
 .sg-submit-form label {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   color: var(--muted);
   font-family: var(--sans);
   font-size: 13px;
@@ -435,17 +595,32 @@ dd {
 .sg-submit-form input,
 .sg-submit-form textarea {
   width: 100%;
-  border: 1px solid rgba(17, 17, 17, 0.22);
-  background: var(--paper);
+  min-width: 0;
+  border: 1px solid rgba(17, 17, 17, 0.24);
+  background: #f6f1e8;
   color: var(--ink);
-  padding: 14px 15px;
+  padding: 17px 18px;
   font-family: var(--serif);
-  font-size: 16px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.sg-submit-form input::placeholder,
+.sg-submit-form textarea::placeholder {
+  color: rgba(17, 17, 17, 0.44);
 }
 
 .sg-submit-form textarea {
-  min-height: 160px;
+  min-height: 176px;
   resize: vertical;
+}
+
+.sg-submit-form button {
+  justify-self: start;
+  min-width: min(100%, 190px);
+  max-width: 100%;
+  background: #171717;
+  border-color: #171717;
 }
 
 .sg-form-status,
@@ -457,6 +632,18 @@ dd {
 
 .sg-form-error {
   color: #7b2020;
+}
+
+@keyframes submitFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .sg-issue-page {
@@ -763,6 +950,20 @@ dd {
   .sg-contributor-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .sg-submit-guide {
+    gap: 20px;
+  }
+
+  .sg-submit-panel {
+    padding: 28px;
+  }
+
+  .sg-department-row {
+    grid-template-columns: minmax(52px, 0.7fr) minmax(0, 1.15fr) minmax(58px, 0.7fr) minmax(58px, 0.62fr);
+    gap: 8px;
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -815,6 +1016,61 @@ dd {
     padding: 20px;
   }
 
+  .sg-submit-guide {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .sg-submit-panel {
+    padding: 22px 20px;
+  }
+
+  .sg-submit-panel header {
+    margin-bottom: 22px;
+  }
+
+  .sg-submit-rules dl div {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 15px 0;
+  }
+
+  .sg-department-row.is-head {
+    display: none;
+  }
+
+  .sg-department-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    align-items: start;
+    padding: 16px 0;
+  }
+
+  .sg-department-row span:nth-child(1) {
+    font-size: 18px;
+  }
+
+  .sg-department-row span:nth-child(2),
+  .sg-department-row span:nth-child(3) {
+    grid-column: 1 / -1;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .sg-department-row span:nth-child(3)::before {
+    content: "마감 ";
+    color: #9a9388;
+    font-family: var(--sans);
+    font-size: 12px;
+  }
+
+  .sg-department-row span:nth-child(4) {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
   .sg-featured-copy p {
     font-size: 22px;
   }
@@ -832,6 +1088,10 @@ dd {
   .sg-contributor-grid,
   .sg-submit-form {
     grid-template-columns: 1fr;
+  }
+
+  .sg-submit-form button {
+    width: 100%;
   }
 
   .sg-work-reader {

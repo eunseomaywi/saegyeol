@@ -1,46 +1,95 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
 
 const DISQUS_SHORTNAME = import.meta.env.VITE_DISQUS_SHORTNAME || "saegyeol";
 const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "mrejeyvg";
 
-const contributors = [
+const submissionRules = [
+  ["자격", "누구나 — 나이, 학력, 경력 무관"],
+  ["분량", "시: 1편 이상 / 산문: 200자 원고지 기준 20매 이내"],
+  ["형식", "한글(.hwp) 또는 워드(.docx)"],
+  ["마감", "매월 첫째 주 일요일 자정"],
+  ["발표", "매월 둘째 주 토요일 발행"],
+  ["연락", "010-3285-9833 (문자 우선)"],
+];
+
+const submissionDepartments = [
   {
-    id: "yang-junhee",
-    name: "양준희",
-    role: "편집위원 · 시 분과",
-    description: "나는 성찰하는 시인이다. 해가 뜨고 지는 순간 사이, 우리는 저마다의 흔적을 남깁니다.",
+    department: "시 분과",
+    theme: "자유 (2호 주제 미정)",
+    deadline: "2025.06.01",
+    status: "모집 중",
   },
+  {
+    department: "소설 분과",
+    theme: "추후 공지",
+    deadline: "미정",
+    status: "준비 중",
+  },
+  {
+    department: "산문 분과",
+    theme: "추후 공지",
+    deadline: "미정",
+    status: "준비 중",
+  },
+];
+
+const contributors = [
   {
     id: "park-minjun",
     name: "박민준",
-    role: "편집위원 · 시 분과",
-    description: "나는 머무는 시인이다. 감정에 이름을 붙이기 전의 막막한 상태에 오래 머무릅니다.",
+    role: "편집위원",
+    line: "“나는 머무는 시인이다.”",
+    description:
+      "무언가를 설명하려다 그만둔 자리에서 저의 시는 시작되었습니다. 감정에 이름을 붙이는 순간, 그것이 본래의 색을 잃고 조금씩 다른 것이 되어버린다는 느낌을 지울 수 없었습니다. 그래서 서둘러 결론을 내리는 대신, 그 막막한 상태 그대로 ‘머무는 쪽’을 택했습니다. 이제 저는 <새결>이라는 공간에서, 당신의 문장 곁에 가만히 닻을 내리려 합니다.",
   },
   {
-    id: "kim-yohwan",
-    name: "김요환",
-    role: "기고가 · 시 분과",
-    description: "나는 단순한 시인이다. 시가 가볍게 즐기고 쉽게 공감할 수 있는 매체가 될 수 있다고 믿습니다.",
-  },
-  {
-    id: "park-dohyeon",
-    name: "박도현",
-    role: "기고가 · 시 분과",
-    description: "나는 곁을 밝히는 시인이다. 금이 간 자리에도 빛과 의미가 남는다고 믿는 문장을 씁니다.",
+    id: "yang-junhee",
+    name: "양준희",
+    role: "편집위원",
+    line: "“나는 성찰하는 시인이다.”",
+    description:
+      "해가 뜨고 지는 순간 사이, 우리는 저마다의 흔적을 남깁니다. 저에게 문학이란, 시린 발자국을 글자로 아로새기며 인간적인 성장을 기록하기 위한 하나의 일기입니다. 이제 저는 <새결>이라는 이름 아래, 지나온 시간을 성찰하고 아직 쓰이지 않은 문장들을 노래하고자 합니다.",
   },
   {
     id: "yoon-somin",
     name: "윤소민",
     role: "기고가",
-    description: "나는 흉터를 문장으로 빚는 작가다. 흉터와 파열의 감각을 정직한 언어로 만져 봅니다.",
+    line: "“나는 흉터를 문장으로 빚는 작가다.”",
+    description:
+      "모두가 완성된 문장에 마침표를 찍고 돌아설 때, 저는 그 문장이 시작되기 전의 시간들을 서성여 봅니다. 그렇게 저의 흉터를 정직하게 만져 내려간 기록들이, 언젠가 여러분의 숨겨진 상처 위로도 다정한 무늬처럼 겹쳐지길 바랍니다.",
+  },
+  {
+    id: "park-dohyeon",
+    name: "박도현",
+    role: "기고가",
+    line: "“나는 결을 밝히는 시인이다.”",
+    description:
+      "곰이 간 자리에 조용히 금(金)을 입혀 새로운 의미를 덧칠해 내는 일, 그것이 제가 글을 쓰는 이유입니다. 이제 저는 <새결>이라는 공간에서, 당신 안의 아름다움에 조용히 금빛 문장을 더하고자 합니다.",
+  },
+  {
+    id: "sim-yul",
+    name: "심율",
+    role: "기고가",
+    line: "“나는 탐구하는 작가다.”",
+    description:
+      "글을 쓰기 시작한 지 아직 일 년이 다 안 되었습니다. 미숙한 단어들을 문장으로 옮기다 보면, 대개 두어 가지 이상의 상이한 결론들을 맞이합니다. 하여, 나의 글은 초고입니다. 초고로 남겨두기로 하였습니다.",
+  },
+  {
+    id: "kim-yohwan",
+    name: "김요환",
+    role: "기고가",
+    line: "“나는 단순한 시인이다.”",
+    description:
+      "시가 가볍게 즐기고 쉽게 공감할 수 있는 매체가 될 수 있다고 믿습니다. 이제 저는 <새결>이라는 이름 아래, 기교를 대신한 유머와 단순성이 어떤 파장을 일으킬 수 있는지 증명하고자 합니다.",
   },
   {
     id: "park-minjae",
     name: "박민재",
-    role: "기고가 · 시 분과",
-    description: "나는 기다리는 시인이다. 꿈과 불확실함 사이에서 아직 피어나지 않은 시간을 기록합니다.",
+    role: "기고가",
+    line: "시 분과 기고가",
+    description: "<새결> 창간호에 시를 기고합니다.",
   },
 ];
 
@@ -1467,8 +1516,11 @@ function ContributorGrid() {
     <div className="sg-contributor-grid">
       {contributors.map((person) => (
         <article className="sg-contributor-card" key={person.id}>
-          <span>{person.role}</span>
-          <h3>{person.name}</h3>
+          <header>
+            <h3>{person.name}</h3>
+            <span>{person.role}</span>
+          </header>
+          <p className="sg-contributor-line">{person.line}</p>
           <p>{person.description}</p>
         </article>
       ))}
@@ -1482,21 +1534,61 @@ function SubmitSection({ compact = false }) {
   return (
     <section className={`sg-section sg-submit ${compact ? "is-compact" : ""}`} id={compact ? "issue-submit" : "submit"}>
       <SectionTitle eyebrow="투고 안내" title="당신의 문장이 다음 호에 닿는 자리">
-        <p className="sg-section-lead">시, 산문, 비평을 보내주세요. Formspree로 접수되며 편집위원 검토 후 연락드립니다.</p>
+        <p className="sg-section-lead">새결은 매달 한 권의 문예지를 꾸립니다. 아래 규정을 확인한 뒤 원고와 소개를 함께 보내주세요.</p>
       </SectionTitle>
+      <div className="sg-submit-guide" aria-label="투고 규정과 분과별 안내">
+        <article className="sg-submit-panel sg-submit-rules">
+          <header>
+            <p>Submission Rules</p>
+            <h3>투고 규정</h3>
+          </header>
+          <dl>
+            {submissionRules.map(([label, value]) => (
+              <div key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+        <article className="sg-submit-panel sg-submit-departments">
+          <header>
+            <p>Departments</p>
+            <h3>분과별 안내</h3>
+          </header>
+          <div className="sg-department-table" role="table" aria-label="분과별 투고 일정">
+            <div className="sg-department-row is-head" role="row">
+              <span role="columnheader">분과</span>
+              <span role="columnheader">주제</span>
+              <span role="columnheader">마감</span>
+              <span role="columnheader">상태</span>
+            </div>
+            {submissionDepartments.map((item) => (
+              <div className="sg-department-row" role="row" key={item.department}>
+                <span role="cell">{item.department}</span>
+                <span role="cell">{item.theme}</span>
+                <span role="cell">{item.deadline}</span>
+                <span role="cell">
+                  <b className={`sg-status-badge ${item.status === "모집 중" ? "is-open" : "is-pending"}`}>{item.status}</b>
+                </span>
+              </div>
+            ))}
+          </div>
+        </article>
+      </div>
       <form className="sg-submit-form" onSubmit={handleSubmit}>
         {state.succeeded && <p className="sg-form-status">기고가 접수되었습니다. 보내주신 문장을 확인하겠습니다.</p>}
         <ValidationError className="sg-form-error" errors={state.errors} />
         <input type="hidden" name="_subject" value="새결 기고 접수" />
-        <label>이름 또는 필명<input name="name" type="text" required placeholder="예: 새결" /></label>
+        <label>이름<input name="name" type="text" required placeholder="이름" /></label>
         <ValidationError className="sg-form-error" field="name" errors={state.errors} />
-        <label>이메일<input name="email" type="email" required placeholder="you@example.com" /></label>
+        <label>이메일<input name="email" type="email" required placeholder="이메일" /></label>
         <ValidationError className="sg-form-error" field="email" errors={state.errors} />
         <label>작품 제목<input name="workTitle" type="text" required placeholder="작품 제목" /></label>
         <ValidationError className="sg-form-error" field="workTitle" errors={state.errors} />
-        <label>작품 내용<textarea name="message" rows="10" required placeholder="작품을 입력해주세요." /></label>
+        <label>작품 소개<textarea name="message" rows="10" required placeholder="작품 소개" /></label>
         <ValidationError className="sg-form-error" field="message" errors={state.errors} />
-        <label>간단한 자기소개<textarea name="bio" rows="4" placeholder="작가 소개 또는 기고 의도를 남겨주세요." /></label>
+        <label>첨부 링크 또는 메시지<textarea name="bio" rows="4" placeholder="첨부 링크 또는 메시지" /></label>
         <ValidationError className="sg-form-error" field="bio" errors={state.errors} />
         <button type="submit" disabled={state.submitting}>{state.submitting ? "보내는 중" : "기고하기"}</button>
       </form>
