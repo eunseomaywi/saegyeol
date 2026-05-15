@@ -1,21 +1,17 @@
-/* Base */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nanum+Myeongjo:wght@400;700;800&display=swap");
+
 :root {
-  color: #171717;
-  background: #faf6eb;
-  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-synthesis: none;
-  line-height: 1.5;
-  text-rendering: optimizeLegibility;
-  --ink: #171717;
-  --muted: #5f605b;
-  --paper: #fffdf7;
-  --ivory: #faf6eb;
-  --ivory-deep: #efe7d6;
-  --navy: #1f2a44;
-  --navy-soft: rgba(31, 42, 68, 0.14);
-  --gold: #b29354;
-  --line: rgba(31, 42, 68, 0.16);
-  --shadow: 0 1.2rem 3rem rgba(31, 42, 68, 0.08);
+  --bg: #f6f1e8;
+  --paper: #fbf8f1;
+  --card: #eae1d2;
+  --ink: #111111;
+  --muted: #6f675d;
+  --line: rgba(17, 17, 17, 0.14);
+  --deep: #101926;
+  --soft: rgba(16, 25, 38, 0.08);
+  --serif: "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  --latin: "Cormorant Garamond", Georgia, serif;
+  --sans: "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
 }
 
 * {
@@ -23,25 +19,26 @@
 }
 
 html {
-  overflow-x: hidden;
   scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
-  min-width: 320px;
-  max-width: 100%;
   margin: 0;
+  min-width: 0;
   overflow-x: hidden;
   background:
-    linear-gradient(180deg, rgba(255, 253, 247, 0.72), rgba(244, 238, 226, 0.84)),
-    repeating-linear-gradient(90deg, rgba(31, 42, 68, 0.018) 0 1px, transparent 1px 7px),
-    var(--ivory);
+    linear-gradient(rgba(17, 17, 17, 0.018) 1px, transparent 1px) 0 0 / 100% 34px,
+    var(--bg);
   color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.85;
+  word-break: keep-all;
 }
 
 a {
   color: inherit;
-  text-decoration: none;
 }
 
 button,
@@ -50,932 +47,756 @@ textarea {
   font: inherit;
 }
 
-button {
-  cursor: pointer;
-}
-
-h1,
-h2,
-h3 {
-  margin: 0;
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-weight: 600;
-  letter-spacing: 0;
-}
-
-/* Header */
 .sg-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  min-height: 3.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.85rem clamp(1rem, 4vw, 3rem);
-  background: rgba(250, 246, 235, 0.92);
+  z-index: 20;
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  gap: 10px;
+  padding: 18px 24px 12px;
   border-bottom: 1px solid var(--line);
+  background: rgba(246, 241, 232, 0.92);
   backdrop-filter: blur(16px);
 }
 
 .sg-header-brand {
-  flex: 0 0 auto;
-  color: var(--navy);
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: 1.22rem;
-  font-weight: 700;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-decoration: none;
+  text-indent: 0.32em;
 }
 
 .sg-header nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: clamp(0.7rem, 2vw, 1.4rem);
-  color: #475569;
-  font-size: 0.92rem;
+  justify-content: center;
+  gap: 10px 28px;
+  width: 100%;
+  max-width: 720px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
 }
 
 .sg-header nav a {
-  min-height: 2rem;
+  min-height: 34px;
   display: inline-flex;
   align-items: center;
-  border-bottom: 1px solid transparent;
-  transition: color 160ms ease, border-color 160ms ease;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .sg-header nav a:hover,
 .sg-header nav a.active {
-  color: var(--navy);
-  border-bottom-color: rgba(31, 42, 68, 0.48);
-}
-
-/* Shared sections */
-.sg-section {
-  padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem);
-  border-bottom: 1px solid var(--line);
-}
-
-.sg-section-title {
-  width: min(100%, 68rem);
-  margin: 0 auto clamp(1.8rem, 4vw, 3rem);
-}
-
-.sg-section-title::before,
-.sg-section-eyebrow::before {
-  content: "";
-  display: block;
-  width: 2.2rem;
-  height: 2px;
-  margin-bottom: 0.85rem;
-  background: rgba(31, 42, 68, 0.48);
-}
-
-.sg-section-title p,
-.sg-section-eyebrow {
-  margin: 0 0 0.65rem;
-  color: #566274;
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.sg-section-title h2 {
-  max-width: 14em;
   color: var(--ink);
-  font-size: clamp(1.8rem, 4vw, 3.6rem);
-  line-height: 1.22;
-  word-break: keep-all;
 }
 
-.sg-section-lead {
-  max-width: 44rem;
-  margin: 1rem 0 0;
-  color: var(--muted);
-  font-size: clamp(1rem, 2vw, 1.14rem);
-  line-height: 1.8;
-  word-break: keep-all;
-}
-
-/* Hero */
 .sg-hero {
-  min-height: calc(88svh - 3.85rem);
-  display: flex;
-  align-items: center;
-  padding: clamp(5rem, 10vw, 8rem) clamp(1rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
-  border-bottom: 1px solid var(--line);
+  min-height: calc(92vh - 105px);
+  display: grid;
+  place-items: center;
+  padding: 88px 24px 96px;
 }
 
 .sg-hero-inner {
-  width: min(100%, 68rem);
-  margin: 0 auto;
-}
-
-.sg-hero-kicker {
-  margin: 0 0 clamp(1.2rem, 3vw, 2.2rem);
-  color: var(--navy);
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.1rem, 2vw, 1.7rem);
+  width: min(100%, 880px);
+  text-align: center;
 }
 
 .sg-title-animation {
-  display: flex;
-  gap: 0.02em;
-  color: var(--ink);
-  font-size: clamp(5rem, 18vw, 13rem);
-  line-height: 0.9;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(76px, 16vw, 168px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
 }
 
 .sg-title-animation span {
   display: inline-block;
   opacity: 0;
-  transform: translateY(0.32em);
-  animation: title-rise 760ms cubic-bezier(0.2, 0.72, 0.2, 1) forwards;
+  transform: translateY(26px);
+  animation: titleIn 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: var(--delay);
 }
 
-@keyframes title-rise {
+.sg-hero p {
+  margin: 26px 0 0;
+  color: var(--muted);
+  font-size: clamp(18px, 2.5vw, 24px);
+}
+
+.sg-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 42px;
+}
+
+.sg-hero-actions a,
+.sg-issue-actions a,
+.sg-issue-actions button,
+.sg-submit-form button,
+.sg-issue-end a {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 1px solid var(--deep);
+  background: var(--deep);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sg-hero-actions a + a,
+.sg-issue-actions button,
+.sg-issue-actions a,
+.sg-issue-end a {
+  background: transparent;
+  color: var(--deep);
+}
+
+.sg-section {
+  width: min(100% - 40px, 1120px);
+  margin: 0 auto;
+  padding: 104px 0;
+}
+
+.sg-section-title {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 44px;
+}
+
+.sg-section-title > p:first-child,
+.sg-section-eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--latin), var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+
+.sg-section-title h2 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(30px, 4.8vw, 54px);
+  font-weight: 700;
+  line-height: 1.22;
+}
+
+.sg-section-lead {
+  max-width: 640px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.sg-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+  gap: 32px;
+  align-items: stretch;
+}
+
+.sg-featured-issue {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.86fr) minmax(280px, 1.14fr);
+  gap: 28px;
+  align-items: center;
+  padding: clamp(22px, 4vw, 42px);
+  border: 1px solid var(--line);
+  background: var(--card);
+  text-decoration: none;
+}
+
+.sg-featured-copy p {
+  margin: 0 0 18px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+}
+
+.sg-featured-copy h3 {
+  margin: 0 0 28px;
+  font-family: var(--latin), var(--serif);
+  font-size: 48px;
+  font-weight: 500;
+}
+
+.sg-featured-copy dl,
+.sg-issue-cover dl {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 32px;
+}
+
+.sg-featured-copy dl div,
+.sg-issue-cover dl div {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+dt {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 12px;
+}
+
+dd {
+  margin: 0;
+}
+
+.sg-featured-copy span {
+  font-family: var(--sans);
+  font-size: 14px;
+}
+
+.sg-cover-card {
+  min-height: 430px;
+  display: grid;
+  align-content: space-between;
+  padding: clamp(26px, 5vw, 48px);
+  border: 1px solid rgba(17, 17, 17, 0.22);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.34), transparent 45%),
+    #efe8db;
+  box-shadow: 0 18px 40px rgba(17, 17, 17, 0.09);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.sg-featured-issue:hover .sg-cover-card {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 46px rgba(17, 17, 17, 0.12);
+}
+
+.sg-cover-card span,
+.sg-cover-card small {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.sg-cover-card strong {
+  align-self: center;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.15;
+}
+
+.sg-countdown {
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  background: rgba(251, 248, 241, 0.62);
+}
+
+.sg-countdown p,
+.sg-countdown small {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.sg-countdown > strong {
+  font-family: var(--latin), var(--serif);
+  font-size: clamp(56px, 8vw, 88px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.sg-countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sg-countdown-grid div {
+  padding: 14px 10px;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+
+.sg-countdown-grid b {
+  display: block;
+  font-family: var(--latin), var(--serif);
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.sg-countdown-grid span {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 12px;
+}
+
+.sg-issue-shelf,
+.sg-contributor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.sg-shelf-card,
+.sg-contributor-card {
+  min-height: 180px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  background: rgba(251, 248, 241, 0.46);
+  text-decoration: none;
+}
+
+.sg-shelf-card {
+  display: grid;
+  gap: 12px;
+}
+
+.sg-shelf-card span,
+.sg-shelf-card em,
+.sg-contributor-card span {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-style: normal;
+}
+
+.sg-shelf-card strong,
+.sg-contributor-card h3 {
+  font-size: 26px;
+}
+
+.sg-contributor-card h3,
+.sg-contributor-card p {
+  margin: 10px 0 0;
+}
+
+.sg-contributor-card p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.sg-about {
+  padding-bottom: 130px;
+}
+
+.sg-submit {
+  width: min(100% - 40px, 980px);
+}
+
+.sg-submit.is-compact {
+  padding-top: 60px;
+}
+
+.sg-submit-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: clamp(22px, 4vw, 42px);
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.sg-submit-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.sg-submit-form label:has(textarea),
+.sg-submit-form button,
+.sg-form-status,
+.sg-form-error {
+  grid-column: 1 / -1;
+}
+
+.sg-submit-form input,
+.sg-submit-form textarea {
+  width: 100%;
+  border: 1px solid rgba(17, 17, 17, 0.22);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 14px 15px;
+  font-family: var(--serif);
+  font-size: 16px;
+}
+
+.sg-submit-form textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.sg-form-status,
+.sg-form-error {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+}
+
+.sg-form-error {
+  color: #7b2020;
+}
+
+.sg-issue-page {
+  padding-bottom: 60px;
+}
+
+.sg-reading-shell {
+  width: min(100% - 40px, 820px);
+  margin: 0 auto;
+}
+
+.sg-issue-cover {
+  padding: 110px 0 80px;
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+}
+
+.sg-issue-cover p {
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+.sg-issue-cover h1 {
+  margin: 0 0 52px;
+  font-size: clamp(42px, 8vw, 82px);
+  line-height: 1.12;
+}
+
+.sg-issue-actions {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.sg-issue-actions .sg-reading-shell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sg-issue-actions button.is-active {
+  background: var(--deep);
+  color: var(--paper);
+}
+
+.sg-literary-section {
+  padding: 92px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.sg-section-eyebrow {
+  margin-bottom: 26px;
+}
+
+.sg-text-body {
+  color: #171717;
+  font-size: clamp(17px, 2vw, 19px);
+  line-height: 2.05;
+}
+
+.sg-text-body.is-prose p {
+  margin: 0 0 1.2em;
+  white-space: pre-line;
+}
+
+.sg-text-body.is-poem {
+  white-space: pre-wrap;
+  line-height: 2.15;
+}
+
+.sg-editor-notes {
+  display: grid;
+  gap: 82px;
+}
+
+.sg-editor-notes h2,
+.sg-toc-part h2,
+.sg-work-part > h2 {
+  margin: 0 0 26px;
+  font-size: 28px;
+}
+
+.sg-toc-part {
+  margin-top: 42px;
+}
+
+.sg-toc-part ol {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: work;
+}
+
+.sg-toc-part li {
+  counter-increment: work;
+}
+
+.sg-toc-part a {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  min-height: 46px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.sg-toc-part a::before {
+  content: counter(work, decimal-leading-zero);
+  color: var(--muted);
+  font-family: var(--latin), var(--serif);
+}
+
+.sg-toc-part span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.sg-work-part {
+  padding-top: 36px;
+}
+
+.sg-work {
+  scroll-margin-top: 130px;
+  padding: 72px 0;
+  border-top: 1px solid var(--line);
+}
+
+.sg-work header {
+  margin-bottom: 34px;
+}
+
+.sg-work header span {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.sg-work h3 {
+  margin: 8px 0 4px;
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.25;
+}
+
+.sg-work header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.sg-work.is-prose .sg-text-body {
+  max-width: 760px;
+}
+
+.sg-comments {
+  background: rgba(251, 248, 241, 0.45);
+}
+
+.sg-issue-end {
+  width: min(100% - 40px, 820px);
+  margin: 40px auto 0;
+  display: flex;
+  gap: 10px;
+}
+
+.sg-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  padding: 54px max(24px, calc((100vw - 1120px) / 2));
+  border-top: 1px solid var(--line);
+  background: #eee6d8;
+}
+
+.sg-footer-logo {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.26em;
+  text-decoration: none;
+}
+
+.sg-footer p,
+.sg-footer address {
+  margin: 0;
+  color: var(--muted);
+  font-style: normal;
+}
+
+.sg-footer nav {
+  display: grid;
+  gap: 8px;
+}
+
+.sg-footer nav a,
+.sg-footer address a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.sg-footer address span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+@keyframes titleIn {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.sg-hero-copy {
-  max-width: 42rem;
-  margin: clamp(1.4rem, 4vw, 2.4rem) 0 1.6rem;
-  color: var(--muted);
-  font-size: clamp(1.05rem, 2vw, 1.24rem);
-  line-height: 1.82;
-  word-break: keep-all;
-}
-
-.sg-hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-.sg-hero-actions a,
-.sg-submit-form button {
-  min-height: 2.85rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.82rem 1.18rem;
-  color: #fffdf7;
-  background: var(--navy);
-  border: 1px solid var(--navy);
-  border-radius: 999px;
-  font-weight: 700;
-  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
-}
-
-.sg-hero-actions a:nth-child(2) {
-  color: var(--navy);
-  background: rgba(255, 253, 247, 0.66);
-  border-color: rgba(31, 42, 68, 0.24);
-}
-
-.sg-hero-actions a:hover,
-.sg-submit-form button:hover {
-  transform: translateY(-2px);
-}
-
-/* Issue shelf */
-.sg-current-issue {
-  background: linear-gradient(180deg, #fbf7ec 0%, #f0e8d8 100%);
-}
-
-.sg-issue-showcase {
-  width: min(100%, 68rem);
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
-  gap: clamp(1rem, 4vw, 3rem);
-  align-items: stretch;
-  margin: 0 auto;
-}
-
-.sg-issue-card {
-  display: grid;
-  grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
-  gap: clamp(1.2rem, 4vw, 2.4rem);
-  align-items: center;
-  min-width: 0;
-  padding: clamp(1rem, 3vw, 1.6rem);
-  background: rgba(255, 253, 247, 0.72);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  transition: transform 160ms ease, border-color 160ms ease;
-}
-
-.sg-issue-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(31, 42, 68, 0.34);
-}
-
-.sg-book-cover {
-  aspect-ratio: 0.72;
-  min-height: 20rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(1.1rem, 3vw, 1.5rem);
-  color: #fffdf7;
-  background:
-    linear-gradient(180deg, rgba(31, 42, 68, 0.82), rgba(23, 23, 23, 0.94)),
-    var(--navy);
-  border: 1px solid rgba(255, 253, 247, 0.28);
-  box-shadow: inset 0 0 0 1px rgba(255, 253, 247, 0.1);
-}
-
-.sg-book-cover span,
-.sg-book-cover small {
-  color: rgba(255, 253, 247, 0.78);
-  font-size: 0.9rem;
-}
-
-.sg-book-cover strong {
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(2.6rem, 7vw, 4.6rem);
-  font-weight: 600;
-  line-height: 1;
-}
-
-.sg-issue-card-copy {
-  min-width: 0;
-}
-
-.sg-issue-card-copy span,
-.sg-quiet-panel span,
-.sg-countdown span {
-  color: #687181;
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.sg-issue-card-copy h3 {
-  margin: 0.5rem 0 0.9rem;
-  color: var(--ink);
-  font-size: clamp(1.5rem, 3vw, 2.55rem);
-  line-height: 1.22;
-  word-break: keep-all;
-}
-
-.sg-issue-card-copy p,
-.sg-quiet-panel p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.8;
-  word-break: keep-all;
-}
-
-.sg-issue-card-copy em {
-  display: inline-flex;
-  margin-top: 1.2rem;
-  color: var(--navy);
-  font-style: normal;
-  font-weight: 700;
-  border-bottom: 1px solid rgba(31, 42, 68, 0.32);
-}
-
-.sg-issue-notes {
-  display: grid;
-  gap: 1rem;
-}
-
-.sg-quiet-panel,
-.sg-countdown {
-  padding: clamp(1.1rem, 3vw, 1.5rem);
-  background: rgba(255, 253, 247, 0.62);
-  border: 1px solid var(--line);
-}
-
-/* Countdown */
-.sg-countdown {
-  display: grid;
-  gap: 1.2rem;
-}
-
-.sg-countdown strong {
-  display: block;
-  margin-top: 0.2rem;
-  color: var(--navy);
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 600;
-}
-
-.sg-countdown-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.55rem;
-}
-
-.sg-countdown-unit {
-  min-width: 0;
-  display: grid;
-  place-items: center;
-  padding: 0.8rem 0.35rem;
-  background: rgba(250, 246, 235, 0.92);
-  border: 1px solid rgba(178, 147, 84, 0.34);
-}
-
-.sg-countdown-unit b {
-  color: var(--ink);
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.18rem, 3vw, 1.7rem);
-  font-weight: 600;
-  line-height: 1.1;
-}
-
-.sg-countdown-unit small {
-  margin-top: 0.25rem;
-  color: #7b6a45;
-  font-size: 0.72rem;
-}
-
-/* Issue reading page */
-.sg-issue-page {
-  background: #fbf7ec;
-}
-
-.sg-reading-shell {
-  width: min(100%, 58rem);
-  margin: 0 auto;
-}
-
-.sg-issue-cover {
-  min-height: calc(92svh - 3.85rem);
-  display: flex;
-  align-items: center;
-  padding: clamp(4rem, 9vw, 7rem) clamp(1rem, 5vw, 4rem);
-  background:
-    linear-gradient(135deg, #fbf7ec 0%, #f0e7d5 100%);
-  border-bottom: 1px solid var(--line);
-}
-
-.sg-cover-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.58fr);
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: end;
-}
-
-.sg-cover-type span,
-.sg-cover-type p {
-  color: #566274;
-  font-weight: 700;
-}
-
-.sg-cover-type h1 {
-  margin: 0.35rem 0 0.75rem;
-  color: var(--ink);
-  font-size: clamp(5rem, 18vw, 12rem);
-  line-height: 0.9;
-}
-
-.sg-cover-type strong {
-  display: block;
-  margin-top: clamp(2rem, 6vw, 4rem);
-  color: var(--navy);
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
-}
-
-.sg-cover-meta {
-  padding-top: 1.2rem;
-  border-top: 1px solid rgba(31, 42, 68, 0.22);
-}
-
-.sg-cover-meta p {
-  margin: 0 0 1.2rem;
-  color: var(--muted);
-  line-height: 1.8;
-  word-break: keep-all;
-}
-
-.sg-cover-meta a {
-  color: var(--navy);
-  font-weight: 700;
-  border-bottom: 1px solid rgba(31, 42, 68, 0.34);
-}
-
-.sg-literary-section {
-  padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem);
-  background: rgba(255, 253, 247, 0.56);
-  border-bottom: 1px solid var(--line);
-  scroll-margin-top: 5rem;
-}
-
-.sg-editorial {
-  color: #282a29;
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.08rem, 2.2vw, 1.32rem);
-  line-height: 2.05;
-  word-break: keep-all;
-}
-
-.sg-editorial p:not(.sg-section-eyebrow) {
-  max-width: 42rem;
-  margin: 0 0 1.3rem;
-}
-
-.sg-contents {
-  background: #f2ead9;
-}
-
-.sg-contents ol {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid rgba(31, 42, 68, 0.22);
-}
-
-.sg-contents li {
-  border-bottom: 1px solid rgba(31, 42, 68, 0.16);
-}
-
-.sg-contents a {
-  min-height: 3.8rem;
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) minmax(5rem, auto);
-  gap: 1rem;
-  align-items: center;
-  padding: 0.9rem 0;
-}
-
-.sg-contents span {
-  color: #7b6a45;
-  font-size: 0.88rem;
-}
-
-.sg-contents strong {
-  min-width: 0;
-  color: var(--ink);
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.08rem, 2vw, 1.32rem);
-  font-weight: 600;
-  word-break: keep-all;
-}
-
-.sg-contents em {
-  color: #566274;
-  font-style: normal;
-  text-align: right;
-}
-
-/* Poem articles */
-.sg-works {
-  background: #fbf7ec;
-}
-
-.sg-poem-article {
-  padding: clamp(3.2rem, 8vw, 6rem) 0;
-  border-top: 1px solid rgba(31, 42, 68, 0.18);
-  scroll-margin-top: 5rem;
-}
-
-.sg-poem-article:first-of-type {
-  border-top: 0;
-}
-
-.sg-poem-article header {
-  margin-bottom: clamp(2rem, 5vw, 3.4rem);
-}
-
-.sg-poem-article header span {
-  color: #687181;
-  font-size: 0.84rem;
-  font-weight: 700;
-}
-
-.sg-poem-article h2 {
-  margin: 0.45rem 0 0.35rem;
-  color: var(--ink);
-  font-size: clamp(2.4rem, 8vw, 5.6rem);
-  line-height: 1.08;
-  word-break: keep-all;
-}
-
-.sg-poem-article header p {
-  margin: 0;
-  color: var(--navy);
-  font-weight: 700;
-}
-
-.sg-poem-body {
-  max-width: 42rem;
-  color: #202020;
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.08rem, 2.2vw, 1.34rem);
-  line-height: 2.12;
-  word-break: keep-all;
-}
-
-.sg-poem-body p {
-  margin: 0;
-}
-
-.sg-poem-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin-top: clamp(2rem, 5vw, 3.4rem);
-}
-
-.sg-poem-actions button {
-  min-height: 2.45rem;
-  padding: 0.55rem 0.9rem;
-  color: var(--navy);
-  background: rgba(255, 253, 247, 0.7);
-  border: 1px solid rgba(31, 42, 68, 0.18);
-  border-radius: 999px;
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-}
-
-.sg-poem-actions button:hover {
-  transform: translateY(-2px);
-  border-color: rgba(31, 42, 68, 0.38);
-}
-
-.sg-poem-actions button.is-active {
-  color: #fffdf7;
-  background: var(--navy);
-  border-color: var(--navy);
-}
-
-.sg-comments {
-  display: grid;
-  grid-template-columns: 12rem minmax(0, 1fr);
-  gap: 1rem;
-  margin-top: 1.2rem;
-  padding: 1rem;
-  background: rgba(255, 253, 247, 0.8);
-  border: 1px solid var(--line);
-}
-
-.sg-comments p,
-.sg-comments span {
-  margin: 0;
-  color: #687181;
-  font-size: 0.82rem;
-}
-
-.sg-comments strong {
-  display: block;
-  margin: 0.3rem 0;
-  font-family: "Noto Serif KR", Georgia, serif;
-}
-
-#disqus_thread {
-  min-height: 10rem;
-}
-
-/* Poet cards */
-.sg-poets-page {
-  min-height: calc(100svh - 3.85rem);
-  background: linear-gradient(180deg, #f6f4ee 0%, #fbf7ec 100%);
-}
-
-.sg-poet-group {
-  width: min(100%, 68rem);
-  margin: 0 auto;
-}
-
-.sg-poet-group + .sg-poet-group {
-  margin-top: clamp(3rem, 7vw, 5.5rem);
-  padding-top: clamp(2.5rem, 6vw, 4rem);
-  border-top: 1px solid var(--line);
-}
-
-.sg-poet-group-title {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.sg-poet-group-title span {
-  color: #687181;
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.sg-poet-group-title h3 {
-  color: var(--navy);
-  font-size: clamp(1.6rem, 3vw, 2.5rem);
-}
-
-.sg-poet-grid {
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.6rem);
-}
-
-.sg-poet-grid-editors,
-.sg-poet-grid-contributors {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.sg-poet-card {
-  min-width: 0;
-  min-height: 13rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: clamp(1.2rem, 3vw, 1.8rem);
-  background: rgba(255, 253, 247, 0.72);
-  border: 1px solid var(--line);
-  transition: transform 160ms ease, border-color 160ms ease;
-}
-
-.sg-poet-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(31, 42, 68, 0.34);
-}
-
-.sg-poet-meta {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.sg-poet-meta h3 {
-  color: var(--ink);
-  font-size: clamp(1.7rem, 3vw, 2.35rem);
-  line-height: 1.18;
-}
-
-.sg-poet-meta span {
-  color: #687181;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.sg-poet-card blockquote {
-  margin: 0;
-  padding-left: 1rem;
-  color: var(--navy);
-  border-left: 1px solid rgba(31, 42, 68, 0.32);
-  font-family: "Noto Serif KR", Georgia, serif;
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
-.sg-poet-card-more {
-  width: fit-content;
-  margin-top: auto;
-  color: var(--navy);
-  font-size: 0.88rem;
-  font-weight: 700;
-  border-bottom: 1px solid rgba(31, 42, 68, 0.32);
-}
-
-.sg-poet-detail {
-  min-height: calc(100svh - 3.85rem);
-  background: #fbf7ec;
-}
-
-.sg-poet-detail-shell {
-  width: min(100%, 52rem);
-  margin: 0 auto;
-}
-
-.sg-breadcrumb {
-  display: flex;
-  gap: 0.55rem;
-  margin-bottom: clamp(2rem, 5vw, 3rem);
-  color: #687181;
-}
-
-.sg-breadcrumb a,
-.sg-back-link {
-  color: var(--navy);
-  border-bottom: 1px solid rgba(31, 42, 68, 0.3);
-}
-
-.sg-poet-detail-head {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.sg-poet-detail-head h1,
-.sg-poet-detail-shell > h1 {
-  color: var(--ink);
-  font-size: clamp(3rem, 10vw, 7rem);
-  line-height: 1.05;
-}
-
-.sg-poet-detail-head p {
-  margin: 0;
-  color: #687181;
-  font-weight: 700;
-}
-
-.sg-back-link {
-  width: fit-content;
-}
-
-.sg-poet-detail-divider {
-  height: 1px;
-  margin: clamp(2rem, 5vw, 3.4rem) 0;
-  background: var(--line);
-}
-
-.sg-poet-detail-bio {
-  max-width: 46rem;
-  margin: 0;
-  color: #282a29;
-  font-size: clamp(1.04rem, 2vw, 1.2rem);
-  line-height: 2;
-  white-space: pre-line;
-  word-break: keep-all;
-}
-
-.sg-poet-detail-quote {
-  max-width: 46rem;
-  margin: clamp(2rem, 5vw, 3rem) 0 0;
-  padding: 1.2rem 0 0 1.2rem;
-  color: var(--navy);
-  border-top: 1px solid var(--line);
-  border-left: 1px solid rgba(31, 42, 68, 0.32);
-  font-family: "Noto Serif KR", Georgia, serif;
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  line-height: 1.7;
-}
-
-/* Submit and about */
-.sg-submit {
-  background: linear-gradient(180deg, #f1eadc 0%, #e8dfcf 100%);
-}
-
-.sg-submit-form {
-  width: min(100%, 44rem);
-  display: grid;
-  gap: 1rem;
-  margin: 0 auto;
-  padding: clamp(1rem, 3vw, 1.5rem);
-  background: rgba(255, 253, 247, 0.78);
-  border: 1px solid var(--line);
-}
-
-.sg-submit-form label {
-  display: grid;
-  gap: 0.45rem;
-  color: #414640;
-  font-size: 0.92rem;
-  font-weight: 700;
-}
-
-.sg-submit-form input,
-.sg-submit-form textarea {
-  width: 100%;
-  padding: 0.9rem 0.95rem;
-  color: var(--ink);
-  background: #fffdf7;
-  border: 1px solid rgba(31, 42, 68, 0.2);
-  outline: none;
-  resize: vertical;
-}
-
-.sg-submit-form input:focus,
-.sg-submit-form textarea:focus {
-  border-color: var(--navy);
-  box-shadow: 0 0 0 3px rgba(31, 42, 68, 0.1);
-}
-
-.sg-submit-form button:disabled {
-  cursor: wait;
-  opacity: 0.68;
-}
-
-.sg-form-status,
-.sg-form-error {
-  margin: 0;
-  font-size: 0.88rem;
-  line-height: 1.6;
-}
-
-.sg-form-status {
-  color: var(--navy);
-}
-
-.sg-form-error {
-  color: #8f2434;
-}
-
-.sg-about {
-  background: linear-gradient(180deg, #eef0ed 0%, #fbf7ec 100%);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .sg-poet-grid-editors,
-  .sg-poet-grid-contributors {
+@media (max-width: 900px) {
+  .sg-main-grid,
+  .sg-featured-issue,
+  .sg-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-featured-issue {
+    align-items: stretch;
+  }
+
+  .sg-cover-card {
+    min-height: 360px;
+  }
+
+  .sg-issue-shelf,
+  .sg-contributor-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 720px) {
-  .sg-issue-showcase,
-  .sg-cover-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+    line-height: 1.8;
   }
 
   .sg-header {
-    align-items: flex-start;
-    gap: 0.75rem;
+    padding: 14px 16px 10px;
   }
 
   .sg-header nav {
-    max-width: 14rem;
-    row-gap: 0.25rem;
-    font-size: 0.86rem;
+    gap: 4px 14px;
+  }
+
+  .sg-header nav a {
+    min-height: 38px;
+    font-size: 13px;
   }
 
   .sg-hero {
-    min-height: 78svh;
+    min-height: 78vh;
+    padding: 66px 20px 72px;
   }
 
-  .sg-title-animation {
-    font-size: clamp(4.6rem, 26vw, 7.6rem);
+  .sg-hero-actions,
+  .sg-issue-end {
+    flex-direction: column;
   }
 
-  .sg-hero-actions {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .sg-issue-card {
-    grid-template-columns: 1fr;
-    box-shadow: none;
-  }
-
-  .sg-book-cover {
-    width: min(100%, 16rem);
-    min-height: 19rem;
-  }
-
-  .sg-countdown-grid {
-    gap: 0.4rem;
-  }
-
-  .sg-countdown-unit {
-    padding: 0.7rem 0.2rem;
-  }
-
-  .sg-contents a {
-    grid-template-columns: 2.2rem minmax(0, 1fr);
-    gap: 0.7rem;
-  }
-
-  .sg-contents em {
-    grid-column: 2;
-    text-align: left;
-  }
-
-  .sg-comments {
-    grid-template-columns: 1fr;
-  }
-
-  .sg-poet-group-title {
-    display: grid;
-    align-items: start;
-  }
-
-  .sg-poet-grid-editors,
-  .sg-poet-grid-contributors {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 430px) {
-  .sg-header {
-    display: grid;
-  }
-
-  .sg-header nav {
-    max-width: none;
-    justify-content: space-between;
+  .sg-hero-actions a,
+  .sg-issue-end a {
+    width: 100%;
   }
 
   .sg-section,
+  .sg-submit,
+  .sg-reading-shell,
+  .sg-issue-end {
+    width: min(100% - 28px, 1120px);
+  }
+
+  .sg-section {
+    padding: 76px 0;
+  }
+
+  .sg-featured-issue,
+  .sg-submit-form {
+    padding: 20px;
+  }
+
+  .sg-featured-copy p {
+    font-size: 22px;
+  }
+
+  .sg-featured-copy h3 {
+    font-size: 38px;
+  }
+
+  .sg-cover-card {
+    min-height: 330px;
+  }
+
+  .sg-countdown-grid,
+  .sg-issue-shelf,
+  .sg-contributor-grid,
+  .sg-submit-form {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-literary-section {
+    padding: 72px 0;
+  }
+
+  .sg-toc-part a {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+
+  .sg-toc-part span {
+    grid-column: 2;
+  }
+
+  .sg-work {
+    padding: 58px 0;
+  }
+
+  .sg-text-body {
+    font-size: 17px;
+    line-height: 2.08;
+  }
+}
+
+@media print {
+  .sg-header,
+  .sg-hero,
+  .sg-issue-actions,
+  .sg-submit,
+  .sg-issue-end,
+  .sg-footer {
+    display: none;
+  }
+
+  body {
+    background: white;
+  }
+
   .sg-literary-section,
   .sg-issue-cover {
-    padding-inline: 0.95rem;
-  }
-
-  .sg-cover-type h1 {
-    font-size: clamp(4.3rem, 30vw, 6.5rem);
-  }
-
-  .sg-poem-article h2 {
-    font-size: clamp(2.2rem, 16vw, 4rem);
-  }
-
-  .sg-poem-body,
-  .sg-editorial {
-    line-height: 2;
+    border: 0;
+    padding: 28px 0;
   }
 }
