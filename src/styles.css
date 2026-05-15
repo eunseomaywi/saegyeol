@@ -912,6 +912,7 @@ dd {
 
 .sg-footer nav a,
 .sg-footer address a {
+  display: block;
   color: var(--ink);
   text-decoration: none;
 }

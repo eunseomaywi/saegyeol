@@ -37,20 +37,20 @@ const submissionDepartments = [
 
 const contributors = [
   {
-    id: "park-minjun",
-    name: "박민준",
-    role: "편집위원",
-    line: "“나는 머무는 시인이다.”",
-    description:
-      "무언가를 설명하려다 그만둔 자리에서 저의 시는 시작되었습니다. 감정에 이름을 붙이는 순간, 그것이 본래의 색을 잃고 조금씩 다른 것이 되어버린다는 느낌을 지울 수 없었습니다. 그래서 서둘러 결론을 내리는 대신, 그 막막한 상태 그대로 ‘머무는 쪽’을 택했습니다. 이제 저는 <새결>이라는 공간에서, 당신의 문장 곁에 가만히 닻을 내리려 합니다.",
-  },
-  {
     id: "yang-junhee",
     name: "양준희",
     role: "편집위원",
     line: "“나는 성찰하는 시인이다.”",
     description:
       "해가 뜨고 지는 순간 사이, 우리는 저마다의 흔적을 남깁니다. 저에게 문학이란, 시린 발자국을 글자로 아로새기며 인간적인 성장을 기록하기 위한 하나의 일기입니다. 이제 저는 <새결>이라는 이름 아래, 지나온 시간을 성찰하고 아직 쓰이지 않은 문장들을 노래하고자 합니다.",
+  },
+  {
+    id: "park-minjun",
+    name: "박민준",
+    role: "편집위원",
+    line: "“나는 머무는 시인이다.”",
+    description:
+      "무언가를 설명하려다 그만둔 자리에서 저의 시는 시작되었습니다. 감정에 이름을 붙이는 순간, 그것이 본래의 색을 잃고 조금씩 다른 것이 되어버린다는 느낌을 지울 수 없었습니다. 그래서 서둘러 결론을 내리는 대신, 그 막막한 상태 그대로 ‘머무는 쪽’을 택했습니다. 이제 저는 <새결>이라는 공간에서, 당신의 문장 곁에 가만히 닻을 내리려 합니다.",
   },
   {
     id: "yoon-somin",
@@ -1275,14 +1275,13 @@ function IssuePage() {
     <main>
       <article className="sg-issue-page" id="issue-document">
         <IssueCover issue={issue} />
-        <IssueActions issue={issue} onToggleComments={() => setCommentsOpen((value) => !value)} commentsOpen={commentsOpen} />
         <TextSection id="preface" eyebrow="창간사" body={issue.preface} />
         <TableOfContents issue={issue} />
         <IssueActions issue={issue} onToggleComments={() => setCommentsOpen((value) => !value)} commentsOpen={commentsOpen} />
         {commentsOpen && <IssueComments issue={issue} />}
         <nav className="sg-issue-end" aria-label="호수 하단 이동">
           <Link to="/">처음으로</Link>
-          <Link to={`/issue/${issue.slug}`}>목차로</Link>
+          <a href="#contents" onClick={(event) => scrollToAnchor(event, "contents")}>목차로</a>
         </nav>
       </article>
     </main>
@@ -1622,7 +1621,8 @@ function Footer() {
       </nav>
       <address>
         <span>연락처</span>
-        <a href="mailto:editor@saegyeol.kr">editor@saegyeol.kr</a>
+        <a href="tel:01032859833">010-3285-9833</a>
+        <a href="mailto:jhyang@thesaegyeol.com">jhyang@thesaegyeol.com</a>
       </address>
     </footer>
   );
