@@ -27,9 +27,7 @@ body {
   margin: 0;
   min-width: 0;
   overflow-x: hidden;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.018) 1px, transparent 1px) 0 0 / 100% 34px,
-    var(--bg);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--serif);
   font-size: 17px;
@@ -76,7 +74,7 @@ textarea {
   justify-content: center;
   gap: 10px 28px;
   width: 100%;
-  max-width: 720px;
+  max-width: 620px;
   padding-top: 10px;
   border-top: 1px solid var(--line);
 }
@@ -89,6 +87,7 @@ textarea {
   font-family: var(--serif);
   font-size: 14px;
   text-decoration: none;
+  transition: color 120ms ease;
 }
 
 .sg-header nav a:hover,
@@ -97,7 +96,7 @@ textarea {
 }
 
 .sg-hero {
-  min-height: calc(92vh - 105px);
+  min-height: calc(76vh - 105px);
   display: grid;
   place-items: center;
   padding: 88px 24px 96px;
@@ -122,7 +121,7 @@ textarea {
   display: inline-block;
   opacity: 0;
   transform: translateY(26px);
-  animation: titleIn 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: titleIn 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: var(--delay);
 }
 
@@ -278,8 +277,8 @@ dd {
 }
 
 .sg-featured-issue:hover .sg-cover-card {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 46px rgba(17, 17, 17, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px rgba(17, 17, 17, 0.11);
 }
 
 .sg-cover-card span,
@@ -358,6 +357,13 @@ dd {
   border: 1px solid var(--line);
   background: rgba(251, 248, 241, 0.46);
   text-decoration: none;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.sg-shelf-card:hover,
+.sg-contributor-card:hover {
+  border-color: rgba(16, 25, 38, 0.34);
+  background: rgba(251, 248, 241, 0.64);
 }
 
 .sg-shelf-card {
@@ -606,6 +612,76 @@ dd {
   max-width: 760px;
 }
 
+.sg-work-page {
+  min-height: 80vh;
+}
+
+.sg-work-reader {
+  padding: 94px 0 76px;
+}
+
+.sg-work-reader .sg-reading-shell {
+  max-width: 760px;
+}
+
+.sg-work-kicker {
+  margin: 0 0 42px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.sg-work-reader header {
+  margin-bottom: 54px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sg-work-reader header span {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.sg-work-reader h1 {
+  margin: 10px 0 8px;
+  font-size: clamp(34px, 6vw, 58px);
+  line-height: 1.22;
+}
+
+.sg-work-reader header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.sg-work-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-top: 82px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.sg-work-nav a,
+.sg-work-nav span {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  color: var(--deep);
+  font-family: var(--sans);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.sg-work-nav span {
+  border-color: transparent;
+}
+
 .sg-comments {
   background: rgba(251, 248, 241, 0.45);
 }
@@ -756,6 +832,18 @@ dd {
   .sg-contributor-grid,
   .sg-submit-form {
     grid-template-columns: 1fr;
+  }
+
+  .sg-work-reader {
+    padding: 70px 0 58px;
+  }
+
+  .sg-work-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-work-nav span {
+    display: none;
   }
 
   .sg-literary-section {

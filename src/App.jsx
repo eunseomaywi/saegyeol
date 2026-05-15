@@ -9,38 +9,38 @@ const contributors = [
   {
     id: "yang-junhee",
     name: "양준희",
-    role: "편집위원",
-    description: "성찰하는 시선으로 삶의 흔적과 문장의 방향을 살핍니다.",
+    role: "편집위원 · 시 분과",
+    description: "나는 성찰하는 시인이다. 해가 뜨고 지는 순간 사이, 우리는 저마다의 흔적을 남깁니다.",
   },
   {
     id: "park-minjun",
     name: "박민준",
-    role: "편집위원",
-    description: "감정에 이름을 붙이기 전의 막막한 상태에 오래 머무릅니다.",
+    role: "편집위원 · 시 분과",
+    description: "나는 머무는 시인이다. 감정에 이름을 붙이기 전의 막막한 상태에 오래 머무릅니다.",
   },
   {
     id: "kim-yohwan",
     name: "김요환",
-    role: "기고가",
-    description: "시의 가벼움과 단순함이 독자에게 닿는 방식을 실험합니다.",
+    role: "기고가 · 시 분과",
+    description: "나는 단순한 시인이다. 시가 가볍게 즐기고 쉽게 공감할 수 있는 매체가 될 수 있다고 믿습니다.",
   },
   {
     id: "park-dohyeon",
     name: "박도현",
-    role: "기고가",
-    description: "금이 간 자리에도 빛과 의미가 남는다고 믿는 문장을 씁니다.",
+    role: "기고가 · 시 분과",
+    description: "나는 곁을 밝히는 시인이다. 금이 간 자리에도 빛과 의미가 남는다고 믿는 문장을 씁니다.",
   },
   {
     id: "yoon-somin",
     name: "윤소민",
     role: "기고가",
-    description: "흉터와 파열의 감각을 정직한 언어로 만져 봅니다.",
+    description: "나는 흉터를 문장으로 빚는 작가다. 흉터와 파열의 감각을 정직한 언어로 만져 봅니다.",
   },
   {
     id: "park-minjae",
     name: "박민재",
-    role: "기고가",
-    description: "꿈과 불확실함 사이에서 아직 피어나지 않은 시간을 기록합니다.",
+    role: "기고가 · 시 분과",
+    description: "나는 기다리는 시인이다. 꿈과 불확실함 사이에서 아직 피어나지 않은 시간을 기록합니다.",
   },
 ];
 
@@ -1044,37 +1044,18 @@ const issues = [
 
 const navItems = [
   { label: "처음", href: "/" },
-  { label: "시화", href: "/issue/2026-05-gaehwa#works" },
-  { label: "문예지모음", href: "/#previous-issues" },
-  { label: "편집", href: "/#contributors" },
+  { label: "문예지모음", href: "/issues" },
   { label: "투고안내", href: "/submit" },
   { label: "소개", href: "/about" },
+  { label: "필진", href: "/poets" },
 ];
-
-const routeSectionMap = {
-  "/submit": "submit",
-  "/about": "about",
-};
 
 function App() {
   const location = useLocation();
 
   useEffect(() => {
-    const targetId = location.hash ? location.hash.slice(1) : routeSectionMap[location.pathname];
-    if (!targetId) {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      return;
-    }
-
-    const frame = window.requestAnimationFrame(() => {
-      window.setTimeout(() => {
-        const target = document.getElementById(targetId);
-        if (target) scrollToElement(target);
-      }, 80);
-    });
-
-    return () => window.cancelAnimationFrame(frame);
-  }, [location.pathname, location.hash]);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
   return (
     <>
@@ -1082,10 +1063,12 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/issue/:slug" element={<IssuePage />} />
-        <Route path="/poems" element={<Navigate to="/issue/2026-05-gaehwa#contents" replace />} />
+        <Route path="/issue/:slug/work/:workId" element={<WorkPage />} />
+        <Route path="/issues" element={<IssuesPage />} />
+        <Route path="/poems" element={<Navigate to="/issue/2026-05-gaehwa" replace />} />
         <Route path="/poets" element={<PoetsPage />} />
-        <Route path="/submit" element={<HomePage />} />
-        <Route path="/about" element={<HomePage />} />
+        <Route path="/submit" element={<SubmitPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />
@@ -1094,12 +1077,18 @@ function App() {
 }
 
 function Header() {
+  const handleNavClick = () => {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    });
+  };
+
   return (
     <header className="sg-header">
-      <Link className="sg-header-brand" to="/" aria-label="새결 처음으로">새결</Link>
+      <Link className="sg-header-brand" to="/" aria-label="새결 처음으로" onClick={handleNavClick}>새결</Link>
       <nav aria-label="주요 메뉴">
         {navItems.map((item) => (
-          <NavLink key={item.href} to={item.href} end={item.href === "/"}>
+          <NavLink key={item.href} to={item.href} end={item.href === "/"} onClick={handleNavClick}>
             {item.label}
           </NavLink>
         ))}
@@ -1132,18 +1121,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="sg-section" id="previous-issues">
-        <SectionTitle eyebrow="문예지모음" title="지난 호" />
-        <div className="sg-issue-shelf">
-          {issues.map((issue) => (
-            <IssueShelfCard key={issue.id} issue={issue} />
-          ))}
-        </div>
-      </section>
-
-      <ContributorsSection />
       <SubmitSection />
-      <AboutSection />
     </main>
   );
 }
@@ -1250,33 +1228,12 @@ function IssuePage() {
         <IssueCover issue={issue} />
         <IssueActions issue={issue} onToggleComments={() => setCommentsOpen((value) => !value)} commentsOpen={commentsOpen} />
         <TextSection id="preface" eyebrow="창간사" body={issue.preface} />
-        <section id="editor-notes" className="sg-literary-section">
-          <div className="sg-reading-shell">
-            <p className="sg-section-eyebrow">편집위원의 말</p>
-            <div className="sg-editor-notes">
-              {issue.editorNotes.map((note) => (
-                <article key={note.author}>
-                  <h2>{note.author} 편집위원의 말</h2>
-                  <TextBody text={note.body} variant="prose" />
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
         <TableOfContents issue={issue} />
-        <section id="works" className="sg-literary-section sg-works">
-          <div className="sg-reading-shell">
-            {issue.sections.map((section) => (
-              <IssuePart key={section.title} section={section} />
-            ))}
-          </div>
-        </section>
         <IssueActions issue={issue} onToggleComments={() => setCommentsOpen((value) => !value)} commentsOpen={commentsOpen} />
         {commentsOpen && <IssueComments issue={issue} />}
-        <SubmitSection compact />
         <nav className="sg-issue-end" aria-label="호수 하단 이동">
           <Link to="/">처음으로</Link>
-          <a href="#contents">목차로</a>
+          <Link to={`/issue/${issue.slug}`}>목차로</Link>
         </nav>
       </article>
     </main>
@@ -1340,20 +1297,45 @@ function TextSection({ id, eyebrow, body }) {
 }
 
 function TableOfContents({ issue }) {
+  const editorEntries = issue.editorNotes.map((note) => ({
+    id: `editor-note-${slugify(note.author)}`,
+    title: "편집위원의 말",
+    author: note.author,
+  }));
+
   return (
     <section id="contents" className="sg-literary-section sg-contents">
       <div className="sg-reading-shell">
         <p className="sg-section-eyebrow">목차</p>
+        <div className="sg-toc-part">
+          <h2>여는 글</h2>
+          <ol>
+            <li>
+              <a href="#preface" onClick={(event) => scrollToAnchor(event, "preface")}>
+                <strong>창간사</strong>
+                <span>새결 일동</span>
+              </a>
+            </li>
+            {editorEntries.map((entry) => (
+              <li key={entry.id}>
+                <Link to={`/issue/${issue.slug}/work/${entry.id}`}>
+                  <strong>{entry.title}</strong>
+                  <span>{entry.author}</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
         {issue.sections.map((section) => (
           <div key={section.title} className="sg-toc-part">
             <h2>{section.title}</h2>
             <ol>
               {section.works.map((work) => (
                 <li key={work.id}>
-                  <a href={`#${work.id}`}>
+                  <Link to={`/issue/${issue.slug}/work/${work.id}`}>
                     <strong>{work.title}</strong>
                     <span>{work.author}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ol>
@@ -1364,14 +1346,37 @@ function TableOfContents({ issue }) {
   );
 }
 
-function IssuePart({ section }) {
+function WorkPage() {
+  const { slug, workId } = useParams();
+  const issue = issues.find((item) => item.slug === slug);
+  const entries = issue ? getIssueEntries(issue) : [];
+  const index = entries.findIndex((entry) => entry.id === workId);
+  const work = entries[index];
+
+  if (!issue || !work) return <Navigate to={issue ? `/issue/${issue.slug}` : "/"} replace />;
+
+  const previous = entries[index - 1];
+  const next = entries[index + 1];
+
   return (
-    <section className="sg-work-part">
-      <h2>{section.title}</h2>
-      {section.works.map((work) => (
-        <WorkArticle key={work.id} work={work} />
-      ))}
-    </section>
+    <main className="sg-work-page">
+      <article className={`sg-work-reader ${work.type === "시" ? "is-poem" : "is-prose"}`}>
+        <div className="sg-reading-shell">
+          <p className="sg-work-kicker">{issue.displayTitle}</p>
+          <header>
+            <span>{work.type}</span>
+            <h1>{work.title}</h1>
+            <p>{work.author}</p>
+          </header>
+          <TextBody text={work.body} variant={work.type === "시" ? "poem" : "prose"} />
+          <nav className="sg-work-nav" aria-label="작품 이동">
+            {previous ? <Link to={`/issue/${issue.slug}/work/${previous.id}`}>이전 작품</Link> : <span />}
+            <Link to={`/issue/${issue.slug}`}>목차로 돌아가기</Link>
+            {next ? <Link to={`/issue/${issue.slug}/work/${next.id}`}>다음 작품</Link> : <span />}
+          </nav>
+        </div>
+      </article>
+    </main>
   );
 }
 
@@ -1413,6 +1418,23 @@ function ContributorsSection() {
   );
 }
 
+function IssuesPage() {
+  return (
+    <main>
+      <section className="sg-section" id="previous-issues">
+        <SectionTitle eyebrow="문예지모음" title="새결의 발행 목록">
+          <p className="sg-section-lead">호수를 고르면 표지, 창간사, 목차, 작품 순서로 한 권의 문예지를 읽을 수 있습니다.</p>
+        </SectionTitle>
+        <div className="sg-issue-shelf">
+          {issues.map((issue) => (
+            <IssueShelfCard key={issue.id} issue={issue} />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function PoetsPage() {
   return (
     <main>
@@ -1420,6 +1442,22 @@ function PoetsPage() {
         <SectionTitle eyebrow="필진" title="새결을 이루는 목소리" />
         <ContributorGrid />
       </section>
+    </main>
+  );
+}
+
+function SubmitPage() {
+  return (
+    <main>
+      <SubmitSection />
+    </main>
+  );
+}
+
+function AboutPage() {
+  return (
+    <main>
+      <AboutSection />
     </main>
   );
 }
@@ -1485,10 +1523,10 @@ function Footer() {
       </div>
       <nav aria-label="하단 메뉴">
         <Link to="/">처음</Link>
-        <Link to="/issue/2026-05-gaehwa#works">시화</Link>
-        <Link to="/#previous-issues">문예지모음</Link>
-        <Link to="/#contributors">편집</Link>
+        <Link to="/issues">문예지모음</Link>
         <Link to="/submit">투고안내</Link>
+        <Link to="/about">소개</Link>
+        <Link to="/poets">필진</Link>
       </nav>
       <address>
         <span>연락처</span>
@@ -1547,6 +1585,36 @@ function getRemainingTime(targetDate) {
 
 function formatDate(value) {
   return new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "long", day: "numeric" }).format(new Date(`${value}T00:00:00+09:00`));
+}
+
+function getIssueEntries(issue) {
+  const editorEntries = issue.editorNotes.map((note) => ({
+    id: `editor-note-${slugify(note.author)}`,
+    title: "편집위원의 말",
+    author: note.author,
+    type: "편집위원의 말",
+    body: note.body,
+  }));
+
+  return [
+    ...editorEntries,
+    ...issue.sections.flatMap((section) => section.works.map((work) => ({ ...work, sectionTitle: section.title }))),
+  ];
+}
+
+function slugify(value) {
+  const known = {
+    박민준: "park-minjun",
+    양준희: "yang-junhee",
+  };
+
+  return known[value] || value.toLowerCase().replace(/\s+/g, "-");
+}
+
+function scrollToAnchor(event, id) {
+  event.preventDefault();
+  const target = document.getElementById(id);
+  if (target) scrollToElement(target);
 }
 
 function scrollToElement(element) {
