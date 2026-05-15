@@ -40,6 +40,7 @@ const contributors = [
     id: "yang-junhee",
     name: "양준희",
     role: "편집위원",
+    image: "/contributors/junhui.jpg",
     line: "“나는 성찰하는 시인이다.”",
     description:
       "해가 뜨고 지는 순간 사이, 우리는 저마다의 흔적을 남깁니다. 저에게 문학이란, 시린 발자국을 글자로 아로새기며 인간적인 성장을 기록하기 위한 하나의 일기입니다. 이제 저는 <새결>이라는 이름 아래, 지나온 시간을 성찰하고 아직 쓰이지 않은 문장들을 노래하고자 합니다.",
@@ -48,6 +49,7 @@ const contributors = [
     id: "park-minjun",
     name: "박민준",
     role: "편집위원",
+    image: "/contributors/minjoon.jpg",
     line: "“나는 머무는 시인이다.”",
     description:
       "무언가를 설명하려다 그만둔 자리에서 저의 시는 시작되었습니다. 감정에 이름을 붙이는 순간, 그것이 본래의 색을 잃고 조금씩 다른 것이 되어버린다는 느낌을 지울 수 없었습니다. 그래서 서둘러 결론을 내리는 대신, 그 막막한 상태 그대로 ‘머무는 쪽’을 택했습니다. 이제 저는 <새결>이라는 공간에서, 당신의 문장 곁에 가만히 닻을 내리려 합니다.",
@@ -56,6 +58,7 @@ const contributors = [
     id: "yoon-somin",
     name: "윤소민",
     role: "기고가",
+    image: "/contributors/somin.jpg",
     line: "“나는 흉터를 문장으로 빚는 작가다.”",
     description:
       "모두가 완성된 문장에 마침표를 찍고 돌아설 때, 저는 그 문장이 시작되기 전의 시간들을 서성여 봅니다. 그렇게 저의 흉터를 정직하게 만져 내려간 기록들이, 언젠가 여러분의 숨겨진 상처 위로도 다정한 무늬처럼 겹쳐지길 바랍니다.",
@@ -64,6 +67,7 @@ const contributors = [
     id: "park-dohyeon",
     name: "박도현",
     role: "기고가",
+    image: "/contributors/dohyun.jpg",
     line: "“나는 결을 밝히는 시인이다.”",
     description:
       "곰이 간 자리에 조용히 금(金)을 입혀 새로운 의미를 덧칠해 내는 일, 그것이 제가 글을 쓰는 이유입니다. 이제 저는 <새결>이라는 공간에서, 당신 안의 아름다움에 조용히 금빛 문장을 더하고자 합니다.",
@@ -72,6 +76,7 @@ const contributors = [
     id: "sim-yul",
     name: "심율",
     role: "기고가",
+    image: "/contributors/yul.jpg",
     line: "“나는 탐구하는 작가다.”",
     description:
       "글을 쓰기 시작한 지 아직 일 년이 다 안 되었습니다. 미숙한 단어들을 문장으로 옮기다 보면, 대개 두어 가지 이상의 상이한 결론들을 맞이합니다. 하여, 나의 글은 초고입니다. 초고로 남겨두기로 하였습니다.",
@@ -80,6 +85,7 @@ const contributors = [
     id: "kim-yohwan",
     name: "김요환",
     role: "기고가",
+    image: "/contributors/yohan.jpg",
     line: "“나는 단순한 시인이다.”",
     description:
       "시가 가볍게 즐기고 쉽게 공감할 수 있는 매체가 될 수 있다고 믿습니다. 이제 저는 <새결>이라는 이름 아래, 기교를 대신한 유머와 단순성이 어떤 파장을 일으킬 수 있는지 증명하고자 합니다.",
@@ -88,6 +94,7 @@ const contributors = [
     id: "park-minjae",
     name: "박민재",
     role: "기고가",
+    image: "/contributors/minjae.jpg",
     line: "시 분과 기고가",
     description: "<새결> 창간호에 시를 기고합니다.",
   },
@@ -1515,6 +1522,7 @@ function ContributorGrid() {
     <div className="sg-contributor-grid">
       {contributors.map((person) => (
         <article className="sg-contributor-card" key={person.id}>
+          <img className="sg-contributor-image" src={person.image} alt={`${person.name} 사진`} loading="lazy" />
           <header>
             <h3>{person.name}</h3>
             <span>{person.role}</span>

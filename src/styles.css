@@ -372,6 +372,16 @@ dd {
   border-left-color: var(--deep);
 }
 
+.sg-contributor-image {
+  display: block;
+  width: min(100%, 148px);
+  aspect-ratio: 4 / 5;
+  margin-bottom: 24px;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
 .sg-shelf-card {
   display: grid;
   gap: 12px;
