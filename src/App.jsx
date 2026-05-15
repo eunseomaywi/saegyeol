@@ -1711,17 +1711,32 @@ function IssueComments({ issue }) {
 }
 
 function getRemainingTime(targetDate) {
-  const diff = new Date(targetDate).getTime() - Date.now();
+  const target = new Date(targetDate);
+  const now = new Date();
+  const diff = target.getTime() - now.getTime();
   const safeDiff = Math.max(0, diff);
   const totalSeconds = Math.floor(safeDiff / 1000);
+  const calendarDays = Math.max(0, Math.round((getKoreaDateStart(target) - getKoreaDateStart(now)) / 86400000));
 
   return {
     isPast: diff <= 0,
-    days: Math.floor(totalSeconds / 86400),
+    days: calendarDays,
     hours: Math.floor((totalSeconds % 86400) / 3600),
     minutes: Math.floor((totalSeconds % 3600) / 60),
     seconds: totalSeconds % 60,
   };
+}
+
+function getKoreaDateStart(date) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return Date.UTC(Number(values.year), Number(values.month) - 1, Number(values.day));
 }
 
 function formatDate(value) {
