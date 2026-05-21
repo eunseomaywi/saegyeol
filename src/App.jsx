@@ -1136,7 +1136,7 @@ const issues = [
 ];
 
 const navItems = [
-  { label: "처음", href: "/" },
+  { label: "이번 호", href: "/issue/2026-05-gaehwa" },
   { label: "문예지모음", href: "/issues" },
   { label: "필진", href: "/poets" },
   { label: "투고안내", href: "/submit" },
@@ -1172,12 +1172,11 @@ function App() {
 function Header() {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-  const isHome = location.pathname === "/";
-  const isVisible = !isHome || isScrolled;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const updateScrolled = () => {
-      setIsScrolled(window.scrollY > 96);
+      setIsScrolled(window.scrollY > 24);
     };
 
     updateScrolled();
@@ -1186,24 +1185,42 @@ function Header() {
     return () => {
       window.removeEventListener("scroll", updateScrolled);
     };
+  }, []);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
   }, [location.pathname]);
 
   const handleNavClick = () => {
+    setIsMenuOpen(false);
     window.requestAnimationFrame(() => {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     });
   };
 
   return (
-    <header className={`sg-header ${isVisible ? "is-visible" : ""}`} aria-hidden={!isVisible}>
-      <nav aria-label="주요 메뉴">
+    <header className={`sg-header ${isScrolled ? "scrolled" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
+      <Link className="sg-header-logo nav-logo" to="/" aria-label="새결 처음으로" onClick={handleNavClick}>
+        새결
+      </Link>
+      <button
+        className="sg-menu-toggle"
+        type="button"
+        aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
+        aria-expanded={isMenuOpen}
+        aria-controls="primary-navigation"
+        onClick={() => setIsMenuOpen((open) => !open)}
+      >
+        <span />
+        <span />
+      </button>
+      <nav id="primary-navigation" className="sg-primary-nav nav" aria-label="주요 메뉴">
         {navItems.map((item) => (
           <NavLink
             key={item.href}
             to={item.href}
             end={item.href === "/"}
             onClick={handleNavClick}
-            tabIndex={isVisible ? undefined : -1}
           >
             {item.label}
           </NavLink>
