@@ -1138,9 +1138,9 @@ const issues = [
 const navItems = [
   { label: "처음", href: "/" },
   { label: "문예지모음", href: "/issues" },
+  { label: "필진", href: "/poets" },
   { label: "투고안내", href: "/submit" },
   { label: "소개", href: "/about" },
-  { label: "필진", href: "/poets" },
 ];
 
 function App() {
@@ -1170,6 +1170,24 @@ function App() {
 }
 
 function Header() {
+  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const isHome = location.pathname === "/";
+  const isVisible = !isHome || isScrolled;
+
+  useEffect(() => {
+    const updateScrolled = () => {
+      setIsScrolled(window.scrollY > 96);
+    };
+
+    updateScrolled();
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrolled);
+    };
+  }, [location.pathname]);
+
   const handleNavClick = () => {
     window.requestAnimationFrame(() => {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -1177,11 +1195,16 @@ function Header() {
   };
 
   return (
-    <header className="sg-header">
-      <Link className="sg-header-brand" to="/" aria-label="새결 처음으로" onClick={handleNavClick}>새결</Link>
+    <header className={`sg-header ${isVisible ? "is-visible" : ""}`} aria-hidden={!isVisible}>
       <nav aria-label="주요 메뉴">
         {navItems.map((item) => (
-          <NavLink key={item.href} to={item.href} end={item.href === "/"} onClick={handleNavClick}>
+          <NavLink
+            key={item.href}
+            to={item.href}
+            end={item.href === "/"}
+            onClick={handleNavClick}
+            tabIndex={isVisible ? undefined : -1}
+          >
             {item.label}
           </NavLink>
         ))}
