@@ -355,6 +355,15 @@ dd {
   gap: 22px;
 }
 
+.sg-editor-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 22px;
+}
+
+.sg-writer-grid {
+  align-items: start;
+}
+
 .sg-contributor-card {
   position: relative;
   min-height: 180px;

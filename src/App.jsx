@@ -100,6 +100,17 @@ const contributors = [
   },
 ];
 
+const getPoemCount = (issue) =>
+  issue.sections?.reduce(
+    (total, section) => total + section.works.filter((work) => work.type === "시").length,
+    0,
+  ) ?? 0;
+
+const getArchiveDescription = (issue) => {
+  const poemCount = getPoemCount(issue);
+  return poemCount ? `시 ${poemCount}편 · ${issue.label}` : issue.archiveDescription;
+};
+
 const issues = [
   {
     id: "saegyeol-2026-05-gaehwa",
@@ -110,7 +121,7 @@ const issues = [
     label: "창간호",
     archiveDate: "2026. 05",
     archiveTitle: "개화 開花",
-    archiveDescription: "시 7편 · 창간호",
+    archiveDescription: "창간호",
     badge: "현재 호",
     status: "active",
     publishDate: "2026-05-01",
@@ -1260,7 +1271,7 @@ function IssueShelfCard({ issue }) {
     <>
       <span className="sg-shelf-date">{issue.archiveDate}</span>
       <strong>{issue.archiveTitle}</strong>
-      <em>{issue.archiveDescription}</em>
+      <em>{getArchiveDescription(issue)}</em>
       {issue.badge && <b>{issue.badge}</b>}
     </>
   );
@@ -1559,20 +1570,36 @@ function AboutPage() {
 }
 
 function ContributorGrid() {
+  const editors = contributors.filter((person) => person.role === "편집위원");
+  const writers = contributors.filter((person) => person.role !== "편집위원");
+
   return (
-    <div className="sg-contributor-grid">
-      {contributors.map((person) => (
-        <article className="sg-contributor-card" key={person.id}>
-          <img className="sg-contributor-image" src={person.image} alt={`${person.name} 사진`} loading="lazy" />
-          <header>
-            <h3>{person.name}</h3>
-            <span>{person.role}</span>
-          </header>
-          <p className="sg-contributor-line">{person.line}</p>
-          <p>{person.description}</p>
-        </article>
-      ))}
-    </div>
+    <>
+      <div className="sg-contributor-grid sg-editor-grid">
+        {editors.map((person) => (
+          <ContributorCard person={person} key={person.id} />
+        ))}
+      </div>
+      <div className="sg-contributor-grid sg-writer-grid">
+        {writers.map((person) => (
+          <ContributorCard person={person} key={person.id} />
+        ))}
+      </div>
+    </>
+  );
+}
+
+function ContributorCard({ person }) {
+  return (
+    <article className="sg-contributor-card">
+      <img className="sg-contributor-image" src={person.image} alt={`${person.name} 사진`} loading="lazy" />
+      <header>
+        <h3>{person.name}</h3>
+        <span>{person.role}</span>
+      </header>
+      <p className="sg-contributor-line">{person.line}</p>
+      <p>{person.description}</p>
+    </article>
   );
 }
 
