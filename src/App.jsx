@@ -39,7 +39,7 @@ const contributors = [
   {
     id: "yang-junhee",
     name: "양준희",
-    role: "편집위원",
+    role: "편집위원장",
     image: "/contributors/junhui.jpg",
     line: "“나는 성찰하는 시인이다.”",
     description:
@@ -1570,28 +1570,33 @@ function AboutPage() {
 }
 
 function ContributorGrid() {
-  const editors = contributors.filter((person) => person.role === "편집위원");
-  const writers = contributors.filter((person) => person.role !== "편집위원");
+  const featuredEditors = contributors.filter((person) => ["yang-junhee", "park-minjun"].includes(person.id));
+  const writers = contributors.filter((person) => !["yang-junhee", "park-minjun"].includes(person.id));
 
   return (
     <>
-      <div className="sg-contributor-grid sg-editor-grid">
-        {editors.map((person) => (
-          <ContributorCard person={person} key={person.id} />
+      <div className="sg-contributor-grid sg-editor-grid" aria-label="편집진">
+        {featuredEditors.map((person) => (
+          <ContributorCard person={person} variant="featured" key={person.id} />
         ))}
       </div>
-      <div className="sg-contributor-grid sg-writer-grid">
-        {writers.map((person) => (
-          <ContributorCard person={person} key={person.id} />
-        ))}
-      </div>
+      <section className="sg-writer-section" aria-labelledby="writer-section-title">
+        <div className="sg-writer-section-title">
+          <h3 id="writer-section-title">기고자</h3>
+        </div>
+        <div className="sg-contributor-grid sg-writer-grid">
+          {writers.map((person) => (
+            <ContributorCard person={person} variant="compact" key={person.id} />
+          ))}
+        </div>
+      </section>
     </>
   );
 }
 
-function ContributorCard({ person }) {
+function ContributorCard({ person, variant = "compact" }) {
   return (
-    <article className="sg-contributor-card">
+    <article className={`sg-contributor-card is-${variant}`}>
       <img className="sg-contributor-image" src={person.image} alt={`${person.name} 사진`} loading="lazy" />
       <header>
         <h3>{person.name}</h3>
