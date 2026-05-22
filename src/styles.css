@@ -235,7 +235,7 @@ textarea {
   display: flex;
   justify-content: center;
   gap: 7px;
-  margin-top: 4px;
+  margin-top: -5px;
 }
 
 .sg-hero-actions a {
@@ -1489,7 +1489,7 @@ dd {
 
   .sg-hero-actions {
     flex-wrap: wrap;
-    margin-top: 3px;
+    margin-top: -4px;
   }
 
   .sg-hero-actions a {
