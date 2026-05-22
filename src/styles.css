@@ -155,10 +155,10 @@ textarea {
 
 .sg-hero {
   position: relative;
-  min-height: clamp(560px, 76svh, 720px);
+  min-height: 100svh;
   display: grid;
   place-items: center;
-  padding: 92px 24px 56px;
+  padding: 72px 24px 54px;
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(251, 248, 241, 0.68), rgba(246, 241, 232, 0.96)),
@@ -205,15 +205,16 @@ textarea {
   width: min(100%, 760px);
   display: grid;
   justify-items: center;
-  gap: 14px;
+  gap: 16px;
   text-align: center;
   animation: heroFade 620ms ease both;
+  transform: translateY(-1.5svh);
 }
 
 .sg-hero h1 {
-  margin: 2px 0 0;
+  margin: 0;
   font-family: var(--serif);
-  font-size: clamp(82px, 13vw, 154px);
+  font-size: clamp(88px, 13vw, 160px);
   font-weight: 800;
   line-height: 0.96;
   letter-spacing: 0.12em;
@@ -221,50 +222,33 @@ textarea {
   text-shadow: 0 10px 36px rgba(17, 17, 17, 0.075);
 }
 
-.sg-hero-kicker,
-.sg-hero-meta {
-  margin: 0;
-  color: var(--muted);
-  font-family: var(--latin), var(--serif);
-  font-size: 13px;
-  letter-spacing: 0.18em;
-}
-
 .sg-hero-lead {
   max-width: 620px;
-  margin: 2px 0 0;
-  color: #24221f;
-  font-size: clamp(20px, 2.4vw, 30px);
-  font-weight: 700;
-  line-height: 1.7;
-}
-
-.sg-hero-note {
-  max-width: 560px;
   margin: 0;
-  color: var(--muted);
-  font-size: clamp(14px, 1.5vw, 17px);
-  line-height: 1.9;
+  color: #24221f;
+  font-size: clamp(18px, 2vw, 25px);
+  font-weight: 700;
+  line-height: 1.55;
 }
 
 .sg-hero-actions {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 7px;
+  margin-top: 4px;
 }
 
 .sg-hero-actions a {
-  min-height: 32px;
+  min-height: 29px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 16px;
-  border: 1px solid rgba(16, 25, 38, 0.42);
+  padding: 5px 15px;
+  border: 1px solid rgba(16, 25, 38, 0.36);
   background: transparent;
   color: var(--deep);
   font-family: var(--serif);
-  font-size: 13px;
+  font-size: 12.5px;
   letter-spacing: 0.02em;
   line-height: 1;
   text-decoration: none;
@@ -274,8 +258,8 @@ textarea {
 }
 
 .sg-hero-actions a:hover {
-  border-color: var(--deep);
-  background: rgba(16, 25, 38, 0.04);
+  border-color: rgba(16, 25, 38, 0.68);
+  background: rgba(16, 25, 38, 0.032);
 }
 
 .sg-issue-actions a,
@@ -304,7 +288,7 @@ textarea {
 }
 
 .sg-current {
-  padding-top: 46px;
+  padding-top: 72px;
 }
 
 .sg-section {
@@ -1471,8 +1455,8 @@ dd {
   }
 
   .sg-hero {
-    min-height: clamp(470px, 68svh, 560px);
-    padding: 76px 18px 38px;
+    min-height: 100svh;
+    padding: 66px 18px 44px;
   }
 
   .sg-hero::after {
@@ -1488,45 +1472,34 @@ dd {
   }
 
   .sg-hero-inner {
-    gap: 11px;
+    gap: 13px;
+    transform: translateY(-1svh);
   }
 
   .sg-hero h1 {
-    font-size: clamp(64px, 22vw, 96px);
+    font-size: clamp(72px, 23vw, 108px);
     letter-spacing: 0.09em;
     text-indent: 0.09em;
   }
 
   .sg-hero-lead {
-    font-size: 19px;
-    line-height: 1.65;
-  }
-
-  .sg-hero-note {
-    max-width: 300px;
-    font-size: 13px;
-    line-height: 1.75;
-  }
-
-  .sg-hero-kicker,
-  .sg-hero-meta {
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    font-size: 18px;
+    line-height: 1.55;
   }
 
   .sg-hero-actions {
     flex-wrap: wrap;
-    margin-top: 8px;
+    margin-top: 3px;
   }
 
   .sg-hero-actions a {
-    min-height: 31px;
-    padding: 6px 13px;
-    font-size: 12.5px;
+    min-height: 28px;
+    padding: 5px 12px;
+    font-size: 12px;
   }
 
   .sg-current {
-    padding-top: 42px;
+    padding-top: 58px;
   }
 
   .sg-section,

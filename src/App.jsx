@@ -1237,15 +1237,10 @@ function HomePage() {
     <main>
       <section className="sg-hero" id="home">
         <div className="sg-hero-inner">
-          <p className="sg-hero-kicker">{currentIssue.displayTitle}</p>
           <h1>새결</h1>
           <p className="sg-hero-lead">
             문학의 새로운 호흡, 새결
           </p>
-          <p className="sg-hero-note">
-            아직 이름 붙지 않은 감각과 쓰이지 않은 문장들을 위한 독립 문예지
-          </p>
-          <p className="sg-hero-meta">{currentIssue.label} · {currentIssue.theme}</p>
           <div className="sg-hero-actions">
             <Link to={`/issue/${currentIssue.slug}`}>이번 호 읽기</Link>
             <Link to="/submit">투고 안내</Link>
