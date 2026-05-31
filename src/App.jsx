@@ -1147,17 +1147,49 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    let active = true;
+    let intervalId = null;
+    let correctiveIntervalId = null;
+
     if (location.hash) {
       const id = location.hash.substring(1);
-      setTimeout(() => {
+      let attempts = 0;
+      const maxAttempts = 50;
+      const intervalTime = 50;
+
+      intervalId = setInterval(() => {
+        attempts++;
         const element = document.getElementById(id);
         if (element) {
-          scrollToElement(element);
+          clearInterval(intervalId);
+          if (active) {
+            scrollToElement(element);
+
+            let correctiveAttempts = 0;
+            correctiveIntervalId = setInterval(() => {
+              correctiveAttempts++;
+              const el = document.getElementById(id);
+              if (el && active) {
+                scrollToElement(el);
+              }
+              if (correctiveAttempts >= 3) {
+                clearInterval(correctiveIntervalId);
+              }
+            }, 150);
+          }
+        } else if (attempts >= maxAttempts) {
+          clearInterval(intervalId);
         }
-      }, 100);
+      }, intervalTime);
     } else {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
+
+    return () => {
+      active = false;
+      if (intervalId) clearInterval(intervalId);
+      if (correctiveIntervalId) clearInterval(correctiveIntervalId);
+    };
   }, [location.pathname, location.hash]);
 
   return (
