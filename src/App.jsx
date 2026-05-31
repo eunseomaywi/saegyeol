@@ -1147,8 +1147,18 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, [location.pathname]);
+    if (location.hash) {
+      const id = location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          scrollToElement(element);
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  }, [location.pathname, location.hash]);
 
   return (
     <>
@@ -1382,7 +1392,7 @@ function IssuePage() {
         {commentsOpen && <IssueComments issue={issue} />}
         <nav className="sg-issue-end" aria-label="호수 하단 이동">
           <Link to="/">처음으로</Link>
-          <a href="#contents" onClick={(event) => scrollToAnchor(event, "contents")}>목차로</a>
+          <a href="#toc" onClick={(event) => scrollToAnchor(event, "toc")}>목차로</a>
         </nav>
       </article>
     </main>
@@ -1453,7 +1463,7 @@ function TableOfContents({ issue }) {
   }));
 
   return (
-    <section id="contents" className="sg-literary-section sg-contents">
+    <section id="toc" className="sg-literary-section sg-contents">
       <div className="sg-reading-shell">
         <p className="sg-section-eyebrow">목차</p>
         <div className="sg-toc-part">
@@ -1520,7 +1530,7 @@ function WorkPage() {
           <TextBody text={work.body} variant={work.type === "시" ? "poem" : "prose"} />
           <nav className="sg-work-nav" aria-label="작품 이동">
             {previous ? <Link to={`/issue/${issue.slug}/work/${previous.id}`}>이전 작품</Link> : <span />}
-            <Link to={`/issue/${issue.slug}`}>목차로 돌아가기</Link>
+            <Link to={`/issue/${issue.slug}#toc`}>목차로 돌아가기</Link>
             {next ? <Link to={`/issue/${issue.slug}/work/${next.id}`}>다음 작품</Link> : <span />}
           </nav>
         </div>
