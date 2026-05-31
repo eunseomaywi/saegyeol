@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { getNextPublishDate, formatPublishDate } from "./utils/date";
 
 const DISQUS_SHORTNAME = import.meta.env.VITE_DISQUS_SHORTNAME || "saegyeol";
 const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "mrejeyvg";
@@ -9,8 +10,8 @@ const submissionRules = [
   ["자격", "누구나 — 나이, 학력, 경력 무관"],
   ["분량", "시: 1편 이상 / 산문: 200자 원고지 기준 20매 이내"],
   ["형식", "한글(.hwp) 또는 워드(.docx)"],
-  ["마감", "매월 첫째 주 일요일 자정"],
-  ["발표", "매월 둘째 주 토요일 발행"],
+  ["마감", "매월 셋째 주 일요일 자정"],
+  ["발표", "매월 말일 발행"],
   ["연락", "010-3285-9833 (문자 우선)"],
 ];
 
@@ -18,7 +19,7 @@ const submissionDepartments = [
   {
     department: "시 분과",
     theme: "자유 (2호 주제 미정)",
-    deadline: "2025.06.01",
+    deadline: "매월 셋째 주 일요일",
     status: "모집 중",
   },
   {
@@ -1274,6 +1275,7 @@ function Header() {
 
 function HomePage() {
   const currentIssue = issues.find((issue) => issue.status === "active");
+  const nextPublishDate = getNextPublishDate();
 
   return (
     <main>
@@ -1294,7 +1296,7 @@ function HomePage() {
         <SectionTitle eyebrow="이번 호" title="2026년 5월호 · 개화" />
         <div className="sg-main-grid">
           <IssueCard issue={currentIssue} />
-          <CountdownTimer targetDate={currentIssue.nextIssueDate} />
+          <CountdownTimer targetDate={nextPublishDate} />
         </div>
       </section>
 
@@ -1402,7 +1404,7 @@ function CountdownTimer({ targetDate }) {
           </div>
         ))}
       </div>
-      <small>2026년 6월 13일 발행 예정</small>
+      <small>다음 호 발행 예정: {formatPublishDate(targetDate)}</small>
     </section>
   );
 }
