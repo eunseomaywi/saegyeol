@@ -112,6 +112,8 @@ const getArchiveDescription = (issue) => {
   return poemCount ? `시 ${poemCount}편 · ${issue.label}` : issue.archiveDescription;
 };
 
+const getIssueMonthLabel = (issue) => issue.title.replace(/호$/, "");
+
 const issues = [
   {
     id: "saegyeol-2026-06-yeoreum",
@@ -119,6 +121,7 @@ const issues = [
     title: "2026년 6월호",
     theme: "여름",
     displayTitle: "2026년 6월호 · 여름",
+    volume: "Vol.2",
     label: "통권 2호",
     archiveDate: "2026. 06",
     archiveTitle: "여름",
@@ -1076,6 +1079,7 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
     title: "2026년 5월호",
     theme: "개화",
     displayTitle: "2026년 5월호 · 개화",
+    volume: "Vol.1",
     label: "창간호",
     archiveDate: "2026. 05",
     archiveTitle: "개화 開花",
@@ -2243,7 +2247,7 @@ function HomePage() {
       </section>
 
       <section className="sg-section sg-current" id="current-issue">
-        <SectionTitle eyebrow="이번 호" title="2026년 5월호 · 개화" />
+        <SectionTitle eyebrow="이번 호" title={currentIssue.displayTitle} />
         <div className="sg-main-grid">
           <IssueCard issue={currentIssue} />
           <CountdownTimer targetDate={nextPublishDate} />
@@ -2280,7 +2284,7 @@ function IssueCard({ issue }) {
     <Link className="sg-featured-issue" to={`/issue/${issue.slug}`}>
       <div className="sg-featured-copy">
         <p>새결</p>
-        <h3>Vol.1</h3>
+        <h3>{issue.volume}</h3>
         <dl>
           <div>
             <dt>발행</dt>
@@ -2295,8 +2299,8 @@ function IssueCard({ issue }) {
       </div>
       <div className="sg-cover-card">
         <span>{issue.title}</span>
-        <strong>{issue.theme}(開花)</strong>
-        <small>새결 · {issue.label}</small>
+        <strong>{issue.theme}</strong>
+        <small>시 18편 · 비평문 3편 · {issue.label}</small>
       </div>
     </Link>
   );
@@ -2387,7 +2391,7 @@ function IssueCover({ issue }) {
   return (
     <header className="sg-issue-cover">
       <div className="sg-reading-shell">
-        <p>[2026년 5월]</p>
+        <p>[{getIssueMonthLabel(issue)}]</p>
         <h1>『새결』 {issue.label}</h1>
         <dl>
           <div>
