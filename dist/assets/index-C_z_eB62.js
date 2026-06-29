@@ -16,7 +16,748 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 but received
 
     ${JSON.stringify(e)}
-`;if(e===null||Yn(e)!==`object`)throw Error(t);if(Object.keys(e).length===1&&typeof e.advancedFraudSignals==`boolean`)return e;throw Error(t)},gr=!1,_r=function(){var e=[...arguments];gr=!0;var t=Date.now();return fr(hr).then(function(n){return pr(n,e,t)})},_r.setLoadParameters=function(e){if(gr&&hr){var t=mr(e);if(Object.keys(t).reduce(function(t,n){return t&&e[n]===hr?.[n]},!0))return}if(gr)throw Error(`You cannot change load parameters after calling loadStripe`);hr=mr(e)}})),yr=s(((e,t)=>{t.exports=(vr(),d(Jn))})),br=y(),xr=Kn(),Sr=qn();yr();function Cr(e){let{prefix:t,field:n,errors:r,...i}=e;if(r==null)return null;let a=n?r.getFieldErrors(n):r.getFormErrors();return a.length===0?null:w.createElement(`div`,{...i},t?`${t} `:null,a.map(e=>e.message).join(`, `))}var wr=(0,w.createContext)({elements:null});function Tr(){return(0,w.useContext)(wr)}var Er=w.createContext(null);function Dr(){return(0,w.useContext)(Er)??{client:(0,Sr.getDefaultClient)()}}var Or=`@formspree/react@3.0.0`;function kr(e,t={}){let n=Dr(),{client:r=n.client,extraData:i,origin:a}=t,{elements:o}=Tr(),{stripe:s}=r;return async function(t){let n=Ar(t)?jr(t):t;if(typeof i==`object`)for(let[e,t]of Object.entries(i)){let r;r=typeof t==`function`?await t():t,r!==void 0&&(0,Sr.appendExtraData)(n,e,r)}let c=o?.getElement(xr.CardElement),l=s&&c?()=>s.createPaymentMethod({type:`card`,card:c,billing_details:Mr(n)}):void 0;return r.submitForm(e,n,{endpoint:a,clientName:Or,createPaymentMethod:l})}}function Ar(e){return`preventDefault`in e&&typeof e.preventDefault==`function`}function jr(e){e.preventDefault();let t=e.currentTarget;if(t.tagName!=`FORM`)throw Error(`submit was triggered for a non-form element`);return new FormData(t)}function Mr(e){let t={address:Nr(e)};for(let n of[`name`,`email`,`phone`]){let r=e instanceof FormData?e.get(n):e[n];r&&typeof r==`string`&&(t[n]=r)}return t}function Nr(e){let t={};for(let[n,r]of[[`address_line1`,`line1`],[`address_line2`,`line2`],[`address_city`,`city`],[`address_country`,`country`],[`address_state`,`state`],[`address_postal_code`,`postal_code`]]){let i=e instanceof FormData?e.get(n):e[n];i&&typeof i==`string`&&(t[r]=i)}return t}function Pr(e,t={}){let[n,r]=(0,w.useState)(null),[i,a]=(0,w.useState)(null),[o,s]=(0,w.useState)(!1),[c,l]=(0,w.useState)(!1);if(!e)throw Error(`You must provide a form key or hashid (e.g. useForm("myForm") or useForm("123xyz")`);let u=kr(e,{client:t.client,extraData:t.data,origin:t.endpoint});return[{errors:n,result:i,submitting:o,succeeded:c},async function(e){s(!0);let t=await u(e);s(!1),(0,Sr.isSubmissionError)(t)?(r(t),l(!1)):(r(null),a(t),l(!0))},function(){r(null),a(null),s(!1),l(!1)}]}function Fr(e){let t=new Intl.DateTimeFormat(`en-US`,{timeZone:`Asia/Seoul`,year:`numeric`,month:`numeric`,day:`numeric`,hour:`numeric`,minute:`numeric`,second:`numeric`,hour12:!1}).formatToParts(e),n={};return t.forEach(e=>{n[e.type]=e.value}),{year:Number(n.year),month:Number(n.month),day:Number(n.day),hour:Number(n.hour),minute:Number(n.minute),second:Number(n.second)}}function Ir(e,t){return new Date(Date.UTC(e,t,0)).getUTCDate()}function Lr(e,t,n,r=0,i=0,a=0){let o=String(e).padStart(4,`0`),s=String(t).padStart(2,`0`),c=String(n).padStart(2,`0`),l=String(r).padStart(2,`0`),u=String(i).padStart(2,`0`),d=String(a).padStart(2,`0`);return new Date(`${o}-${s}-${c}T${l}:${u}:${d}+09:00`)}function Rr(e=new Date){let{year:t,month:n,day:r}=Fr(e),i=Lr(t,n,Ir(t,n),0,0,0);if(e.getTime()>=i.getTime()){let e=n+1,r=t;e>12&&(e=1,r+=1);let i=Ir(r,e);return Lr(r,e,i,0,0,0)}return i}function zr(e){let{year:t,month:n,day:r}=Fr(e);return`${t}년 ${n}월 ${r}일`}var Br=s((e=>{var t=Symbol.for(`react.transitional.element`),n=Symbol.for(`react.fragment`);function r(e,n,r){var i=null;if(r!==void 0&&(i=``+r),n.key!==void 0&&(i=``+n.key),`key`in n)for(var a in r={},n)a!==`key`&&(r[a]=n[a]);else r=n;return n=r.ref,{$$typeof:t,type:e,key:i,ref:n===void 0?null:n,props:r}}e.Fragment=n,e.jsx=r,e.jsxs=r})),I=s(((e,t)=>{t.exports=Br()}))(),Vr=`saegyeol`,Hr=`mrejeyvg`,Ur=[[`자격`,`누구나 — 나이, 학력, 경력 무관`],[`분량`,`시: 1편 이상 / 산문: 200자 원고지 기준 20매 이내`],[`형식`,`한글(.hwp) 또는 워드(.docx)`],[`마감`,`매월 셋째 주 일요일 자정`],[`발표`,`매월 말일 발행`],[`연락`,`010-3285-9833 (문자 우선)`]],Wr=[{department:`시 분과`,theme:`자유 (2호 주제 미정)`,deadline:`매월 셋째 주 일요일`,status:`모집 중`},{department:`소설 분과`,theme:`추후 공지`,deadline:`미정`,status:`준비 중`},{department:`산문 분과`,theme:`추후 공지`,deadline:`미정`,status:`준비 중`}],Gr=[{id:`yang-junhee`,name:`양준희`,role:`편집위원장`,image:`/contributors/junhui.jpg`,line:`“나는 성찰하는 시인이다.”`,description:`해가 뜨고 지는 순간 사이, 우리는 저마다의 흔적을 남깁니다. 저에게 문학이란, 시린 발자국을 글자로 아로새기며 인간적인 성장을 기록하기 위한 하나의 일기입니다. 이제 저는 <새결>이라는 이름 아래, 지나온 시간을 성찰하고 아직 쓰이지 않은 문장들을 노래하고자 합니다.`},{id:`park-minjun`,name:`박민준`,role:`편집위원`,image:`/contributors/minjoon.jpg`,line:`“나는 머무는 시인이다.”`,description:`무언가를 설명하려다 그만둔 자리에서 저의 시는 시작되었습니다. 감정에 이름을 붙이는 순간, 그것이 본래의 색을 잃고 조금씩 다른 것이 되어버린다는 느낌을 지울 수 없었습니다. 그래서 서둘러 결론을 내리는 대신, 그 막막한 상태 그대로 ‘머무는 쪽’을 택했습니다. 이제 저는 <새결>이라는 공간에서, 당신의 문장 곁에 가만히 닻을 내리려 합니다.`},{id:`yoon-somin`,name:`윤소민`,role:`기고가`,image:`/contributors/somin.jpg`,line:`“나는 흉터를 문장으로 빚는 작가다.”`,description:`모두가 완성된 문장에 마침표를 찍고 돌아설 때, 저는 그 문장이 시작되기 전의 시간들을 서성여 봅니다. 그렇게 저의 흉터를 정직하게 만져 내려간 기록들이, 언젠가 여러분의 숨겨진 상처 위로도 다정한 무늬처럼 겹쳐지길 바랍니다.`},{id:`park-dohyeon`,name:`박도현`,role:`기고가`,image:`/contributors/dohyun.jpg`,line:`“나는 결을 밝히는 시인이다.”`,description:`곰이 간 자리에 조용히 금(金)을 입혀 새로운 의미를 덧칠해 내는 일, 그것이 제가 글을 쓰는 이유입니다. 이제 저는 <새결>이라는 공간에서, 당신 안의 아름다움에 조용히 금빛 문장을 더하고자 합니다.`},{id:`sim-yul`,name:`심율`,role:`기고가`,image:`/contributors/yul.jpg`,line:`“나는 탐구하는 작가다.”`,description:`글을 쓰기 시작한 지 아직 일 년이 다 안 되었습니다. 미숙한 단어들을 문장으로 옮기다 보면, 대개 두어 가지 이상의 상이한 결론들을 맞이합니다. 하여, 나의 글은 초고입니다. 초고로 남겨두기로 하였습니다.`},{id:`kim-yohwan`,name:`김요환`,role:`기고가`,image:`/contributors/yohan.jpg`,line:`“나는 단순한 시인이다.”`,description:`시가 가볍게 즐기고 쉽게 공감할 수 있는 매체가 될 수 있다고 믿습니다. 이제 저는 <새결>이라는 이름 아래, 기교를 대신한 유머와 단순성이 어떤 파장을 일으킬 수 있는지 증명하고자 합니다.`},{id:`park-minjae`,name:`박민재`,role:`기고가`,image:`/contributors/minjae.jpg`,line:`시 분과 기고가`,description:`<새결> 창간호에 시를 기고합니다.`}],Kr=e=>e.sections?.reduce((e,t)=>e+t.works.filter(e=>e.type===`시`).length,0)??0,qr=e=>{let t=Kr(e);return t?`시 ${t}편 · ${e.label}`:e.archiveDescription},Jr=[{id:`saegyeol-2026-05-gaehwa`,slug:`2026-05-gaehwa`,title:`2026년 5월호`,theme:`개화`,displayTitle:`2026년 5월호 · 개화`,label:`창간호`,archiveDate:`2026. 05`,archiveTitle:`개화 開花`,archiveDescription:`창간호`,badge:`현재 호`,status:`active`,publishDate:`2026-05-01`,nextIssueDate:`2026-06-13T00:00:00+09:00`,pdfPath:`/saegyeol-2026-05-gaehwa.pdf`,editors:[`양준희`,`박민준`],preface:`어떤 말들은 너무 일찍 이름을 얻습니다.
+`;if(e===null||Yn(e)!==`object`)throw Error(t);if(Object.keys(e).length===1&&typeof e.advancedFraudSignals==`boolean`)return e;throw Error(t)},gr=!1,_r=function(){var e=[...arguments];gr=!0;var t=Date.now();return fr(hr).then(function(n){return pr(n,e,t)})},_r.setLoadParameters=function(e){if(gr&&hr){var t=mr(e);if(Object.keys(t).reduce(function(t,n){return t&&e[n]===hr?.[n]},!0))return}if(gr)throw Error(`You cannot change load parameters after calling loadStripe`);hr=mr(e)}})),yr=s(((e,t)=>{t.exports=(vr(),d(Jn))})),br=y(),xr=Kn(),Sr=qn();yr();function Cr(e){let{prefix:t,field:n,errors:r,...i}=e;if(r==null)return null;let a=n?r.getFieldErrors(n):r.getFormErrors();return a.length===0?null:w.createElement(`div`,{...i},t?`${t} `:null,a.map(e=>e.message).join(`, `))}var wr=(0,w.createContext)({elements:null});function Tr(){return(0,w.useContext)(wr)}var Er=w.createContext(null);function Dr(){return(0,w.useContext)(Er)??{client:(0,Sr.getDefaultClient)()}}var Or=`@formspree/react@3.0.0`;function kr(e,t={}){let n=Dr(),{client:r=n.client,extraData:i,origin:a}=t,{elements:o}=Tr(),{stripe:s}=r;return async function(t){let n=Ar(t)?jr(t):t;if(typeof i==`object`)for(let[e,t]of Object.entries(i)){let r;r=typeof t==`function`?await t():t,r!==void 0&&(0,Sr.appendExtraData)(n,e,r)}let c=o?.getElement(xr.CardElement),l=s&&c?()=>s.createPaymentMethod({type:`card`,card:c,billing_details:Mr(n)}):void 0;return r.submitForm(e,n,{endpoint:a,clientName:Or,createPaymentMethod:l})}}function Ar(e){return`preventDefault`in e&&typeof e.preventDefault==`function`}function jr(e){e.preventDefault();let t=e.currentTarget;if(t.tagName!=`FORM`)throw Error(`submit was triggered for a non-form element`);return new FormData(t)}function Mr(e){let t={address:Nr(e)};for(let n of[`name`,`email`,`phone`]){let r=e instanceof FormData?e.get(n):e[n];r&&typeof r==`string`&&(t[n]=r)}return t}function Nr(e){let t={};for(let[n,r]of[[`address_line1`,`line1`],[`address_line2`,`line2`],[`address_city`,`city`],[`address_country`,`country`],[`address_state`,`state`],[`address_postal_code`,`postal_code`]]){let i=e instanceof FormData?e.get(n):e[n];i&&typeof i==`string`&&(t[r]=i)}return t}function Pr(e,t={}){let[n,r]=(0,w.useState)(null),[i,a]=(0,w.useState)(null),[o,s]=(0,w.useState)(!1),[c,l]=(0,w.useState)(!1);if(!e)throw Error(`You must provide a form key or hashid (e.g. useForm("myForm") or useForm("123xyz")`);let u=kr(e,{client:t.client,extraData:t.data,origin:t.endpoint});return[{errors:n,result:i,submitting:o,succeeded:c},async function(e){s(!0);let t=await u(e);s(!1),(0,Sr.isSubmissionError)(t)?(r(t),l(!1)):(r(null),a(t),l(!0))},function(){r(null),a(null),s(!1),l(!1)}]}function Fr(e){let t=new Intl.DateTimeFormat(`en-US`,{timeZone:`Asia/Seoul`,year:`numeric`,month:`numeric`,day:`numeric`,hour:`numeric`,minute:`numeric`,second:`numeric`,hour12:!1}).formatToParts(e),n={};return t.forEach(e=>{n[e.type]=e.value}),{year:Number(n.year),month:Number(n.month),day:Number(n.day),hour:Number(n.hour),minute:Number(n.minute),second:Number(n.second)}}function Ir(e,t){return new Date(Date.UTC(e,t,0)).getUTCDate()}function Lr(e,t,n,r=0,i=0,a=0){let o=String(e).padStart(4,`0`),s=String(t).padStart(2,`0`),c=String(n).padStart(2,`0`),l=String(r).padStart(2,`0`),u=String(i).padStart(2,`0`),d=String(a).padStart(2,`0`);return new Date(`${o}-${s}-${c}T${l}:${u}:${d}+09:00`)}function Rr(e=new Date){let{year:t,month:n,day:r}=Fr(e),i=Lr(t,n,Ir(t,n),0,0,0);if(e.getTime()>=i.getTime()){let e=n+1,r=t;e>12&&(e=1,r+=1);let i=Ir(r,e);return Lr(r,e,i,0,0,0)}return i}function zr(e){let{year:t,month:n,day:r}=Fr(e);return`${t}년 ${n}월 ${r}일`}var Br=s((e=>{var t=Symbol.for(`react.transitional.element`),n=Symbol.for(`react.fragment`);function r(e,n,r){var i=null;if(r!==void 0&&(i=``+r),n.key!==void 0&&(i=``+n.key),`key`in n)for(var a in r={},n)a!==`key`&&(r[a]=n[a]);else r=n;return n=r.ref,{$$typeof:t,type:e,key:i,ref:n===void 0?null:n,props:r}}e.Fragment=n,e.jsx=r,e.jsxs=r})),I=s(((e,t)=>{t.exports=Br()}))(),Vr=`saegyeol`,Hr=`mrejeyvg`,Ur=[[`자격`,`누구나 — 나이, 학력, 경력 무관`],[`분량`,`시: 1편 이상 / 산문: 200자 원고지 기준 20매 이내`],[`형식`,`한글(.hwp) 또는 워드(.docx)`],[`마감`,`매월 셋째 주 일요일 자정`],[`발표`,`매월 말일 발행`],[`연락`,`010-3285-9833 (문자 우선)`]],Wr=[{department:`시 분과`,theme:`자유 (2호 주제 미정)`,deadline:`매월 셋째 주 일요일`,status:`모집 중`},{department:`소설 분과`,theme:`추후 공지`,deadline:`미정`,status:`준비 중`},{department:`산문 분과`,theme:`추후 공지`,deadline:`미정`,status:`준비 중`}],Gr=[{id:`yang-junhee`,name:`양준희`,role:`편집위원장`,image:`/contributors/junhui.jpg`,line:`“나는 성찰하는 시인이다.”`,description:`해가 뜨고 지는 순간 사이, 우리는 저마다의 흔적을 남깁니다. 저에게 문학이란, 시린 발자국을 글자로 아로새기며 인간적인 성장을 기록하기 위한 하나의 일기입니다. 이제 저는 <새결>이라는 이름 아래, 지나온 시간을 성찰하고 아직 쓰이지 않은 문장들을 노래하고자 합니다.`},{id:`park-minjun`,name:`박민준`,role:`편집위원`,image:`/contributors/minjoon.jpg`,line:`“나는 머무는 시인이다.”`,description:`무언가를 설명하려다 그만둔 자리에서 저의 시는 시작되었습니다. 감정에 이름을 붙이는 순간, 그것이 본래의 색을 잃고 조금씩 다른 것이 되어버린다는 느낌을 지울 수 없었습니다. 그래서 서둘러 결론을 내리는 대신, 그 막막한 상태 그대로 ‘머무는 쪽’을 택했습니다. 이제 저는 <새결>이라는 공간에서, 당신의 문장 곁에 가만히 닻을 내리려 합니다.`},{id:`yoon-somin`,name:`윤소민`,role:`기고가`,image:`/contributors/somin.jpg`,line:`“나는 흉터를 문장으로 빚는 작가다.”`,description:`모두가 완성된 문장에 마침표를 찍고 돌아설 때, 저는 그 문장이 시작되기 전의 시간들을 서성여 봅니다. 그렇게 저의 흉터를 정직하게 만져 내려간 기록들이, 언젠가 여러분의 숨겨진 상처 위로도 다정한 무늬처럼 겹쳐지길 바랍니다.`},{id:`park-dohyeon`,name:`박도현`,role:`기고가`,image:`/contributors/dohyun.jpg`,line:`“나는 결을 밝히는 시인이다.”`,description:`곰이 간 자리에 조용히 금(金)을 입혀 새로운 의미를 덧칠해 내는 일, 그것이 제가 글을 쓰는 이유입니다. 이제 저는 <새결>이라는 공간에서, 당신 안의 아름다움에 조용히 금빛 문장을 더하고자 합니다.`},{id:`sim-yul`,name:`심율`,role:`기고가`,image:`/contributors/yul.jpg`,line:`“나는 탐구하는 작가다.”`,description:`글을 쓰기 시작한 지 아직 일 년이 다 안 되었습니다. 미숙한 단어들을 문장으로 옮기다 보면, 대개 두어 가지 이상의 상이한 결론들을 맞이합니다. 하여, 나의 글은 초고입니다. 초고로 남겨두기로 하였습니다.`},{id:`kim-yohwan`,name:`김요환`,role:`기고가`,image:`/contributors/yohan.jpg`,line:`“나는 단순한 시인이다.”`,description:`시가 가볍게 즐기고 쉽게 공감할 수 있는 매체가 될 수 있다고 믿습니다. 이제 저는 <새결>이라는 이름 아래, 기교를 대신한 유머와 단순성이 어떤 파장을 일으킬 수 있는지 증명하고자 합니다.`},{id:`park-minjae`,name:`박민재`,role:`기고가`,image:`/contributors/minjae.jpg`,line:`시 분과 기고가`,description:`<새결> 창간호에 시를 기고합니다.`}],Kr=e=>e.sections?.reduce((e,t)=>e+t.works.filter(e=>e.type===`시`).length,0)??0,qr=e=>{let t=Kr(e);return t?`시 ${t}편 · ${e.label}`:e.archiveDescription},Jr=[{id:`saegyeol-2026-06-yeoreum`,slug:`2026-06-yeoreum`,title:`2026년 6월호`,theme:`여름`,displayTitle:`2026년 6월호 · 여름`,label:`통권 2호`,archiveDate:`2026. 06`,archiveTitle:`여름`,archiveDescription:`통권 2호`,badge:`현재 호`,status:`active`,publishDate:`2026-06-01`,nextIssueDate:`2026-07-13T00:00:00+09:00`,pdfPath:`/saegyeol-2026-06-yeoreum.pdf`,editors:[`양준희`,`박민준`],preface:`우리는 다시 묻습니다. 계절이 바뀌는 동안 우리의 문학은 어디로 흘러왔습니까?
+
+창간호를 통해 ‘개화’라는 파열의 기록을 세상에 툭 던져놓았던 《새결》이, 이제 막 초록이 들끓기 시작하는 유월의 한복판에 다시 섰습니다. 봄날의 피어남이 필연적인 찢어짐의 고통이었다면, 이번 6월호가 마주한 여름은 그 찢어진 살점 위로 돋아난 팽팽한 딱지와 굳은살의 기록입니다.
+
+이번 호는 유독 불균질하고 서늘한 온도의 문장들이 지면을 채우고 있습니다. 평생을 논두렁과 흙탕물 속에서 허위적거리며 자식의 단단한 디딤돌이 되어준 노부모의 투박한 고백이 있는가 하면, 평생 상복을 일상복처럼 입은 채 죽음을 삶 안으로 의연하게 끌어안았던 에밀리 디킨슨의 투명한 고독이 나란히 누워 있습니다.
+
+세련되게 다듬어지고 매끄럽게 소비되는 기성 문학의 문법을 거부합니다. 우리는 찬란하게 파산하고 눅눅하게 버텨내는 이 지면의 솔직함을 사랑합니다. 전통의 텍스처 위에 가장 모던한 파동을 새기겠다는 우리의 선언은 이 여름에도 멈추지 않습니다. 한 장 한 장 넘길 때마다 활자 너머로 번져오는 흙내음과 식지 않은 서늘한 재의 감촉을 온몸으로 감각해 보시길 바랍니다.
+
+새결 일동`,editorNotes:[{author:`박민준`,body:`처음 원고들을 넘겨받았을 때, 역설적이게도 가장 먼저 떠오른 감각은 숨이 조여오고 근육이 떨리기 시작하는 어떤 지점이었다.
+
+이번 호에 실린 텍스트들은 하나같이 안쪽에서 무섭게 마찰하고 있다. 세상이 온통 완벽한 평화와 다정함을 연기할 때 그 뒤편의 흉터를 응시하거나, 이미 끝난 계절을 등딱지처럼 계속 지고 가는 슬픔이 그랬다. 그것들은 모두 어떤 한계의 장력(張力)을 견뎌내고 있었다.
+
+문학의 아름다움은 질서가 안전하게 유지되는 동안이 아니라, 그 질서가 무게를 견디지 못하고 끝내 찢어질 때 태어난다고 믿는다. 규율을 설명하거나 정해진 방법을 따르는 것은 이미 많은 무게가 먼저 눌러놓은 자국을 답습하는 일일 뿐이다. 편집자로서 내가 이번 지면에서 하고 싶었던 일은, 이 불가능해 보이는 삶의 하중과 압력의 방향을 향해 온몸으로 밀려 들어간 문장들을 있는 그대로 펼쳐 보이는 것이었다.
+
+우리는 흔히 삶이 완벽해야만 사랑할 자격이 주어지리라 믿곤 한다. 그러나 이번 지면의 글들은 반대로 말한다. 완성되지 않았기에 무너지지 않았고, 불완전하기에 계속 나아갈 수 있다고. 금이 간 항아리가 새어 나가는 물줄기로 바닥에 그려놓는 삐뚤어진 무늬처럼, 이 글들은 완벽의 기준 바깥에서 저마다의 실존을 증명해 내고 있다. 잘 지탱하고 있는지는 모르겠다. 다만 억지로 봉합하지는 않았다.
+
+누군가는 영어로 된 시를 한국어 지면에 조판하는 것을 주저할 때, 우리는 유월이라는 운명적인 연결고리를 찾아내 원문과 번역을 나란히 배치하는 과감함을 택했다. 연루를 피하기 위해 거리를 유지하기보다, 비록 흔들릴지언정 그 조여오는 장력의 끝까지 몸을 밀어 넣는 방식을 지지한다.
+
+우리는 한계를 지우지 않을 것이다. 세상은 언제나 더 매끄럽고 빠른 것을 요구하지만, 우리는 더 깊은 곳에서 침묵을 축적해 온 영혼들의 손을 잡고 싶다. 저마다의 속도로 붕괴의 선을 정확히 비켜서서 서로를 버티고 있는 이 단단한 간격들이, 독자 여러분의 마음에 지워지지 않는 결로 남기를 바란다.
+
+편집위원 박민준`},{author:`양준희`,body:`어느새 5월은 다 지나가고 6월이 다가왔습니다. 5월에서 6월, 고작 달력 한 장을 넘겼을 뿐인데 우리 눈에 차는 풍경은 사뭇 달라 보입니다. 하얗게, 소복히 쌓인 벚꽃은 어느새 부드럽게 이는 바람에 몸을 맡겨 우리 곁을 떠나고, 그 자리를 대신한 것은 어린 이파리였습니다. 초록의 서사를 담은 이 이파리들을 보며 저는 제가 가장 좋아하는 노래, 김민기 선생님의 <상록수>를 떠올립니다.
+
+“돌보는 사람도 하나 없는데… 땀 흘리리라… 깨우치리라… 거칠은 들판에 솔잎 되리라…”
+
+<상록수>의 클라이맥스라고 할 수 있는 이 가사는 유난히 이번 6월호 “여름”을 편집하는 저의 가슴속에 깊이 맺힙니다. 화려하게 피고 지는 벚꽃과는 다른 모습이지만 그 누구에게도 손 벌리지 않고 거친 세상 속에서 당당히 살아가려는 이 어린 이파리의 굳센 다짐이 제 마음과 공명합니다. 오히려 저에게는 찬란한 벚꽃보다도 묵묵하게 자리를 지키며 초록을 키워가는 이 여름 이파리가 더 아름답게 보일 뿐입니다.
+
+솔직히 “여름”이 6월호의 주제로 선택되었을 때 “큰일 났다”라는 생각밖에 들지 않았습니다. 여름에 대해서 단 한 번도 생각해 본 적이 없을 뿐더러, 이에 대해서 작품을 써 본 적 역시 없습니다. 저에게 여름은 단순히 “한낮에 찌는 더위의 시련”일 뿐이었습니다.
+
+그럼에도 저는 포기하지 않고 컴퓨터 앞에 앉았습니다. 비록 돌보는 사람은 하나 없지만, 땀 흘리며 깨우치고, 거칠은 들판 속에서 솔잎이 되고 싶었습니다.
+
+아마 우리 <새결> 동료 기고진들 역시 저와 똑같은 다짐을 했을 것입니다. 이번 기회를 통해 우리 동료들이 저마다의 자리에서 자신만의 시선으로 여름을 새롭게 바라보고, 계절의 한가운데 속에서 느끼는 감정들과 생각을 글로 깊게 승화할 수 있지 않았을까 싶습니다.
+
+생각해 본 적이 없는 것을 해체하고 이를 다른 관점에서 비판적으로 사고하는 것, 그것이 바로 우리 <새결>의 창간 취지였습니다. 그래서 이번 6월호 “여름”이 우리의 따뜻한 성장일기이자 거친 계절 속에서 잃지 않는 초심으로 남았으면 합니다.
+
+아무쪼록 저희의 작품에 관심을 가져 주셔서 진심으로 감사합니다. 저희의 작품들이 독자 여러분께 큰 귀감이 될 수 있기를 진심으로 소망합니다.
+
+매월, 매년, 늘 성장된 작품으로 여러분을 찾아뵙겠습니다.
+
+편집위원 양준희`}],sections:[{title:`1부: 여름`,works:[{id:`yunseul`,title:`윤슬`,author:`정시후`,type:`시`,body:`풍랑이 해면을 유린하던 밤,
+심연 속 군상은 표류하며 흩어져
+바다는 그 오랜 마멸 속 오직
+침잠만을 갈구할 처지일 뿐이니
+
+그러나 격량도 제 격랑에 진하여
+스스로 숨을 거두고 돌아설 테이니,
+파란이 제 아무리 깊으랴 한들,
+더 고요한 밤만 피어내지 않으랴.
+
+부서진 언저리마다 그 품은 더 깊어져
+여명이 임하여 내 도야를 살피고
+드디어 날 위해 빛을 내리시니,
+이 빛을 우리는 윤슬이라 칭한다.
+
+우리의 일생도 이와 같음이,
+오랜 파란와 침식 끝엔 오직
+더 넓고 깊어진 내 안에 깃들,
+찬란한 빛이오 윤슬일 것이니`},{id:`jangmaga-gileotda`,title:`장마가 길었다`,author:`박민준`,type:`시`,body:`반지를 빼자
+손가락이 늦게 따라 나왔다
+
+몇 번을 씻어도
+초록은 피부보다 안쪽에 있었다
+
+시계를 풀자
+손목에서 하루가 흘러내렸다
+
+가죽 안쪽에는
+하얀 저녁들이 말라붙어 있었다
+
+창문은 열려 있었지만
+방은 계속 닫히는 중이었다
+
+물을 마시러 갔다
+장판은 젖어 있었고
+
+발은 자꾸
+방 쪽으로 자랐다
+
+쩍
+쩍
+
+싱크대 앞에서
+컵을 들고 있었다
+
+물은 아직 차가웠는데
+목은 한동안
+
+도착하지 않았다
+
+그날 밤
+불을 끄려다
+
+스위치 위에 남은 손자국을 보았다
+
+엄지를 포개 보았지만
+들어맞지 않았다
+
+손자국은 그대로였는데
+손이 먼저 지나가 있었다`},{id:`gokdeului-yunjeon`,title:`곡들의 윤전(輪轉)`,author:`양준희`,type:`시`,body:`타들어가는 나무의 피부 속
+저물어가는 이파리에
+한 번, 두 번 손짓을–
+
+길게 늘었던 동상의 금들은
+무게에 무릎을 꿇은 파편이 되어
+
+상쾌한 매연이 한 올씩 나리주던
+지리한 장마는 알갱이가 되어
+입술 끝에 맺히는 마지막 세례.
+
+잎새에 이는 손님–
+뻣뻣한 푸르름은 눌러터진
+노을의 손을 어루고
+고였던 이슬을
+한 방울, 두 방울…
+
+지새웠던 기인 밤–
+이슬은 대지를 적시고
+들판이 켜는 선율이
+새겨낸 상록의 젊음.
+
+시간이 지나
+머리 우로 내리쬐는
+한낮의 조명에–
+
+소만(小滿)을 담은
+젊음의 노래는 다시
+녹슬어 간다.
+
+무게에 무릎을 꿇은 파편은
+길게 늘었던 나의 금이었으니
+
+타들어가는 나무의 피부 속
+저물어가는 나의 모습에
+이제–
+세상을 향해 한 번, 두 번,
+마지막 손짓을`},{id:`chaedo`,title:`채도 (彩度)`,author:`윤소민`,type:`시`,body:`어디선가 풋사과 향이 번지기 시작하면
+정오는 가장 눈부신 농도로 물들 준비를 한다.
+
+바람의 귓등을 가볍게 스쳐 가는
+싱그러운 열기 속에서 세상은 온통 배경이 되고,
+누군가 밤새 가로수의 푸른 호흡을 모아
+이 도시에 커다란 초록색 물감을 쏟아놓은 것 같다.
+
+흘러내린 채 마르지 않는 청춘의 문장들
+빛은 부서지지 않고 아스팔트 위로 투명하게 고여 있으며
+담벼락을 짚은 손바닥에는
+삼십이 도의 지워지지 않는 싱그러운 온도가 찍힌다
+지나치게 찬란해서 눈이 멀 것 같은 저 채도 속에서
+새들은 푸른 잎사귀 사이로 가볍게 날아오른다
+
+우리는 왜 이 반짝이는 계절의 품을 벗어나지 못하고
+가장 뜨거운 마음으로 서로를 바라보고 있는 걸까
+
+피할 길 없는 햇살의 중심,
+늘어난 그림자를 발맞추어 걸어갈 때
+우리는 모두
+덜 마른 여름 속에 완전히 갇혀
+서로의 옷깃에 지독한 초록을 묻히고 있다
+
+마치 이 순간을 영원히 기억하겠다는 듯이,
+끝내 마르지 않을 눈부신 얼룩을 서로에게 새기며`},{id:`basakhan-gieok-han-jogak`,title:`바삭한 기억 한 조각`,author:`윤소민`,type:`시`,body:`차가운 한여름의 딸기와
+불타는 한겨울의 수박을 깍둑썰어 넣고
+봄날의 말간 이슬 한 잔,
+단풍잎 속에서 졸고 있던 도토리 몇 알을 더해
+시간의 품 안에서 달콤하게 갈아버린다.
+
+아직은 설익은 풋풋한 어른 하나와
+부쩍 철이 들어버린 성숙한 아이 하나,
+그들이 함께 섞은 빛과 어둠의 눈물 조각을
+고명처럼 얹어 햇살 아래 노릇하게 구워내면
+세상에서 가장 값비싼 청춘의 파편이 완성된다.
+
+한 입 베어 물면 ‘바삭’하고 깨어나는 그날의 공기,
+혀끝을 스치는 맛은 오묘하기 짝이 없어서
+치열했던 짭짤함과 서툴렀던 씁쓸함,
+그리고 뒤늦게 밀려오는 애틋한 달콤함까지.
+입안에 남은 건 까끌까끌하면서도 기분 좋은 잔상뿐이라,
+
+그날의 찌릿한 전율은 시들지 않는다.
+낡은 보물 상자, 거미줄 친 기억의 틈새에
+대롱대롱 매달려 가장 고운 꿈을 꾸는 우리
+
+삼킬 수도, 뱉을 수도 없는 그 시절의 열병이
+여전히 맥박을 타고 뜨겁게 달린다.
+계절이 몇 번을 고꾸라져도 시들지 않을,
+오직 우리만이 아는 그 여름의 비명.`},{id:`baekyaui-imyeon`,title:`白夜의 이면`,author:`박도현`,type:`시`,body:`여름이라고 하면
+늘 밝기만 한 줄 안다
+
+길게 늘어진 낮과
+숨 막히게 뜨거운 태양
+
+해변가에서
+젖은 웃음이 이어지고
+
+잘 익은 수박 아래
+아이들은 아무 걱정 없이 웃는다
+
+태양은 끝내 식지 않을 기세로 일렁이고
+세상은 푸르게 빛난다
+
+빛이 넘쳐 날수록
+그림자는 더 짙어진다
+
+그러나 한낮이 되면
+그림자는 홀연히 사라진다
+
+사실 사라진 것이 아니라
+아무도 보지 못할 만큼
+제 발밑으로 숨었을 뿐
+
+그래서였을까
+
+나는
+
+가장 밝은 곳에서
+가장 오래 헤매고 있었다.`},{id:`geobugiiui-deungttakji`,title:`거북이의 등딱지`,author:`박도현`,type:`시`,body:`길을 걷다 우연히 거북이를 마주하였습니다.
+그리고 궁금해졌습니다.
+등딱지가.
+
+그 안에는 무엇이 담겨 있을까.
+왜 그 무거운 것을 평생 등에 지고 다닐까
+
+우리는 거북이의 속을 본 적이 없습니다.
+단단한 껍질 너머에 무엇이 있는지,
+어떤 모양 of 살과 어떤 온도의 마음이 있는지 알지 못합니다
+
+사람들도 그와 다르지 않은 것 같아요.
+겉으로 드러난 것보다
+숨겨둔 것이 더 많으니까요
+
+누군가는 상처를,
+누군가는 그리움을,
+또 누군가는 오래된 계절을 하나 품고 살아갑니다
+
+저는 그 계절이 문득 여름처럼 느껴졌습니다.
+
+여름은 유난히 덥습니다
+
+아스팔트는 뜨겁고,
+햇빛은 등에 상당한 무게감을 싣죠
+
+그런데도 거북이는 등딱지를 벗어놓지 못합니다
+
+자신을 지키기 위해서일 수도 있고
+그냥 오랫동안 그렇게 살아왔기 때문일 수도 있습니다
+
+그치만 저는
+그냥 그 모습이 슬픕니다
+
+너무 더운 날에도 벗을 수 없는 것.
+이미 끝난 계절인데도 계속 등에 얹고 있어야 하는 것
+
+그래서 여름의 거북이를 보면 그런 생각이 듭니다
+
+떠난 줄 알았던 여름이
+사실은 떠나지 못한 채
+누군가의 등 위에 조용히 서성이고 있는 것이 아닐까 하고.`},{id:`nalgae-pyeoneun-gyejeol`,title:`날개를 펴는 계절`,author:`박도현`,type:`시`,body:`13년 만에
+무겁게 짓누르던 풋내 섞인 이불을 걷고 나와
+
+천천히 젖은 날개를
+훌쩍 펴본다
+
+매미의 시간은
+기다림에서 온다
+
+기다린 만큼
+
+날개는 바람의 모양을 익히고
+목소리는 여름을 품는다
+
+한 줄기 빛 스미지 않던 땅속에서도
+끝내 놓지 않고 품어 온 하늘 하나
+
+비로소 햇살 아래 서서
+나만의 노래를 부른다
+
+아직 서툰 떨림일 뿐일지라도
+
+그 소리는
+
+열 세번의 여름을 품은 침묵이
+처음으로 세상에 닿는 순간이다.`}]},{title:`비평`,works:[{id:`siseonui-nopiwa-geori-dugi`,title:`시선의 높이와 거리 두기 : 두려움이 풍경이 되는 순간`,author:`이길상`,type:`비평`,body:`어느 조용한 오후, 정동진 호텔 로비의 나지막한 좌석에 앉아 수면을 바라보았다. 수면 아래로 내려가 앉게 되어있는 '침강형(Sunken)' 바닥에 놓인 소파에 앉아 바라본 물결은 아름답기보다 어지러웠다. 그러나 잠시 몸을 일으켜 선 채로 같은 곳을 내려다보자 졸졸 흐르는 평화로운 물소리와 함께 잔잔한 물결이 퍼지고 있었고, 그 잠시 동안의 물멍은 마음을 평화롭게까지 했다. 단지 몇 십 센티미터 시선의 높이 차이가 '불안'을 '편안'으로 바꾼 것이다.
+
+이 차이는 우리의 뇌와 시선이 정보를 처리하는 방식에서 비롯된다. 일어섰을 때(부감 시점), 물결은 내 발 아래에 있고 나는 그 전체적인 패턴을 한눈에 조망한다. 뇌는 "나는 안전한 곳에서 상황을 통제하고 있다"고 인지하며 안도감을 느낀다. 반면 앉았을 때(낮은 시점), 수면과 눈높이가 비슷해지면 움직이는 물결이 시야의 대부분을 차지한다. 이때 몸은 가만히 있는데 눈은 물결을 쫓으며 시각 정보와 평형 감각 사이의 불일치가 일어난다. 이것이 바로 '베르티고(Vertigo) 현상'으로, 뇌가 주변 환경의 급격한 변화를 '나의 흔들림'으로 착각해 어지럼증을 유발하는 것이다.
+
+정동진 바다부채길을 산책하면서 비슷한 경험이 이어졌다. 파도가 치는 백사장에서 오래 걷는 것을 무서워하던 아내는, 정동진 해안단구의 절경을 조망하며 바다 위를 산책할 수 있도록 만들어진 정동진 바다부채길의 데크에서는 바다를 마음껏 즐기며 오래도록 걸었다. 여기에는 인류가 본능적으로 느끼는 '전망 효과(Prospect-Refuge Theory)'가 숨어 있다. 백사장처럼 낮은 시선에서는 밀려오는 파도의 높낮이가 실제보다 크게 느껴져 본능적인 위협으로 다가오지만, 높은 데크 위에서는 거대한 자연을 내가 '조망'하고 있다는 감각이 생겨난다. 자연을 통제 가능한 범위 안에 두었다는 인지가 심리적 안전 거리를 확보해 주는 것이다.
+
+또한, '고정된 기준점'의 유무도 큰 역할을 한다. 발이 푹푹 빠지는 모래와 끊임없이 움직이는 파도는 우리를 시각적·신체적으로 불안정하게 만든다. 반면 바다부채길의 데크는 견고하고 수평이 명확한 구조물이다. 눈앞에 역동적인 파도가 치더라도 발밑에 단단하고 평평한 '직선의 기준점'이 있으면, 우리 뇌는 훨씬 적은 에너지를 써서 평형을 유지할 수 있다. 그 기준점 덕분에 우리는 비로소 지치지 않고 풍경을 즐길 수 있게 된다.
+
+미학자 에드워드 불로는 이를 '심리적 거리두기(Psychical Distance)'라 불렀다. 그는 망망대해의 선원에게 안개는 '공포'이지만, 안전한 곳의 관찰자에게 안개는 '예술'이 될 수 있다고 설명했다. 우리가 슬픈 영화나 드라마를 보며 눈물을 흘리면서도 카타르시스를 느끼는 이유도 마찬가지다. 화면 속 비극이 나의 실제 삶을 침범하지 않을 것이라는 안전장치가 있을 때, 슬픔은 비로소 정화된 아름다움으로 승화된다.
+
+결국 삶의 지혜 또한 이 '적정한 거리'를 찾는 데 있지 않을까 생각해본다. 너무 가까이 다가가 서로의 가시에 찔리는 고슴도치처럼, 우리는 때로 문제에 너무 깊이 함몰되어 사소한 감정의 일렁임에 어지럼증을 느낀다. 이때 내가 처한 상황을 한 발짝 뒤에서, 혹은 한 편의 드라마를 보듯 바라보는 '자기 거리두기'는 우리를 감정의 소용돌이에서 건져 올려준다. 당장 눈앞의 파도에 집중하기보다 먼 수평선을 바라볼 때 마음이 평온해지듯, 인생의 비극도 멀리서 바라보면 비로소 찬란한 풍경이 될 수도 있지 않을까?
+
+'거리'를 둔다는 것은 대상을 외면하는 것이 아니다. 더 잘 이해하기 위해, 그리고 더 깊이 사랑하기 위해 나만의 '데크'를 만드는 지혜다. 바다를 두려워하던 아내가 정동진 바다부채길의 데크 위에서 바다와 사랑에 빠졌듯, 삶이라는 거대한 바다 앞에서도 자신만의 적절한 시선의 높이와 거리를 찾을 수 있다면 거친 물결도 아름다웠던 파도의 풍경으로 기억될 날이 올 수 있지 않을까?`},{id:`huinoteul-ibeun-yeoin`,title:`흰옷을 입은 여인`,author:`김동현`,type:`비평`,body:`죽음이 귀한 시대에 살고 있다. 죽음이 귀해서 삶이 하찮아지고 있다.
+
+흰옷을 입은 여인은 에밀리 디킨슨이다. 에밀리는 평생 소수의 사람과 교제를 했지만 누구보다 많은 사람을 사랑했다. 하지만 그녀의 조카가 죽고, 어머니가 죽고, 친구가 죽고, 스승이 죽고, 남편이 될 사람이 죽었다. 에밀리는 죽음이 너무 자주 있어서 상복을 마치 일상복처럼 입고 있다.
+
+사랑하는 사람이 끊임없이 죽어가는 상황에서도 에밀리는 당황하지 않는다. 오히려 죽음을 일상의 삶 안으로 끌어온다. 정수기 버튼을 누르면 죽음이라는 물이 나오고, 죽음이라는 의자에 앉아서 삶에 대한 시를 쓴다.
+
+현대의 우리에게 죽음은 축구 경기 후반에 나오는 교체 선수처럼, 인생 후반에 삶에 지쳐버린 인간이 떠나는 퇴장처럼 보인다. 죽음이 내가 아닌 타인이 떠나는 하나의 쇼츠 동영상처럼 자극적이지만 빨리 넘겨버려야 할 무엇으로 처리된다.
+
+반면에 에밀리는 죽음을 차분히 이용한다. 책을 읽고, 출판하지 않을 시를 쓰고, 정원의 꽃을 보고, 창으로 들어오는 햇빛을 즐긴다.
+
+흰옷을 입은 여인은 에밀리 디킨슨이 죽음을 삶의 가벼운 즐거움으로 어떻게 바꾸는지를 크리스티앙 보뱅의 모호하지만 뚜렷해지는 문체로 읽을 수 있는 책이다.`}]},{title:`Emily Dickinson 번역시`,works:[{id:`im-nobody-who-are-you`,title:`I'm Nobody! Who are you?`,author:`에밀리 디킨슨`,type:`시`,body:`I'm Nobody! Who are you?             나는 아무도 아니란다! 너는 누구니?
+Are you - Nobody - too?              너도 — 아무도 아니니?
+Then there's a pair of us!           그럼 우리는 한 쌍이네!
+Dont tell! they'd banish us - you know! 말하지 마! 사람들이 우릴 쫓아낼지 몰라 — 알잖아!
+
+How dreary - to be - Somebody!       얼마나 따분할까 — 이름 있는 누군가가 된다는 건!
+How public - like a Frog -           얼마나 요란스러울까 — 개구리처럼 —
+To tell your name - the livelong June - 살아 있는 유월 내내 —
+To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름을 외쳐대는 건!`}]},{title:`2부: 자유`,works:[{id:`misulguan`,title:`미술관`,author:`박민준`,type:`시`,body:`한 걸음
+또 한 걸음
+어디에도
+닿지 않는
+
+바닥은
+지나치게 깨끗하고
+벽에는
+시간이 이긴 얼굴들이
+걸려 있다
+
+꽃들은
+시들 줄을 모르는 표정으로
+입구를 채우고
+나는
+그 앞에서
+속도를 늦춘다
+
+늦춘다
+
+결점 없는 얼굴들
+승리를 의심해 본 적 없는 어깨
+앉아 본 적 없는 통치
+선만으로
+존재가 유지되는 몸
+
+나는
+그중 몇 개를
+부러워한다
+
+모두
+이미
+완성되어 있다
+
+고개를 끄덕이며
+통과한다
+고개를
+끊임없이
+
+한 걸음
+또 한 걸음
+
+발걸음이
+나보다 먼저
+도착해 있다
+
+복도 끝에서
+빛 하나가
+정면으로 떨어진다
+
+설명은 없고
+방향만 남는다
+
+나는
+그쪽으로
+걷게 된다
+
+가까워질수록
+빛은
+얼굴을 갖는다
+
+맥이 풀린 눈
+중력에 진 피부
+각기 다른 쪽을 택한 치열
+
+나는
+잠시
+고개를 들고
+그 표정을
+흉내 낸다
+
+흉내 내면
+통과할 수 있을 것처럼
+
+저 얼굴들은
+전시되지 않았고
+나는
+여기까지 왔다
+
+아무도
+알아보지 않는다
+
+꽃
+그림
+빛은
+제자리에 있고
+
+하나는
+빛을 따르지 않는다
+
+이 전시는
+계속된다
+
+완벽한 것들만이
+나를
+통과시키고
+
+나는
+
+통과되는 쪽에
+이미 서 있다`},{id:`banga-yeonkkot-sayu`,title:`반가 연꽃 사유`,author:`모선생`,type:`시`,body:`진흙 속에 피어나는 연꽃
+그 클리셰에 대하여
+60년 사이클의 값이라고 생각했다
+뿌리도 잎도 없이
+피어나는 연꽃 한 송이
+그것은 하루 아침에 일어난 일이었다
+그동안
+먼지와 벌레와 개구리가
+흙탕물 튕기며
+바람과 구름과
+가끔은 번개마저 불러 들였다
+
+이제 남은 일은
+꽃잎을 벌렸다가 오므렸다가
+하루에 한번씩
+그러면 되었다
+그렇게 몇 해를 벌렸다가 오므렸다가
+잠겼다가 떠올랐다가
+벌과 나비를 머금었다가 뱉었다가
+잉어를 품었다가 밀어냈다가
+그렇게 다시
+또 한 사이클을`},{id:`ipad-geurim`,title:`아이패드 그림`,author:`모선생`,type:`시`,body:`매일 밤
+나는 오늘의 그림으로 빠져나간다
+
+밤마다 허무하던 시절
+질척거리는 진흙 땅에서
+연근을 부여잡고 울던 시절
+나의 그림은 온통 흐리고
+어둡고
+냄새나고
+없어지고 싶었다
+
+몇 번의 계절이 지나면
+연꽃이 피리라고
+지렁이는 온몸으로 위로하건만
+그 스킨십마저 소스라쳤다
+장구벌레가 미꾸라지를 피해
+내 품에 파고들 때
+따가운 만큼 야멸차게 밀어냈다
+
+막무가내로 열어제낀 천 개의 문
+그 문들로 쏟아져 들어오는
+백 만 볼트의 빛은
+내 안의 깊은 어둠을
+가로세로로 찔러댔다
+몇 개를 닫을까
+어떤 문을 내비둘까
+
+오늘의 그림이 추상화로 번져갈 때
+일러스트로 간결히 압축될 때
+모든 허무를
+모든 바램을
+여전히 붉은 피 머금은
+마비된 상처를
+그려내는 데에 성공할 것이다
+유리 화면 위에 매끈히`},{id:`gajang-tteugeoun-eoleum`,title:`가장 뜨거운 얼음`,author:`윤소민`,type:`시`,body:`[Score 9.5]
+발밑의 은반은 뜨겁게 얼려둔 심장의 복사판
+숨소리조차 결빙된 조용한 전쟁터 위에
+날카로운 철제 날이 선을 긋는다
+세상은 공중에 머문 1초만을 기억하지만
+
+[Deduction -1.0 / Fall]
+얼음 위엔 내가 수없이 깎아낸 궤적들이
+지문처럼 빼곡히 새겨져 있다
+무너짐은 실패가 아닌, 빙판이 기억하는 삶의 필체
+토(Toe)를 찍고 솟구치는 순간
+
+[Level 4]
+중력은 잠시 나를 망각하고,
+사지가 흩어지려는 가속의 소용돌이 속에서
+착지의 순간 무릎은 날 선 비명을 삼키며 휘청인다.
+휘청임조차 안무의 필연적인 쉼표인 것처럼.
+
+[GOE +2.15]
+가장 아픈 회전 뒤에
+질식할 듯한 고요를 미소로 덮어쓰는 일
+음악이 멈추고
+폐부의 끝까지 비린 냉기가 차오를 때
+
+[Personal best 199]
+종아리의 진동이 온몸의 맥박으로 번지고
+얼음의 냉기가 비로소 살갗의 열기로 치환할 때
+완벽하지 않았으나,
+은반 위에 단 한 번만 기록되는 선명한 문신
+
+관중석의 꽃다발이 얼음 위에 흩어지기 전
+나를 지탱한 테이핑의 끈적한 압박과
+발목의 새겨진 시퍼런 침묵을
+이 얼음만은 가장 뜨겁게 읽어내고 있을 것이다.`},{id:`jeungmyeongdoeji-aneun-eolgul`,title:`증명되지 않은 얼굴`,author:`박민준`,type:`시`,body:`나를 설명하는 말을
+이미 너무 많이 연습했다
+
+필요한 표정은
+상황보다 먼저 도착했고
+진심은
+확인 대상에서 제외되었다
+
+선택이라고 부르면
+조금 덜 비열해지는 것 같아서
+그렇게 불러 왔을 뿐이다
+
+도움이 아니라
+연루를 피하기 위해
+나는 거리를 유지했다
+
+구하지도
+버리지도 않았다
+그 자세가
+가장 손해가 적었다
+
+양심은
+접히는 방향을 기억하는 종이처럼
+필요할 때만
+펴졌다
+그 방향은
+매번 같았다
+
+방 안의 공기가
+눅눅해지고
+손바닥이 차가워진다
+
+몸이 먼저
+확인한다
+아직
+들키지 않았다는 사실을
+
+나는
+이 선택이 정말 선택인지
+아니면
+너무 오래 반복된 자세인지
+구분하지 않는다
+
+그런데
+한 번도 혼자 있지 않았는데
+계속 혼자였던 것 같다
+
+이건
+선택일 수도 있고
+아닐 수도 있다
+
+나는
+그 차이를
+확인하지 않은 채
+계속 살아 있다
+
+부서지지 않았고
+구원받지도 않았고
+
+다만
+정확히
+여기 남아 있다`},{id:`pureun-gasok`,title:`푸른 가속(加速)`,author:`윤소민`,type:`시`,body:`우리를 둘러싼 모든 무구한 것들에는
+남몰래 가파라지는 경사로가 있어서,
+지상으로 향하는 저 마른 낙엽의 투신에도
+기어이 벼랑을 만들어내는 바람의 채찍이 있고
+질주하는 시간의 궤도 아래로는
+정도를 모르는 관성이 들끓는다.
+
+세상의 모든 중력이 나를 아래로, 더 아래로만
+가차 없이 침몰시키려 등을 떠밀 때
+가속이 붙은 절망의 한복판에서
+나는 가만히 눈을 감고 너의 이름을 입안에 굴려본다.
+그 작은 한마디가 혀끝에서 차오르는 순간,
+
+시간마저 삼켜버릴 듯 가팔라지는 이 생의 모퉁이,
+추락의 궤적을 단숨에 뒤틀어버릴
+단 하나의 거대한 반작용(反作用).
+
+너는 기어이 내게로 와
+가장 눈부신 속도로 파란 기적을 점화하리니.
+
+그 서슬 퍼런 구원의 빛깔이
+내 메마른 계절의 잔해를 모조리 삼켜낼 때까지,
+나는 이 맹렬한 가속의 중심에서
+기껍게 너를 기다린다.`},{id:`maeum`,title:`마음`,author:`심다윤`,type:`시`,body:`살아가기에 있어
+시간은 지나치게도 짧다.
+
+서로를 품기에도 모자란 생이기에,
+증오를 위해 남겨진 시간은
+본래 존재하지 않았을 터이다.
+
+그럼에도
+내 마음속에서
+증오라는 감정을 지울 수 없는 건
+
+미진하였던 과거의
+잿덩이인가,
+미욱하였던 한때의
+그림자인가.
+
+횡단보도 위
+수많은 어깨가 스쳐 지나갔지만
+그 누구도
+고개를 들지 않았다.
+
+무관심함이 짙어져
+시선은 저마다의 바닥을 향해 가라앉고
+단어들은
+입술을 떠나기도 전에
+서늘한 비난으로 바뀌어
+굳어 버렸다.
+
+도대체 언제부터였을까.
+우리가 서로를
+
+이해하기보다
+재단하기 시작한것은,
+알아가기 보다
+낙인 찍기 시작한것은.
+
+그러나,
+나는 아직 기억한다
+낯선 이의 떨리는 손을
+망설임 없이 붙들었던 날들을.
+타인의 눈물에 기꺼이 젖어 들었던 날들을.
+
+당신 또한 기억할 것이다.
+
+서로의 다름을
+불쾌가 아닌 경이로 바라보던 때를,
+이해를 사랑의 다른 이름으로
+정의했었던 때를.
+
+어째서
+지금의 우리는
+이토록 먼 곳까지 와
+그때의 시간들을 다 저버렸는가.
+
+사랑을 잊어서가 아닐지도 모른다.
+그저,
+사랑을 기억하는 법을 잊은 건지도 모른다.
+
+어쩌면 내 마음속
+이 뜨거움은
+오래전 잃어버린 사랑을 향한
+애도인지도 모른다.`},{id:`gieogui-sumyeong`,title:`기억의 수명`,author:`심다윤`,type:`시`,body:`사람의 기억은
+시간 앞에선
+참으로 덧없다.
+
+어제의 빛을
+오늘은 기억 하지 못하고
+
+그 무엇보다도,
+목숨보다도,
+내가 사랑했던 이는
+몇 해의 계절이 흐르면
+희미한 윤곽으로만
+남을 뿐이다
+
+기억의 수명은 짧다.
+그래서 더욱이 애틋하다.
+
+언젠간
+지금도 잊힐 걸 알기에
+나는 한때
+시간을 두려워했다.
+
+그러던 어느 봄,
+민들레 홀씨가 모두 날아가
+초라하던 꽃대만 남았으나
+그 곁에
+또 다른 노란 꽃잎들이
+돋아나는 것을 보고
+
+나는 깨달았다.
+
+잊힘은 끝이 아니다.
+사라진 줄 알았던 것들은
+또 다른 찬란함으로
+다시 피어난다는 것을.`},{id:`jeolbyeok-kkeuteseo-majuhan-chukbok`,title:`절벽 끝에서 마주한 축복`,author:`성민준`,type:`시`,body:`절벽 끝에 선 애처로운 발끝,
+희끗희끗한 머릿칼
+생멸의 절벽 끝에서
+심연의 어둠을 내려다보니
+그대는 나와 같이 몸이 떨려오는가
+그러나 두려워말라
+절망이 아니라 축복임이 틀림없으니
+
+떨림은
+자유의 떨림이요,
+생명의 떨림이라
+추락할 수 있다는 가능성이
+비로소 무한한 진동의 도착지에서
+자유의 조건이 되니
+
+아,
+절벽 앞에 선 당신이여!
+드디어 완벽한 자유를 누리는구나`},{id:`burooneun-barammaneun-seoneulji-anhke`,title:`불어오는 바람만은 서늘지 않게`,author:`윤소민`,type:`시`,body:`아는 글자 하나 없어
+굳은살 박힌 손으로 할 수 있는 일이라곤
+이 논두렁 가는 게 전부인 생이라
+
+밑창 다 닳은 고무신 한 짝으로는
+도저히 네 속도를 따라갈 재간이 없다
+
+아이야, 가벼운 봇짐 하나 매고 떠나거라
+네가 두고 간 붉은 손수건은 가슴팍에 깊이 묻어둘 테니
+너는 뒤돌아보지 말고 저 보리밭 너머로 사라지거라.
+
+진흙탕에 박혔던 내 평생의 발자국들이
+네가 딛고 갈 단단한 흙길이 되었다면
+이 못난 허리 굽은 것쯤이야 아무래도 좋으니
+
+다만 너 가는 길에 불어오는 바람만은
+부디 서늘하지 않기를
+나보다 먼저 도착한 순한 볕들이
+내 손보다 부드럽게 네 이마를 보듬어 주기를
+
+내는 여기 남아서
+네가 일으킨 먼지 자욱이 가라앉을 때까지
+오래도록 흙 묻은 손나 털고 있을 테니.`},{id:`ibyeol-essay`,title:`—`,author:`박민준`,type:`산문`,body:`우리는 헤어졌다.
+그 사실은 어느 날의 사건이라기보다, 오랜 시간에 걸쳐 천천히 완성된 문장이었다. 끝내 말해지지 않아도 이미 의미를 다한 문장. 나는 그 문장의 마침표를 찍지 않았고, 다만 더 이상 고치지 않기로 했다.
+
+이별은 무언가를 잃는 일이 아니라, 더 이상 붙잡지 않아도 되는 상태에 도달하는 일에 가깝다. 사랑이 끝났다는 확신보다 먼저 찾아오는 것은, 설명하려는 의지가 사라졌다는 감각이었다. 변명도, 이해도, 설득도 필요 없어진 순간. 그때 비로소 관계는 조용히 자신을 내려놓는다.
+
+우리는 서로에게 최선을 다하지 않았다고 말할 수도 있고, 너무 최선을 다했다고 말할 수도 있다. 그러나 그 어느 쪽도 결정적이지 않다. 중요한 것은, 같은 방향으로 걷고 있다는 믿음이 어느 날부터 자연스럽게 소멸했다는 사실이다. 신념은 배신당하지 않았다. 다만 더 이상 호출되지 않았다.
+
+이별 이후 남는 것은 후회가 아니라 잔여물이다. 함께 있던 시간들이 의미를 요구하지 않고, 추억이라는 이름으로 스스로를 정리하지도 않는다. 그것들은 단지 남아 있다. 설명되지 않은 채, 그러나 부정되지도 않은 채로. 삶이 본래 그렇듯.
+
+나는 우리가 왜 끝났는지 완전히 알지 못한다. 다만 끝나야 했다는 점만은 분명히 안다. 이해하지 못한 채 수용하는 것, 그것이 성숙이라면, 이별은 그 자체로 하나의 교육이었다.
+
+사랑은 우리를 더 나은 사람으로 만들지 않는다. 다만 우리가 어떤 사람인지를 지나치게 선명하게 드러낼 뿐이다. 그래서 어떤 사랑은 지속될 수 없고, 어떤 이별은 끝내 존중받아야 한다.
+
+우리는 서로의 인생에서 실패한 선택이 아니다. 다만 더 이상 유효하지 않은 질문이 되었을 뿐이다. 질문이 사라졌다면, 답도 함께 사라지는 것이 자연스럽다.
+
+이제 나는 이별을 극복하지 않는다. 극복해야 할 장애물이 아니기 때문이다. 나는 그것을 내 삶의 구조 안에 조용히 배치한다. 하나의 방처럼. 때로는 들어가고, 대부분은 지나친다. 그 방이 있었다는 사실만으로도, 나는 충분히 인간적이었음을 안다.`}]},{title:`에필로그`,works:[{id:`maecheummal-2026-06`,title:`맺음말`,author:`새결 일동`,type:`맺음말`,body:`눈을 감으면 하나의 선이 스스로를 닫아 세상에서 가장 완전한 약속을 만듭니다. 《새결》 6월호의 마지막 페이지를 닫는 지금, 우리가 마주한 문학적 풍경 역시 이와 닮아 있습니다.
+
+에밀리 디킨슨의 냉소적이고도 투명한 정조에서 시작해, 이름 없는 존재(Nobody)로 살아가는 것의 시크한 격조를 지나, 마침내 땅을 파고 살아온 노부모의 뜨거운 내리사랑에 도달하기까지. 이번 호는 차가운 실존적 고뇌와 뜨거운 인간의 원초적 감정이 지독하게 교차하는 여정이었습니다.
+
+우리는 더 정확해지기 위해 지면에 수많은 각(角)을 세우고 문장을 벼려왔지만, 결국 가장 깊은 고통과 사랑의 정점에서 모든 각은 사라지고 다시 처음의 원으로 회귀함을 깨닫습니다. 너무 많은 것을 화려하게 가지려는 태도보다, 아무것도 남기지 않고 온전히 쏟아붓는 몰락의 정직함이 더 아름답다는 것을 이번 지면의 작가들이 증명해 주었습니다.
+
+〈새결〉의 새로운 파동에 기꺼이 자신만의 온도를 보태준 모든 기고가와, 활자 이면의 무게를 함께 버텨준 편집위원들에게 깊은 경의를 표합니다. 꽃은 피고 지지만, 찢어진 자리에 남은 흉터는 붉은 무늬가 되어 마침내 굳건한 결이 됩니다. 6월의 서늘한 바람 속에서도 단단한 눈(芽)을 숨겨둔 채 다음 계절을 준비하는 나무처럼, 《새결》은 다시 눈을 뜨고 처음의 자리에서 여러분을 기다리겠습니다.
+
+감사합니다.
+
+새결 일동`}]}]},{id:`saegyeol-2026-05-gaehwa`,slug:`2026-05-gaehwa`,title:`2026년 5월호`,theme:`개화`,displayTitle:`2026년 5월호 · 개화`,label:`창간호`,archiveDate:`2026. 05`,archiveTitle:`개화 開花`,archiveDescription:`창간호`,badge:null,status:`active`,publishDate:`2026-05-01`,nextIssueDate:`2026-06-13T00:00:00+09:00`,pdfPath:`/saegyeol-2026-05-gaehwa.pdf`,editors:[`양준희`,`박민준`],preface:`어떤 말들은 너무 일찍 이름을 얻습니다.
 
 이름이 붙는 순간 감각은 굳습니다. 감동은 공식이 되고, 언어는 예측 가능한 자리로 돌아갑니다. 오늘의 많은 문학이 그렇게 작동합니다. 읽히기 위해 다듬어지고, 소비되기 위해 설계됩니다.
 
@@ -824,4 +1565,4 @@ but received
 
 다음 달에 다른 결로 돌아오겠습니다.
 
-새결 일동`}]}]},{id:`2026-06`,archiveDate:`2026. 06`,archiveTitle:`준비 중`,archiveDescription:`2호 · 예정`,status:`upcoming`},{id:`2026-07`,archiveDate:`2026. 07`,archiveTitle:`예정`,archiveDescription:`3호`,status:`upcoming`},{id:`2026-08`,archiveDate:`2026. 08`,archiveTitle:`예정`,archiveDescription:`4호`,status:`upcoming`}],Yr=[{label:`처음`,href:`/`},{label:`문예지모음`,href:`/issues`},{label:`필진`,href:`/poets`},{label:`투고안내`,href:`/submit`},{label:`소개`,href:`/about`}];function Xr(){let e=ot();return(0,w.useEffect)(()=>{let t=!0,n=null,r=null;if(e.hash){let i=e.hash.substring(1),a=0;n=setInterval(()=>{a++;let e=document.getElementById(i);if(e){if(clearInterval(n),t){Ti(e);let n=0;r=setInterval(()=>{n++;let e=document.getElementById(i);e&&t&&Ti(e),n>=3&&clearInterval(r)},150)}}else a>=50&&clearInterval(n)},50)}else window.scrollTo({top:0,left:0,behavior:`smooth`});return()=>{t=!1,n&&clearInterval(n),r&&clearInterval(r)}},[e.pathname,e.hash]),(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(Zr,{}),(0,I.jsxs)(Rt,{children:[(0,I.jsx)(It,{path:`/`,element:(0,I.jsx)(Qr,{})}),(0,I.jsx)(It,{path:`/issue/:slug`,element:(0,I.jsx)(ri,{})}),(0,I.jsx)(It,{path:`/issue/:slug/work/:workId`,element:(0,I.jsx)(ci,{})}),(0,I.jsx)(It,{path:`/issues`,element:(0,I.jsx)(ui,{})}),(0,I.jsx)(It,{path:`/poems`,element:(0,I.jsx)(Ft,{to:`/issue/2026-05-gaehwa`,replace:!0})}),(0,I.jsx)(It,{path:`/poets`,element:(0,I.jsx)(di,{})}),(0,I.jsx)(It,{path:`/submit`,element:(0,I.jsx)(fi,{})}),(0,I.jsx)(It,{path:`/about`,element:(0,I.jsx)(pi,{})}),(0,I.jsx)(It,{path:`*`,element:(0,I.jsx)(Ft,{to:`/`,replace:!0})})]}),(0,I.jsx)(vi,{})]})}function Zr(){let e=ot(),[t,n]=(0,w.useState)(!1),[r,i]=(0,w.useState)(!1);(0,w.useEffect)(()=>{let e=()=>{n(window.scrollY>24)};return e(),window.addEventListener(`scroll`,e,{passive:!0}),()=>{window.removeEventListener(`scroll`,e)}},[]),(0,w.useEffect)(()=>{i(!1)},[e.pathname]);let a=()=>{i(!1),window.requestAnimationFrame(()=>{window.scrollTo({top:0,left:0,behavior:`smooth`})})};return(0,I.jsxs)(`header`,{className:`sg-header ${t?`scrolled`:``} ${r?`menu-open`:``}`,children:[(0,I.jsx)(F,{className:`sg-header-logo nav-logo`,to:`/`,"aria-label":`새결 처음으로`,onClick:a,children:`새결`}),(0,I.jsxs)(`button`,{className:`sg-menu-toggle`,type:`button`,"aria-label":r?`메뉴 닫기`:`메뉴 열기`,"aria-expanded":r,"aria-controls":`primary-navigation`,onClick:()=>i(e=>!e),children:[(0,I.jsx)(`span`,{}),(0,I.jsx)(`span`,{})]}),(0,I.jsx)(`nav`,{id:`primary-navigation`,className:`sg-primary-nav nav`,"aria-label":`주요 메뉴`,children:Yr.map(e=>(0,I.jsx)(kn,{to:e.href,end:e.href===`/`,onClick:a,children:e.label},e.href))})]})}function Qr(){let e=Jr.find(e=>e.status===`active`),t=Rr();return(0,I.jsxs)(`main`,{children:[(0,I.jsx)(`section`,{className:`sg-hero`,id:`home`,children:(0,I.jsxs)(`div`,{className:`sg-hero-inner`,children:[(0,I.jsx)(`h1`,{children:`새결`}),(0,I.jsx)(`p`,{className:`sg-hero-lead`,children:`문학의 새로운 호흡, 새결`}),(0,I.jsxs)(`div`,{className:`sg-hero-actions`,children:[(0,I.jsx)(F,{to:`/issue/${e.slug}`,children:`이번 호 읽기`}),(0,I.jsx)(F,{to:`/submit`,children:`투고 안내`})]})]})}),(0,I.jsxs)(`section`,{className:`sg-section sg-current`,id:`current-issue`,children:[(0,I.jsx)($r,{eyebrow:`이번 호`,title:`2026년 5월호 · 개화`}),(0,I.jsxs)(`div`,{className:`sg-main-grid`,children:[(0,I.jsx)(ei,{issue:e}),(0,I.jsx)(ni,{targetDate:t})]})]}),(0,I.jsx)(gi,{})]})}function $r({eyebrow:e,title:t,children:n}){return(0,I.jsxs)(`div`,{className:`sg-section-title`,children:[(0,I.jsx)(`p`,{children:e}),(0,I.jsx)(`h2`,{children:t}),n]})}function ei({issue:e}){return(0,I.jsxs)(F,{className:`sg-featured-issue`,to:`/issue/${e.slug}`,children:[(0,I.jsxs)(`div`,{className:`sg-featured-copy`,children:[(0,I.jsx)(`p`,{children:`새결`}),(0,I.jsx)(`h3`,{children:`Vol.1`}),(0,I.jsxs)(`dl`,{children:[(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`발행`}),(0,I.jsx)(`dd`,{children:e.title})]}),(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`구분`}),(0,I.jsx)(`dd`,{children:e.label})]})]}),(0,I.jsx)(`span`,{children:`더보기 →`})]}),(0,I.jsxs)(`div`,{className:`sg-cover-card`,children:[(0,I.jsx)(`span`,{children:e.title}),(0,I.jsxs)(`strong`,{children:[e.theme,`(開花)`]}),(0,I.jsxs)(`small`,{children:[`새결 · `,e.label]})]})]})}function ti({issue:e}){let t=(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(`span`,{className:`sg-shelf-date`,children:e.archiveDate}),(0,I.jsx)(`strong`,{children:e.archiveTitle}),(0,I.jsx)(`em`,{children:qr(e)}),e.badge&&(0,I.jsx)(`b`,{children:e.badge})]});return e.status===`active`?(0,I.jsx)(F,{className:`sg-shelf-card is-active`,to:`/issue/${e.slug}`,children:t}):(0,I.jsx)(`article`,{className:`sg-shelf-card is-upcoming`,"aria-label":`${e.archiveDate} ${e.archiveTitle}`,children:t})}function ni({targetDate:e}){let[t,n]=(0,w.useState)(()=>bi(e));(0,w.useEffect)(()=>{let t=window.setInterval(()=>n(bi(e)),1e3);return()=>window.clearInterval(t)},[e]);let r=[[`Days`,t.days],[`Hours`,t.hours],[`Minutes`,t.minutes],[`Seconds`,t.seconds]];return(0,I.jsxs)(`section`,{className:`sg-countdown`,"aria-label":`다음 호 발행 카운트다운`,children:[(0,I.jsx)(`p`,{children:`다음 호 발행까지`}),(0,I.jsx)(`strong`,{children:t.isPast?`D-0`:`D-${t.days}`}),(0,I.jsx)(`div`,{className:`sg-countdown-grid`,children:r.map(([e,t])=>(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`b`,{children:String(t).padStart(2,`0`)}),(0,I.jsx)(`span`,{children:e})]},e))}),(0,I.jsxs)(`small`,{children:[`다음 호 발행 예정: `,zr(e)]})]})}function ri(){let{slug:e}=dt(),t=Jr.find(t=>t.slug===e&&t.status===`active`),[n,r]=(0,w.useState)(!1);return t?(0,I.jsx)(`main`,{children:(0,I.jsxs)(`article`,{className:`sg-issue-page`,id:`issue-document`,children:[(0,I.jsx)(ii,{issue:t}),(0,I.jsx)(oi,{id:`preface`,eyebrow:`창간사`,body:t.preface}),(0,I.jsx)(si,{issue:t}),(0,I.jsx)(ai,{issue:t,onToggleComments:()=>r(e=>!e),commentsOpen:n}),n&&(0,I.jsx)(yi,{issue:t}),(0,I.jsxs)(`nav`,{className:`sg-issue-end`,"aria-label":`호수 하단 이동`,children:[(0,I.jsx)(F,{to:`/`,children:`처음으로`}),(0,I.jsx)(`a`,{href:`#toc`,onClick:e=>wi(e,`toc`),children:`목차로`})]})]})}):(0,I.jsx)(Ft,{to:`/`,replace:!0})}function ii({issue:e}){return(0,I.jsx)(`header`,{className:`sg-issue-cover`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{children:`[2026년 5월]`}),(0,I.jsxs)(`h1`,{children:[`『새결』 `,e.label]}),(0,I.jsxs)(`dl`,{children:[(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`주제`}),(0,I.jsx)(`dd`,{children:e.theme})]}),(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`편집위원`}),(0,I.jsx)(`dd`,{children:e.editors.join(`, `)})]})]})]})})}function ai({issue:e,onToggleComments:t,commentsOpen:n}){return(0,I.jsx)(`section`,{className:`sg-issue-actions`,"aria-label":`${e.displayTitle} 도구`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`a`,{href:e.pdfPath,download:!0,children:`PDF 저장`}),(0,I.jsx)(`button`,{type:`button`,onClick:async()=>{let t=`${window.location.origin}/issue/${e.slug}`,n=`새결 ${e.displayTitle}`;if(navigator.share){await navigator.share({title:n,text:n,url:t});return}await navigator.clipboard.writeText(t)},children:`공유하기`}),(0,I.jsx)(`button`,{type:`button`,className:n?`is-active`:``,onClick:t,children:`댓글 보기`})]})})}function oi({id:e,eyebrow:t,body:n}){return(0,I.jsx)(`section`,{id:e,className:`sg-literary-section`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-section-eyebrow`,children:t}),(0,I.jsx)(li,{text:n,variant:`prose`})]})})}function si({issue:e}){let t=e.editorNotes.map(e=>({id:`editor-note-${Ci(e.author)}`,title:`편집위원의 말`,author:e.author}));return(0,I.jsx)(`section`,{id:`toc`,className:`sg-literary-section sg-contents`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-section-eyebrow`,children:`목차`}),(0,I.jsxs)(`div`,{className:`sg-toc-part`,children:[(0,I.jsx)(`h2`,{children:`여는 글`}),(0,I.jsxs)(`ol`,{children:[(0,I.jsx)(`li`,{children:(0,I.jsxs)(`a`,{href:`#preface`,onClick:e=>wi(e,`preface`),children:[(0,I.jsx)(`strong`,{children:`창간사`}),(0,I.jsx)(`span`,{children:`새결 일동`})]})}),t.map(t=>(0,I.jsx)(`li`,{children:(0,I.jsxs)(F,{to:`/issue/${e.slug}/work/${t.id}`,children:[(0,I.jsx)(`strong`,{children:t.title}),(0,I.jsx)(`span`,{children:t.author})]})},t.id))]})]}),e.sections.map(t=>(0,I.jsxs)(`div`,{className:`sg-toc-part`,children:[(0,I.jsx)(`h2`,{children:t.title}),(0,I.jsx)(`ol`,{children:t.works.map(t=>(0,I.jsx)(`li`,{children:(0,I.jsxs)(F,{to:`/issue/${e.slug}/work/${t.id}`,children:[(0,I.jsx)(`strong`,{children:t.title}),(0,I.jsx)(`span`,{children:t.author})]})},t.id))})]},t.title))]})})}function ci(){let{slug:e,workId:t}=dt(),n=Jr.find(t=>t.slug===e),r=n?Si(n):[],i=r.findIndex(e=>e.id===t),a=r[i];if(!n||!a)return(0,I.jsx)(Ft,{to:n?`/issue/${n.slug}`:`/`,replace:!0});let o=r[i-1],s=r[i+1];return(0,I.jsx)(`main`,{className:`sg-work-page`,children:(0,I.jsx)(`article`,{className:`sg-work-reader ${a.type===`시`?`is-poem`:`is-prose`}`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-work-kicker`,children:n.displayTitle}),(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`span`,{children:a.type}),(0,I.jsx)(`h1`,{children:a.title}),(0,I.jsx)(`p`,{children:a.author})]}),(0,I.jsx)(li,{text:a.body,variant:a.type===`시`?`poem`:`prose`}),(0,I.jsxs)(`nav`,{className:`sg-work-nav`,"aria-label":`작품 이동`,children:[o?(0,I.jsx)(F,{to:`/issue/${n.slug}/work/${o.id}`,children:`이전 작품`}):(0,I.jsx)(`span`,{}),(0,I.jsx)(F,{to:`/issue/${n.slug}#toc`,children:`목차로 돌아가기`}),s?(0,I.jsx)(F,{to:`/issue/${n.slug}/work/${s.id}`,children:`다음 작품`}):(0,I.jsx)(`span`,{})]})]})})})}function li({text:e,variant:t}){return t===`poem`?(0,I.jsx)(`div`,{className:`sg-text-body is-poem`,children:e}):(0,I.jsx)(`div`,{className:`sg-text-body is-prose`,children:e.split(/\n{2,}/).map((e,t)=>(0,I.jsx)(`p`,{children:e},t))})}function ui(){return(0,I.jsx)(`main`,{children:(0,I.jsxs)(`section`,{className:`sg-section`,id:`previous-issues`,children:[(0,I.jsx)($r,{eyebrow:`문예지모음`,title:`지난 호`,children:(0,I.jsx)(`p`,{className:`sg-section-lead`,children:`발행된 호수와 앞으로 놓일 지면을 조용히 모아둡니다.`})}),(0,I.jsx)(`div`,{className:`sg-issue-shelf`,children:Jr.map(e=>(0,I.jsx)(ti,{issue:e},e.id))})]})})}function di(){return(0,I.jsx)(`main`,{children:(0,I.jsxs)(`section`,{className:`sg-section sg-contributors sg-poets-page`,children:[(0,I.jsx)($r,{eyebrow:`필진`,title:`새결을 이루는 목소리`}),(0,I.jsx)(mi,{})]})})}function fi(){return(0,I.jsx)(`main`,{children:(0,I.jsx)(gi,{})})}function pi(){return(0,I.jsx)(`main`,{children:(0,I.jsx)(_i,{})})}function mi(){let e=Gr.filter(e=>[`yang-junhee`,`park-minjun`].includes(e.id)),t=Gr.filter(e=>![`yang-junhee`,`park-minjun`].includes(e.id));return(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(`div`,{className:`sg-contributor-grid sg-editor-grid`,"aria-label":`편집진`,children:e.map(e=>(0,I.jsx)(hi,{person:e,variant:`featured`},e.id))}),(0,I.jsxs)(`section`,{className:`sg-writer-section`,"aria-labelledby":`writer-section-title`,children:[(0,I.jsx)(`div`,{className:`sg-writer-section-title`,children:(0,I.jsx)(`h3`,{id:`writer-section-title`,children:`기고자`})}),(0,I.jsx)(`div`,{className:`sg-contributor-grid sg-writer-grid`,children:t.map(e=>(0,I.jsx)(hi,{person:e,variant:`compact`},e.id))})]})]})}function hi({person:e,variant:t=`compact`}){return(0,I.jsxs)(`article`,{className:`sg-contributor-card is-${t}`,children:[(0,I.jsx)(`img`,{className:`sg-contributor-image`,src:e.image,alt:`${e.name} 사진`,loading:`lazy`}),(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`h3`,{children:e.name}),(0,I.jsx)(`span`,{children:e.role})]}),(0,I.jsx)(`p`,{className:`sg-contributor-line`,children:e.line}),(0,I.jsx)(`p`,{children:e.description})]})}function gi({compact:e=!1}){let[t,n]=Pr(Hr);return(0,I.jsxs)(`section`,{className:`sg-section sg-submit ${e?`is-compact`:``}`,id:e?`issue-submit`:`submit`,children:[(0,I.jsx)($r,{eyebrow:`투고 안내`,title:`당신의 문장이 다음 호에 닿는 자리`,children:(0,I.jsx)(`p`,{className:`sg-section-lead`,children:`새결은 매달 한 권의 문예지를 꾸립니다. 아래 규정을 확인한 뒤 원고와 소개를 함께 보내주세요.`})}),(0,I.jsxs)(`div`,{className:`sg-submit-guide`,"aria-label":`투고 규정과 분과별 안내`,children:[(0,I.jsxs)(`article`,{className:`sg-submit-panel sg-submit-rules`,children:[(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`p`,{children:`Submission Rules`}),(0,I.jsx)(`h3`,{children:`투고 규정`})]}),(0,I.jsx)(`dl`,{children:Ur.map(([e,t])=>(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:e}),(0,I.jsx)(`dd`,{children:t})]},e))})]}),(0,I.jsxs)(`article`,{className:`sg-submit-panel sg-submit-departments`,children:[(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`p`,{children:`Departments`}),(0,I.jsx)(`h3`,{children:`분과별 안내`})]}),(0,I.jsxs)(`div`,{className:`sg-department-table`,role:`table`,"aria-label":`분과별 투고 일정`,children:[(0,I.jsxs)(`div`,{className:`sg-department-row is-head`,role:`row`,children:[(0,I.jsx)(`span`,{role:`columnheader`,children:`분과`}),(0,I.jsx)(`span`,{role:`columnheader`,children:`주제`}),(0,I.jsx)(`span`,{role:`columnheader`,children:`마감`}),(0,I.jsx)(`span`,{role:`columnheader`,children:`상태`})]}),Wr.map(e=>(0,I.jsxs)(`div`,{className:`sg-department-row`,role:`row`,children:[(0,I.jsx)(`span`,{role:`cell`,children:e.department}),(0,I.jsx)(`span`,{role:`cell`,children:e.theme}),(0,I.jsx)(`span`,{role:`cell`,children:e.deadline}),(0,I.jsx)(`span`,{role:`cell`,children:(0,I.jsx)(`b`,{className:`sg-status-badge ${e.status===`모집 중`?`is-open`:`is-pending`}`,children:e.status})})]},e.department))]})]})]}),(0,I.jsxs)(`form`,{className:`sg-submit-form`,onSubmit:n,children:[t.succeeded&&(0,I.jsx)(`p`,{className:`sg-form-status`,children:`기고가 접수되었습니다. 보내주신 문장을 확인하겠습니다.`}),(0,I.jsx)(Cr,{className:`sg-form-error`,errors:t.errors}),(0,I.jsx)(`input`,{type:`hidden`,name:`_subject`,value:`새결 기고 접수`}),(0,I.jsxs)(`label`,{children:[`이름`,(0,I.jsx)(`input`,{name:`name`,type:`text`,required:!0,placeholder:`이름`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`name`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`이메일`,(0,I.jsx)(`input`,{name:`email`,type:`email`,required:!0,placeholder:`이메일`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`email`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`작품 제목`,(0,I.jsx)(`input`,{name:`workTitle`,type:`text`,required:!0,placeholder:`작품 제목`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`workTitle`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`작품 소개`,(0,I.jsx)(`textarea`,{name:`message`,rows:`10`,required:!0,placeholder:`작품 소개`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`message`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`첨부 링크 또는 메시지`,(0,I.jsx)(`textarea`,{name:`bio`,rows:`4`,placeholder:`첨부 링크 또는 메시지`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`bio`,errors:t.errors}),(0,I.jsx)(`button`,{type:`submit`,disabled:t.submitting,children:t.submitting?`보내는 중`:`기고하기`})]})]})}function _i(){return(0,I.jsx)(`section`,{className:`sg-section sg-about`,id:`about`,children:(0,I.jsx)($r,{eyebrow:`소개`,title:`새결은 한 호의 순서를 존중하는 웹 문예지입니다.`,children:(0,I.jsx)(`p`,{className:`sg-section-lead`,children:`빠르게 넘기는 피드가 아니라 표지, 글, 목차, 작품, 댓글로 이어지는 읽기의 흐름을 만듭니다.`})})})}function vi(){return(0,I.jsxs)(`footer`,{className:`sg-footer`,children:[(0,I.jsxs)(`div`,{children:[(0,I.jsx)(F,{to:`/`,className:`sg-footer-logo`,children:`새결`}),(0,I.jsx)(`p`,{children:`문학의 새로운 호흡, 새결`})]}),(0,I.jsxs)(`nav`,{"aria-label":`하단 메뉴`,children:[(0,I.jsx)(F,{to:`/`,children:`처음`}),(0,I.jsx)(F,{to:`/issues`,children:`문예지모음`}),(0,I.jsx)(F,{to:`/submit`,children:`투고안내`}),(0,I.jsx)(F,{to:`/about`,children:`소개`}),(0,I.jsx)(F,{to:`/poets`,children:`필진`})]}),(0,I.jsxs)(`address`,{children:[(0,I.jsx)(`span`,{children:`연락처`}),(0,I.jsx)(`a`,{href:`tel:01032859833`,children:`010-3285-9833`}),(0,I.jsx)(`a`,{href:`mailto:jhyang@thesaegyeol.com`,children:`jhyang@thesaegyeol.com`})]})]})}function yi({issue:e}){return(0,w.useEffect)(()=>{if(window.disqus_config=function(){this.page.url=`${window.location.origin}/issue/${e.slug}`,this.page.identifier=e.id,this.page.title=`새결 - ${e.displayTitle}`},window.DISQUS){window.DISQUS.reset({reload:!0,config:window.disqus_config});return}if(document.getElementById(`disqus-script`))return;let t=document.createElement(`script`);t.id=`disqus-script`,t.src=`https://${Vr}.disqus.com/embed.js`,t.setAttribute(`data-timestamp`,`${Date.now()}`),(document.head||document.body).appendChild(t)},[e]),(0,I.jsx)(`section`,{className:`sg-literary-section sg-comments`,id:`comments`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-section-eyebrow`,children:`댓글`}),(0,I.jsx)(`div`,{id:`disqus_thread`}),(0,I.jsx)(`noscript`,{children:`댓글을 보려면 JavaScript를 활성화해주세요.`})]})})}function bi(e){let t=new Date(e),n=new Date,r=t.getTime()-n.getTime(),i=Math.floor(Math.max(0,r)/1e3),a=Math.max(0,Math.round((xi(t)-xi(n))/864e5));return{isPast:r<=0,days:a,hours:Math.floor(i%86400/3600),minutes:Math.floor(i%3600/60),seconds:i%60}}function xi(e){let t=new Intl.DateTimeFormat(`en-CA`,{timeZone:`Asia/Seoul`,year:`numeric`,month:`2-digit`,day:`2-digit`}).formatToParts(e),n=Object.fromEntries(t.map(e=>[e.type,e.value]));return Date.UTC(Number(n.year),Number(n.month)-1,Number(n.day))}function Si(e){return[...e.editorNotes.map(e=>({id:`editor-note-${Ci(e.author)}`,title:`편집위원의 말`,author:e.author,type:`편집위원의 말`,body:e.body})),...e.sections.flatMap(e=>e.works.map(t=>({...t,sectionTitle:e.title})))]}function Ci(e){return{박민준:`park-minjun`,양준희:`yang-junhee`}[e]||e.toLowerCase().replace(/\s+/g,`-`)}function wi(e,t){e.preventDefault();let n=document.getElementById(t);n&&Ti(n)}function Ti(e){let t=document.querySelector(`.sg-header`)?.getBoundingClientRect().height??0,n=e.getBoundingClientRect().top+window.scrollY-t-14;window.scrollTo({top:Math.max(0,n),left:0,behavior:`smooth`})}(0,br.createRoot)(document.getElementById(`root`)).render((0,I.jsx)(En,{children:(0,I.jsx)(Xr,{})}));
+새결 일동`}]}]},{id:`2026-07`,archiveDate:`2026. 07`,archiveTitle:`예정`,archiveDescription:`3호`,status:`upcoming`},{id:`2026-08`,archiveDate:`2026. 08`,archiveTitle:`예정`,archiveDescription:`4호`,status:`upcoming`}],Yr=[{label:`처음`,href:`/`},{label:`문예지모음`,href:`/issues`},{label:`필진`,href:`/poets`},{label:`투고안내`,href:`/submit`},{label:`소개`,href:`/about`}];function Xr(){let e=ot();return(0,w.useEffect)(()=>{let t=!0,n=null,r=null;if(e.hash){let i=e.hash.substring(1),a=0;n=setInterval(()=>{a++;let e=document.getElementById(i);if(e){if(clearInterval(n),t){Ti(e);let n=0;r=setInterval(()=>{n++;let e=document.getElementById(i);e&&t&&Ti(e),n>=3&&clearInterval(r)},150)}}else a>=50&&clearInterval(n)},50)}else window.scrollTo({top:0,left:0,behavior:`smooth`});return()=>{t=!1,n&&clearInterval(n),r&&clearInterval(r)}},[e.pathname,e.hash]),(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(Zr,{}),(0,I.jsxs)(Rt,{children:[(0,I.jsx)(It,{path:`/`,element:(0,I.jsx)(Qr,{})}),(0,I.jsx)(It,{path:`/issue/:slug`,element:(0,I.jsx)(ri,{})}),(0,I.jsx)(It,{path:`/issue/:slug/work/:workId`,element:(0,I.jsx)(ci,{})}),(0,I.jsx)(It,{path:`/issues`,element:(0,I.jsx)(ui,{})}),(0,I.jsx)(It,{path:`/poems`,element:(0,I.jsx)(Ft,{to:`/issue/2026-05-gaehwa`,replace:!0})}),(0,I.jsx)(It,{path:`/poets`,element:(0,I.jsx)(di,{})}),(0,I.jsx)(It,{path:`/submit`,element:(0,I.jsx)(fi,{})}),(0,I.jsx)(It,{path:`/about`,element:(0,I.jsx)(pi,{})}),(0,I.jsx)(It,{path:`*`,element:(0,I.jsx)(Ft,{to:`/`,replace:!0})})]}),(0,I.jsx)(vi,{})]})}function Zr(){let e=ot(),[t,n]=(0,w.useState)(!1),[r,i]=(0,w.useState)(!1);(0,w.useEffect)(()=>{let e=()=>{n(window.scrollY>24)};return e(),window.addEventListener(`scroll`,e,{passive:!0}),()=>{window.removeEventListener(`scroll`,e)}},[]),(0,w.useEffect)(()=>{i(!1)},[e.pathname]);let a=()=>{i(!1),window.requestAnimationFrame(()=>{window.scrollTo({top:0,left:0,behavior:`smooth`})})};return(0,I.jsxs)(`header`,{className:`sg-header ${t?`scrolled`:``} ${r?`menu-open`:``}`,children:[(0,I.jsx)(F,{className:`sg-header-logo nav-logo`,to:`/`,"aria-label":`새결 처음으로`,onClick:a,children:`새결`}),(0,I.jsxs)(`button`,{className:`sg-menu-toggle`,type:`button`,"aria-label":r?`메뉴 닫기`:`메뉴 열기`,"aria-expanded":r,"aria-controls":`primary-navigation`,onClick:()=>i(e=>!e),children:[(0,I.jsx)(`span`,{}),(0,I.jsx)(`span`,{})]}),(0,I.jsx)(`nav`,{id:`primary-navigation`,className:`sg-primary-nav nav`,"aria-label":`주요 메뉴`,children:Yr.map(e=>(0,I.jsx)(kn,{to:e.href,end:e.href===`/`,onClick:a,children:e.label},e.href))})]})}function Qr(){let e=Jr.find(e=>e.status===`active`),t=Rr();return(0,I.jsxs)(`main`,{children:[(0,I.jsx)(`section`,{className:`sg-hero`,id:`home`,children:(0,I.jsxs)(`div`,{className:`sg-hero-inner`,children:[(0,I.jsx)(`h1`,{children:`새결`}),(0,I.jsx)(`p`,{className:`sg-hero-lead`,children:`문학의 새로운 호흡, 새결`}),(0,I.jsxs)(`div`,{className:`sg-hero-actions`,children:[(0,I.jsx)(F,{to:`/issue/${e.slug}`,children:`이번 호 읽기`}),(0,I.jsx)(F,{to:`/submit`,children:`투고 안내`})]})]})}),(0,I.jsxs)(`section`,{className:`sg-section sg-current`,id:`current-issue`,children:[(0,I.jsx)($r,{eyebrow:`이번 호`,title:`2026년 5월호 · 개화`}),(0,I.jsxs)(`div`,{className:`sg-main-grid`,children:[(0,I.jsx)(ei,{issue:e}),(0,I.jsx)(ni,{targetDate:t})]})]}),(0,I.jsx)(gi,{})]})}function $r({eyebrow:e,title:t,children:n}){return(0,I.jsxs)(`div`,{className:`sg-section-title`,children:[(0,I.jsx)(`p`,{children:e}),(0,I.jsx)(`h2`,{children:t}),n]})}function ei({issue:e}){return(0,I.jsxs)(F,{className:`sg-featured-issue`,to:`/issue/${e.slug}`,children:[(0,I.jsxs)(`div`,{className:`sg-featured-copy`,children:[(0,I.jsx)(`p`,{children:`새결`}),(0,I.jsx)(`h3`,{children:`Vol.1`}),(0,I.jsxs)(`dl`,{children:[(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`발행`}),(0,I.jsx)(`dd`,{children:e.title})]}),(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`구분`}),(0,I.jsx)(`dd`,{children:e.label})]})]}),(0,I.jsx)(`span`,{children:`더보기 →`})]}),(0,I.jsxs)(`div`,{className:`sg-cover-card`,children:[(0,I.jsx)(`span`,{children:e.title}),(0,I.jsxs)(`strong`,{children:[e.theme,`(開花)`]}),(0,I.jsxs)(`small`,{children:[`새결 · `,e.label]})]})]})}function ti({issue:e}){let t=(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(`span`,{className:`sg-shelf-date`,children:e.archiveDate}),(0,I.jsx)(`strong`,{children:e.archiveTitle}),(0,I.jsx)(`em`,{children:qr(e)}),e.badge&&(0,I.jsx)(`b`,{children:e.badge})]});return e.status===`active`?(0,I.jsx)(F,{className:`sg-shelf-card is-active`,to:`/issue/${e.slug}`,children:t}):(0,I.jsx)(`article`,{className:`sg-shelf-card is-upcoming`,"aria-label":`${e.archiveDate} ${e.archiveTitle}`,children:t})}function ni({targetDate:e}){let[t,n]=(0,w.useState)(()=>bi(e));(0,w.useEffect)(()=>{let t=window.setInterval(()=>n(bi(e)),1e3);return()=>window.clearInterval(t)},[e]);let r=[[`Days`,t.days],[`Hours`,t.hours],[`Minutes`,t.minutes],[`Seconds`,t.seconds]];return(0,I.jsxs)(`section`,{className:`sg-countdown`,"aria-label":`다음 호 발행 카운트다운`,children:[(0,I.jsx)(`p`,{children:`다음 호 발행까지`}),(0,I.jsx)(`strong`,{children:t.isPast?`D-0`:`D-${t.days}`}),(0,I.jsx)(`div`,{className:`sg-countdown-grid`,children:r.map(([e,t])=>(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`b`,{children:String(t).padStart(2,`0`)}),(0,I.jsx)(`span`,{children:e})]},e))}),(0,I.jsxs)(`small`,{children:[`다음 호 발행 예정: `,zr(e)]})]})}function ri(){let{slug:e}=dt(),t=Jr.find(t=>t.slug===e&&t.status===`active`),[n,r]=(0,w.useState)(!1);return t?(0,I.jsx)(`main`,{children:(0,I.jsxs)(`article`,{className:`sg-issue-page`,id:`issue-document`,children:[(0,I.jsx)(ii,{issue:t}),(0,I.jsx)(oi,{id:`preface`,eyebrow:`창간사`,body:t.preface}),(0,I.jsx)(si,{issue:t}),(0,I.jsx)(ai,{issue:t,onToggleComments:()=>r(e=>!e),commentsOpen:n}),n&&(0,I.jsx)(yi,{issue:t}),(0,I.jsxs)(`nav`,{className:`sg-issue-end`,"aria-label":`호수 하단 이동`,children:[(0,I.jsx)(F,{to:`/`,children:`처음으로`}),(0,I.jsx)(`a`,{href:`#toc`,onClick:e=>wi(e,`toc`),children:`목차로`})]})]})}):(0,I.jsx)(Ft,{to:`/`,replace:!0})}function ii({issue:e}){return(0,I.jsx)(`header`,{className:`sg-issue-cover`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{children:`[2026년 5월]`}),(0,I.jsxs)(`h1`,{children:[`『새결』 `,e.label]}),(0,I.jsxs)(`dl`,{children:[(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`주제`}),(0,I.jsx)(`dd`,{children:e.theme})]}),(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:`편집위원`}),(0,I.jsx)(`dd`,{children:e.editors.join(`, `)})]})]})]})})}function ai({issue:e,onToggleComments:t,commentsOpen:n}){return(0,I.jsx)(`section`,{className:`sg-issue-actions`,"aria-label":`${e.displayTitle} 도구`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`a`,{href:e.pdfPath,download:!0,children:`PDF 저장`}),(0,I.jsx)(`button`,{type:`button`,onClick:async()=>{let t=`${window.location.origin}/issue/${e.slug}`,n=`새결 ${e.displayTitle}`;if(navigator.share){await navigator.share({title:n,text:n,url:t});return}await navigator.clipboard.writeText(t)},children:`공유하기`}),(0,I.jsx)(`button`,{type:`button`,className:n?`is-active`:``,onClick:t,children:`댓글 보기`})]})})}function oi({id:e,eyebrow:t,body:n}){return(0,I.jsx)(`section`,{id:e,className:`sg-literary-section`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-section-eyebrow`,children:t}),(0,I.jsx)(li,{text:n,variant:`prose`})]})})}function si({issue:e}){let t=e.editorNotes.map(e=>({id:`editor-note-${Ci(e.author)}`,title:`편집위원의 말`,author:e.author}));return(0,I.jsx)(`section`,{id:`toc`,className:`sg-literary-section sg-contents`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-section-eyebrow`,children:`목차`}),(0,I.jsxs)(`div`,{className:`sg-toc-part`,children:[(0,I.jsx)(`h2`,{children:`여는 글`}),(0,I.jsxs)(`ol`,{children:[(0,I.jsx)(`li`,{children:(0,I.jsxs)(`a`,{href:`#preface`,onClick:e=>wi(e,`preface`),children:[(0,I.jsx)(`strong`,{children:`창간사`}),(0,I.jsx)(`span`,{children:`새결 일동`})]})}),t.map(t=>(0,I.jsx)(`li`,{children:(0,I.jsxs)(F,{to:`/issue/${e.slug}/work/${t.id}`,children:[(0,I.jsx)(`strong`,{children:t.title}),(0,I.jsx)(`span`,{children:t.author})]})},t.id))]})]}),e.sections.map(t=>(0,I.jsxs)(`div`,{className:`sg-toc-part`,children:[(0,I.jsx)(`h2`,{children:t.title}),(0,I.jsx)(`ol`,{children:t.works.map(t=>(0,I.jsx)(`li`,{children:(0,I.jsxs)(F,{to:`/issue/${e.slug}/work/${t.id}`,children:[(0,I.jsx)(`strong`,{children:t.title}),(0,I.jsx)(`span`,{children:t.author})]})},t.id))})]},t.title))]})})}function ci(){let{slug:e,workId:t}=dt(),n=Jr.find(t=>t.slug===e),r=n?Si(n):[],i=r.findIndex(e=>e.id===t),a=r[i];if(!n||!a)return(0,I.jsx)(Ft,{to:n?`/issue/${n.slug}`:`/`,replace:!0});let o=r[i-1],s=r[i+1];return(0,I.jsx)(`main`,{className:`sg-work-page`,children:(0,I.jsx)(`article`,{className:`sg-work-reader ${a.type===`시`?`is-poem`:`is-prose`}`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-work-kicker`,children:n.displayTitle}),(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`span`,{children:a.type}),(0,I.jsx)(`h1`,{children:a.title}),(0,I.jsx)(`p`,{children:a.author})]}),(0,I.jsx)(li,{text:a.body,variant:a.type===`시`?`poem`:`prose`}),(0,I.jsxs)(`nav`,{className:`sg-work-nav`,"aria-label":`작품 이동`,children:[o?(0,I.jsx)(F,{to:`/issue/${n.slug}/work/${o.id}`,children:`이전 작품`}):(0,I.jsx)(`span`,{}),(0,I.jsx)(F,{to:`/issue/${n.slug}#toc`,children:`목차로 돌아가기`}),s?(0,I.jsx)(F,{to:`/issue/${n.slug}/work/${s.id}`,children:`다음 작품`}):(0,I.jsx)(`span`,{})]})]})})})}function li({text:e,variant:t}){return t===`poem`?(0,I.jsx)(`div`,{className:`sg-text-body is-poem`,children:e}):(0,I.jsx)(`div`,{className:`sg-text-body is-prose`,children:e.split(/\n{2,}/).map((e,t)=>(0,I.jsx)(`p`,{children:e},t))})}function ui(){return(0,I.jsx)(`main`,{children:(0,I.jsxs)(`section`,{className:`sg-section`,id:`previous-issues`,children:[(0,I.jsx)($r,{eyebrow:`문예지모음`,title:`지난 호`,children:(0,I.jsx)(`p`,{className:`sg-section-lead`,children:`발행된 호수와 앞으로 놓일 지면을 조용히 모아둡니다.`})}),(0,I.jsx)(`div`,{className:`sg-issue-shelf`,children:Jr.map(e=>(0,I.jsx)(ti,{issue:e},e.id))})]})})}function di(){return(0,I.jsx)(`main`,{children:(0,I.jsxs)(`section`,{className:`sg-section sg-contributors sg-poets-page`,children:[(0,I.jsx)($r,{eyebrow:`필진`,title:`새결을 이루는 목소리`}),(0,I.jsx)(mi,{})]})})}function fi(){return(0,I.jsx)(`main`,{children:(0,I.jsx)(gi,{})})}function pi(){return(0,I.jsx)(`main`,{children:(0,I.jsx)(_i,{})})}function mi(){let e=Gr.filter(e=>[`yang-junhee`,`park-minjun`].includes(e.id)),t=Gr.filter(e=>![`yang-junhee`,`park-minjun`].includes(e.id));return(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(`div`,{className:`sg-contributor-grid sg-editor-grid`,"aria-label":`편집진`,children:e.map(e=>(0,I.jsx)(hi,{person:e,variant:`featured`},e.id))}),(0,I.jsxs)(`section`,{className:`sg-writer-section`,"aria-labelledby":`writer-section-title`,children:[(0,I.jsx)(`div`,{className:`sg-writer-section-title`,children:(0,I.jsx)(`h3`,{id:`writer-section-title`,children:`기고자`})}),(0,I.jsx)(`div`,{className:`sg-contributor-grid sg-writer-grid`,children:t.map(e=>(0,I.jsx)(hi,{person:e,variant:`compact`},e.id))})]})]})}function hi({person:e,variant:t=`compact`}){return(0,I.jsxs)(`article`,{className:`sg-contributor-card is-${t}`,children:[(0,I.jsx)(`img`,{className:`sg-contributor-image`,src:e.image,alt:`${e.name} 사진`,loading:`lazy`}),(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`h3`,{children:e.name}),(0,I.jsx)(`span`,{children:e.role})]}),(0,I.jsx)(`p`,{className:`sg-contributor-line`,children:e.line}),(0,I.jsx)(`p`,{children:e.description})]})}function gi({compact:e=!1}){let[t,n]=Pr(Hr);return(0,I.jsxs)(`section`,{className:`sg-section sg-submit ${e?`is-compact`:``}`,id:e?`issue-submit`:`submit`,children:[(0,I.jsx)($r,{eyebrow:`투고 안내`,title:`당신의 문장이 다음 호에 닿는 자리`,children:(0,I.jsx)(`p`,{className:`sg-section-lead`,children:`새결은 매달 한 권의 문예지를 꾸립니다. 아래 규정을 확인한 뒤 원고와 소개를 함께 보내주세요.`})}),(0,I.jsxs)(`div`,{className:`sg-submit-guide`,"aria-label":`투고 규정과 분과별 안내`,children:[(0,I.jsxs)(`article`,{className:`sg-submit-panel sg-submit-rules`,children:[(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`p`,{children:`Submission Rules`}),(0,I.jsx)(`h3`,{children:`투고 규정`})]}),(0,I.jsx)(`dl`,{children:Ur.map(([e,t])=>(0,I.jsxs)(`div`,{children:[(0,I.jsx)(`dt`,{children:e}),(0,I.jsx)(`dd`,{children:t})]},e))})]}),(0,I.jsxs)(`article`,{className:`sg-submit-panel sg-submit-departments`,children:[(0,I.jsxs)(`header`,{children:[(0,I.jsx)(`p`,{children:`Departments`}),(0,I.jsx)(`h3`,{children:`분과별 안내`})]}),(0,I.jsxs)(`div`,{className:`sg-department-table`,role:`table`,"aria-label":`분과별 투고 일정`,children:[(0,I.jsxs)(`div`,{className:`sg-department-row is-head`,role:`row`,children:[(0,I.jsx)(`span`,{role:`columnheader`,children:`분과`}),(0,I.jsx)(`span`,{role:`columnheader`,children:`주제`}),(0,I.jsx)(`span`,{role:`columnheader`,children:`마감`}),(0,I.jsx)(`span`,{role:`columnheader`,children:`상태`})]}),Wr.map(e=>(0,I.jsxs)(`div`,{className:`sg-department-row`,role:`row`,children:[(0,I.jsx)(`span`,{role:`cell`,children:e.department}),(0,I.jsx)(`span`,{role:`cell`,children:e.theme}),(0,I.jsx)(`span`,{role:`cell`,children:e.deadline}),(0,I.jsx)(`span`,{role:`cell`,children:(0,I.jsx)(`b`,{className:`sg-status-badge ${e.status===`모집 중`?`is-open`:`is-pending`}`,children:e.status})})]},e.department))]})]})]}),(0,I.jsxs)(`form`,{className:`sg-submit-form`,onSubmit:n,children:[t.succeeded&&(0,I.jsx)(`p`,{className:`sg-form-status`,children:`기고가 접수되었습니다. 보내주신 문장을 확인하겠습니다.`}),(0,I.jsx)(Cr,{className:`sg-form-error`,errors:t.errors}),(0,I.jsx)(`input`,{type:`hidden`,name:`_subject`,value:`새결 기고 접수`}),(0,I.jsxs)(`label`,{children:[`이름`,(0,I.jsx)(`input`,{name:`name`,type:`text`,required:!0,placeholder:`이름`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`name`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`이메일`,(0,I.jsx)(`input`,{name:`email`,type:`email`,required:!0,placeholder:`이메일`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`email`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`작품 제목`,(0,I.jsx)(`input`,{name:`workTitle`,type:`text`,required:!0,placeholder:`작품 제목`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`workTitle`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`작품 소개`,(0,I.jsx)(`textarea`,{name:`message`,rows:`10`,required:!0,placeholder:`작품 소개`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`message`,errors:t.errors}),(0,I.jsxs)(`label`,{children:[`첨부 링크 또는 메시지`,(0,I.jsx)(`textarea`,{name:`bio`,rows:`4`,placeholder:`첨부 링크 또는 메시지`})]}),(0,I.jsx)(Cr,{className:`sg-form-error`,field:`bio`,errors:t.errors}),(0,I.jsx)(`button`,{type:`submit`,disabled:t.submitting,children:t.submitting?`보내는 중`:`기고하기`})]})]})}function _i(){return(0,I.jsx)(`section`,{className:`sg-section sg-about`,id:`about`,children:(0,I.jsx)($r,{eyebrow:`소개`,title:`새결은 한 호의 순서를 존중하는 웹 문예지입니다.`,children:(0,I.jsx)(`p`,{className:`sg-section-lead`,children:`빠르게 넘기는 피드가 아니라 표지, 글, 목차, 작품, 댓글로 이어지는 읽기의 흐름을 만듭니다.`})})})}function vi(){return(0,I.jsxs)(`footer`,{className:`sg-footer`,children:[(0,I.jsxs)(`div`,{children:[(0,I.jsx)(F,{to:`/`,className:`sg-footer-logo`,children:`새결`}),(0,I.jsx)(`p`,{children:`문학의 새로운 호흡, 새결`})]}),(0,I.jsxs)(`nav`,{"aria-label":`하단 메뉴`,children:[(0,I.jsx)(F,{to:`/`,children:`처음`}),(0,I.jsx)(F,{to:`/issues`,children:`문예지모음`}),(0,I.jsx)(F,{to:`/submit`,children:`투고안내`}),(0,I.jsx)(F,{to:`/about`,children:`소개`}),(0,I.jsx)(F,{to:`/poets`,children:`필진`})]}),(0,I.jsxs)(`address`,{children:[(0,I.jsx)(`span`,{children:`연락처`}),(0,I.jsx)(`a`,{href:`tel:01032859833`,children:`010-3285-9833`}),(0,I.jsx)(`a`,{href:`mailto:jhyang@thesaegyeol.com`,children:`jhyang@thesaegyeol.com`})]})]})}function yi({issue:e}){return(0,w.useEffect)(()=>{if(window.disqus_config=function(){this.page.url=`${window.location.origin}/issue/${e.slug}`,this.page.identifier=e.id,this.page.title=`새결 - ${e.displayTitle}`},window.DISQUS){window.DISQUS.reset({reload:!0,config:window.disqus_config});return}if(document.getElementById(`disqus-script`))return;let t=document.createElement(`script`);t.id=`disqus-script`,t.src=`https://${Vr}.disqus.com/embed.js`,t.setAttribute(`data-timestamp`,`${Date.now()}`),(document.head||document.body).appendChild(t)},[e]),(0,I.jsx)(`section`,{className:`sg-literary-section sg-comments`,id:`comments`,children:(0,I.jsxs)(`div`,{className:`sg-reading-shell`,children:[(0,I.jsx)(`p`,{className:`sg-section-eyebrow`,children:`댓글`}),(0,I.jsx)(`div`,{id:`disqus_thread`}),(0,I.jsx)(`noscript`,{children:`댓글을 보려면 JavaScript를 활성화해주세요.`})]})})}function bi(e){let t=new Date(e),n=new Date,r=t.getTime()-n.getTime(),i=Math.floor(Math.max(0,r)/1e3),a=Math.max(0,Math.round((xi(t)-xi(n))/864e5));return{isPast:r<=0,days:a,hours:Math.floor(i%86400/3600),minutes:Math.floor(i%3600/60),seconds:i%60}}function xi(e){let t=new Intl.DateTimeFormat(`en-CA`,{timeZone:`Asia/Seoul`,year:`numeric`,month:`2-digit`,day:`2-digit`}).formatToParts(e),n=Object.fromEntries(t.map(e=>[e.type,e.value]));return Date.UTC(Number(n.year),Number(n.month)-1,Number(n.day))}function Si(e){return[...e.editorNotes.map(e=>({id:`editor-note-${Ci(e.author)}`,title:`편집위원의 말`,author:e.author,type:`편집위원의 말`,body:e.body})),...e.sections.flatMap(e=>e.works.map(t=>({...t,sectionTitle:e.title})))]}function Ci(e){return{박민준:`park-minjun`,양준희:`yang-junhee`}[e]||e.toLowerCase().replace(/\s+/g,`-`)}function wi(e,t){e.preventDefault();let n=document.getElementById(t);n&&Ti(n)}function Ti(e){let t=document.querySelector(`.sg-header`)?.getBoundingClientRect().height??0,n=e.getBoundingClientRect().top+window.scrollY-t-14;window.scrollTo({top:Math.max(0,n),left:0,behavior:`smooth`})}(0,br.createRoot)(document.getElementById(`root`)).render((0,I.jsx)(En,{children:(0,I.jsx)(Xr,{})}));
