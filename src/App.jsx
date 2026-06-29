@@ -108,6 +108,10 @@ const getPoemCount = (issue) =>
   ) ?? 0;
 
 const getArchiveDescription = (issue) => {
+  if (issue.archiveSummary) {
+    return issue.archiveSummary;
+  }
+
   const poemCount = getPoemCount(issue);
   return poemCount ? `시 ${poemCount}편 · ${issue.label}` : issue.archiveDescription;
 };
@@ -126,6 +130,7 @@ const issues = [
     archiveDate: "2026. 06",
     archiveTitle: "여름",
     archiveDescription: "통권 2호",
+    archiveSummary: "시 18편 · 비평문 3편 · 통권 2호",
     badge: "현재 호",
     status: "active",
     publishDate: "2026-06-01",
@@ -2566,6 +2571,8 @@ function ContributorsSection() {
 }
 
 function IssuesPage() {
+  const orderedIssues = [...issues].sort((a, b) => (a.publishDate || a.id).localeCompare(b.publishDate || b.id));
+
   return (
     <main>
       <section className="sg-section" id="previous-issues">
@@ -2573,7 +2580,7 @@ function IssuesPage() {
           <p className="sg-section-lead">발행된 호수와 앞으로 놓일 지면을 조용히 모아둡니다.</p>
         </SectionTitle>
         <div className="sg-issue-shelf">
-          {issues.map((issue) => (
+          {orderedIssues.map((issue) => (
             <IssueShelfCard key={issue.id} issue={issue} />
           ))}
         </div>
@@ -2727,6 +2734,9 @@ function AboutSection() {
 }
 
 function Footer() {
+  const location = useLocation();
+  const showCredit = location.pathname === "/issues";
+
   return (
     <footer className="sg-footer">
       <div>
@@ -2744,6 +2754,20 @@ function Footer() {
         <span>연락처</span>
         <a href="tel:01032859833">010-3285-9833</a>
         <a href="mailto:jhyang@thesaegyeol.com">jhyang@thesaegyeol.com</a>
+        {showCredit && (
+          <p
+            style={{
+              marginTop: "18px",
+              color: "rgba(17, 17, 17, 0.48)",
+              fontFamily: "var(--sans)",
+              fontSize: "11px",
+              lineHeight: 1.5,
+              textAlign: "right",
+            }}
+          >
+            website made by @eunseowi
+          </p>
+        )}
       </address>
     </footer>
   );
