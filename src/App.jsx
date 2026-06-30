@@ -130,7 +130,7 @@ const issues = [
     archiveDate: "2026. 06",
     archiveTitle: "여름",
     archiveDescription: "통권 2호",
-    archiveSummary: "시 18편 · 비평문 3편 · 통권 2호",
+    archiveSummary: "시 19편 · 비평문 3편 · 통권 2호",
     badge: "현재 호",
     status: "active",
     publishDate: "2026-06-01",
@@ -871,7 +871,7 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
           {
             id: "maeum",
             title: "마음",
-            author: "심다윤",
+            author: "심다율",
             type: "시",
             body: `살아가기에 있어
 시간은 지나치게도 짧다.
@@ -939,7 +939,7 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
           {
             id: "gieogui-sumyeong",
             title: "기억의 수명",
-            author: "심다윤",
+            author: "심다율",
             type: "시",
             body: `사람의 기억은
 시간 앞에선
@@ -976,6 +976,30 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
 사라진 줄 알았던 것들은
 또 다른 찬란함으로
 다시 피어난다는 것을.`
+          },
+          {
+            id: "haengnyeoja",
+            title: "행려자",
+            author: "양준희",
+            type: "시",
+            body: `낙엽 한 점 떨어지지 않는 쓸쓸한 길가
+헐거운 고무신을 끌고–
+피부가 벗겨진 가슴으로
+몸을 뉘인 곳은 썰렁한 저잣거리.
+
+길가에는 얼굴이 찢겨나간 포스터가
+끝없는 행렬처럼 줄을 짓고
+바람에 눈알만 덜컹이며 흔들린다.
+
+물결처럼 요동치며 핏빛으로 새겨진
+저 검은 간판의 글씨–
+그 속에 비틀거리는 사내의 몸이
+내 눈 속으로 손을 뻗는데
+
+동무여, 여린 그대는
+내가 가는 길을 따라오지 마오
+그 길은 돌아올 이름 하나 남지 않는
+다만 행려자의 길이니.`
           },
           {
             id: "jeolbyeok-kkeuteseo-majuhan-chukbok",
@@ -1029,7 +1053,12 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
 내는 여기 남아서
 네가 일으킨 먼지 자욱이 가라앉을 때까지
 오래도록 흙 묻은 손나 털고 있을 테니.`
-          },
+          }
+        ]
+      },
+      {
+        title: "에필로그",
+        works: [
           {
             id: "ibyeol-essay",
             title: "—",
@@ -1055,7 +1084,7 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
         ]
       },
       {
-        title: "에필로그",
+        title: "맺음말",
         works: [
           {
             id: "maecheummal-2026-06",
@@ -2305,7 +2334,7 @@ function IssueCard({ issue }) {
       <div className="sg-cover-card">
         <span>{issue.title}</span>
         <strong>{issue.theme}</strong>
-        <small>시 18편 · 비평문 3편 · {issue.label}</small>
+        <small>시 19편 · 비평문 3편 · {issue.label}</small>
       </div>
     </Link>
   );
@@ -2379,7 +2408,7 @@ function IssuePage() {
     <main>
       <article className="sg-issue-page" id="issue-document">
         <IssueCover issue={issue} />
-        <TextSection id="preface" eyebrow="창간사" body={issue.preface} />
+        <TextSection id="preface" eyebrow="머릿말" body={issue.preface} />
         <TableOfContents issue={issue} />
         <IssueActions issue={issue} onToggleComments={() => setCommentsOpen((value) => !value)} commentsOpen={commentsOpen} />
         {commentsOpen && <IssueComments issue={issue} />}
@@ -2464,7 +2493,7 @@ function TableOfContents({ issue }) {
           <ol>
             <li>
               <a href="#preface" onClick={(event) => scrollToAnchor(event, "preface")}>
-                <strong>창간사</strong>
+                <strong>머릿말</strong>
                 <span>새결 일동</span>
               </a>
             </li>
@@ -2735,7 +2764,7 @@ function AboutSection() {
 
 function Footer() {
   const location = useLocation();
-  const showCredit = location.pathname === "/issues";
+  const showCredit = location.pathname === "/issues" || location.pathname.startsWith("/issue/");
 
   return (
     <footer className="sg-footer">
@@ -2765,7 +2794,7 @@ function Footer() {
               textAlign: "right",
             }}
           >
-            website made by @eunseowi
+            website by @eunseowi
           </p>
         )}
       </address>
