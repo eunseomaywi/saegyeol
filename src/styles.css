@@ -39,6 +39,25 @@ a {
   color: inherit;
 }
 
+.sg-creator-credit {
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+  z-index: 1000;
+  color: #6d675f;
+  font-family: var(--serif);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.25s ease;
+}
+
+.sg-creator-credit:hover {
+  opacity: 1;
+}
+
 button,
 input,
 textarea {
@@ -1668,6 +1687,10 @@ dd {
     font-size: 17px;
     line-height: 2.08;
   }
+
+  .sg-creator-credit {
+    font-size: 11px;
+  }
 }
 
 @media print {
@@ -1676,6 +1699,7 @@ dd {
   .sg-issue-actions,
   .sg-submit,
   .sg-issue-end,
+  .sg-creator-credit,
   .sg-footer {
     display: none;
   }

@@ -2195,8 +2195,23 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <CreatorCredit />
       <Footer />
     </>
+  );
+}
+
+function CreatorCredit() {
+  return (
+    <a
+      className="sg-creator-credit"
+      href="https://github.com/eunseomaywi"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="@eunseowi GitHub"
+    >
+      @eunseowi
+    </a>
   );
 }
 
