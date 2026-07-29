@@ -2195,23 +2195,8 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <CreatorCredit />
       <Footer />
     </>
-  );
-}
-
-function CreatorCredit() {
-  return (
-    <a
-      className="sg-creator-credit"
-      href="https://github.com/eunseomaywi"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="@eunseowi GitHub"
-    >
-      @eunseowi
-    </a>
   );
 }
 
@@ -2778,9 +2763,6 @@ function AboutSection() {
 }
 
 function Footer() {
-  const location = useLocation();
-  const showCredit = location.pathname === "/issues" || location.pathname.startsWith("/issue/");
-
   return (
     <footer className="sg-footer">
       <div>
@@ -2798,20 +2780,6 @@ function Footer() {
         <span>연락처</span>
         <a href="tel:01032859833">010-3285-9833</a>
         <a href="mailto:jhyang@thesaegyeol.com">jhyang@thesaegyeol.com</a>
-        {showCredit && (
-          <p
-            style={{
-              marginTop: "18px",
-              color: "rgba(17, 17, 17, 0.48)",
-              fontFamily: "var(--sans)",
-              fontSize: "11px",
-              lineHeight: 1.5,
-              textAlign: "right",
-            }}
-          >
-            website by @eunseowi
-          </p>
-        )}
       </address>
     </footer>
   );
