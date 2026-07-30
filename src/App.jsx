@@ -19,7 +19,7 @@ const submissionRules = [
 const submissionDepartments = [
   {
     department: "시 분과",
-    theme: "자유 (2호 주제 미정)",
+    theme: "미정",
     deadline: "매월 셋째 주 일요일",
     status: "모집 중",
   },
@@ -1118,7 +1118,7 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
     volume: "Vol.1",
     label: "창간호",
     archiveDate: "2026. 05",
-    archiveTitle: "개화 開花",
+    archiveTitle: "개화",
     archiveDescription: "창간호",
     badge: null,
     status: "active",
@@ -2109,13 +2109,6 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
         ],
       },
     ],
-  },
-  {
-    id: "2026-07",
-    archiveDate: "2026. 07",
-    archiveTitle: "예정",
-    archiveDescription: "3호",
-    status: "upcoming",
   },
   {
     id: "2026-08",
