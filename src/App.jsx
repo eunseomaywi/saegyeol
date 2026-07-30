@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { getNextPublishDate, formatPublishDate } from "./utils/date";
+import july2026Issue from "./issues/july2026";
 
 const DISQUS_SHORTNAME = import.meta.env.VITE_DISQUS_SHORTNAME || "saegyeol";
 const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "mrejeyvg";
@@ -119,6 +120,7 @@ const getArchiveDescription = (issue) => {
 const getIssueMonthLabel = (issue) => issue.title.replace(/호$/, "");
 
 const issues = [
+  july2026Issue,
   {
     id: "saegyeol-2026-06-yeoreum",
     slug: "2026-06-yeoreum",
@@ -2334,19 +2336,20 @@ function IssueCard({ issue }) {
       <div className="sg-cover-card">
         <span>{issue.title}</span>
         <strong>{issue.theme}</strong>
-        <small>시 19편 · 비평문 3편 · {issue.label}</small>
+        <small>{getArchiveDescription(issue)}</small>
       </div>
     </Link>
   );
 }
 
 function IssueShelfCard({ issue }) {
+  const currentIssue = issues.find((item) => item.status === "active");
   const content = (
     <>
       <span className="sg-shelf-date">{issue.archiveDate}</span>
       <strong>{issue.archiveTitle}</strong>
       <em>{getArchiveDescription(issue)}</em>
-      {issue.badge && <b>{issue.badge}</b>}
+      {issue.badge && currentIssue?.id === issue.id && <b>{issue.badge}</b>}
     </>
   );
 
@@ -2408,7 +2411,7 @@ function IssuePage() {
     <main>
       <article className="sg-issue-page" id="issue-document">
         <IssueCover issue={issue} />
-        <TextSection id="preface" eyebrow="머릿말" body={issue.preface} />
+        <TextSection id="preface" eyebrow={issue.prefaceTitle || "머릿말"} body={issue.preface} />
         <TableOfContents issue={issue} />
         <IssueActions issue={issue} onToggleComments={() => setCommentsOpen((value) => !value)} commentsOpen={commentsOpen} />
         {commentsOpen && <IssueComments issue={issue} />}
@@ -2458,7 +2461,7 @@ function IssueActions({ issue, onToggleComments, commentsOpen }) {
   return (
     <section className="sg-issue-actions" aria-label={`${issue.displayTitle} 도구`}>
       <div className="sg-reading-shell">
-        <a href={issue.pdfPath} download>PDF 저장</a>
+        <a href={issue.pdfPath} {...(issue.pdfActionLabel ? {} : { download: true })}>{issue.pdfActionLabel || "PDF 저장"}</a>
         <button type="button" onClick={shareIssue}>공유하기</button>
         <button type="button" className={commentsOpen ? "is-active" : ""} onClick={onToggleComments}>댓글 보기</button>
       </div>
@@ -2493,7 +2496,7 @@ function TableOfContents({ issue }) {
           <ol>
             <li>
               <a href="#preface" onClick={(event) => scrollToAnchor(event, "preface")}>
-                <strong>머릿말</strong>
+                <strong>{issue.prefaceTitle || "머릿말"}</strong>
                 <span>새결 일동</span>
               </a>
             </li>
@@ -2870,6 +2873,8 @@ function slugify(value) {
   const known = {
     박민준: "park-minjun",
     양준희: "yang-junhee",
+    "편집위원 박민준": "park-minjun",
+    "편집위원 양준희": "yang-junhee",
   };
 
   return known[value] || value.toLowerCase().replace(/\s+/g, "-");
