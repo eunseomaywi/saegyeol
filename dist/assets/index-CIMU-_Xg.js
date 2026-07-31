@@ -16,7 +16,40 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 but received
 
     ${JSON.stringify(e)}
-`;if(e===null||Xn(e)!==`object`)throw Error(t);if(Object.keys(e).length===1&&typeof e.advancedFraudSignals==`boolean`)return e;throw Error(t)},_r=!1,vr=function(){var e=[...arguments];_r=!0;var t=Date.now();return pr(gr).then(function(n){return mr(n,e,t)})},vr.setLoadParameters=function(e){if(_r&&gr){var t=hr(e);if(Object.keys(t).reduce(function(t,n){return t&&e[n]===gr?.[n]},!0))return}if(_r)throw Error(`You cannot change load parameters after calling loadStripe`);gr=hr(e)}})),br=s(((e,t)=>{t.exports=(yr(),d(Yn))})),xr=y(),Sr=qn(),Cr=Jn();br();function wr(e){let{prefix:t,field:n,errors:r,...i}=e;if(r==null)return null;let a=n?r.getFieldErrors(n):r.getFormErrors();return a.length===0?null:w.createElement(`div`,{...i},t?`${t} `:null,a.map(e=>e.message).join(`, `))}var Tr=(0,w.createContext)({elements:null});function Er(){return(0,w.useContext)(Tr)}var Dr=w.createContext(null);function Or(){return(0,w.useContext)(Dr)??{client:(0,Cr.getDefaultClient)()}}var kr=`@formspree/react@3.0.0`;function Ar(e,t={}){let n=Or(),{client:r=n.client,extraData:i,origin:a}=t,{elements:o}=Er(),{stripe:s}=r;return async function(t){let n=jr(t)?Mr(t):t;if(typeof i==`object`)for(let[e,t]of Object.entries(i)){let r;r=typeof t==`function`?await t():t,r!==void 0&&(0,Cr.appendExtraData)(n,e,r)}let c=o?.getElement(Sr.CardElement),l=s&&c?()=>s.createPaymentMethod({type:`card`,card:c,billing_details:Nr(n)}):void 0;return r.submitForm(e,n,{endpoint:a,clientName:kr,createPaymentMethod:l})}}function jr(e){return`preventDefault`in e&&typeof e.preventDefault==`function`}function Mr(e){e.preventDefault();let t=e.currentTarget;if(t.tagName!=`FORM`)throw Error(`submit was triggered for a non-form element`);return new FormData(t)}function Nr(e){let t={address:Pr(e)};for(let n of[`name`,`email`,`phone`]){let r=e instanceof FormData?e.get(n):e[n];r&&typeof r==`string`&&(t[n]=r)}return t}function Pr(e){let t={};for(let[n,r]of[[`address_line1`,`line1`],[`address_line2`,`line2`],[`address_city`,`city`],[`address_country`,`country`],[`address_state`,`state`],[`address_postal_code`,`postal_code`]]){let i=e instanceof FormData?e.get(n):e[n];i&&typeof i==`string`&&(t[r]=i)}return t}function Fr(e,t={}){let[n,r]=(0,w.useState)(null),[i,a]=(0,w.useState)(null),[o,s]=(0,w.useState)(!1),[c,l]=(0,w.useState)(!1);if(!e)throw Error(`You must provide a form key or hashid (e.g. useForm("myForm") or useForm("123xyz")`);let u=Ar(e,{client:t.client,extraData:t.data,origin:t.endpoint});return[{errors:n,result:i,submitting:o,succeeded:c},async function(e){s(!0);let t=await u(e);s(!1),(0,Cr.isSubmissionError)(t)?(r(t),l(!1)):(r(null),a(t),l(!0))},function(){r(null),a(null),s(!1),l(!1)}]}function Ir(e){let t=new Intl.DateTimeFormat(`en-US`,{timeZone:`Asia/Seoul`,year:`numeric`,month:`numeric`,day:`numeric`,hour:`numeric`,minute:`numeric`,second:`numeric`,hour12:!1}).formatToParts(e),n={};return t.forEach(e=>{n[e.type]=e.value}),{year:Number(n.year),month:Number(n.month),day:Number(n.day),hour:Number(n.hour),minute:Number(n.minute),second:Number(n.second)}}function Lr(e,t){return new Date(Date.UTC(e,t,0)).getUTCDate()}function Rr(e,t,n,r=0,i=0,a=0){let o=String(e).padStart(4,`0`),s=String(t).padStart(2,`0`),c=String(n).padStart(2,`0`),l=String(r).padStart(2,`0`),u=String(i).padStart(2,`0`),d=String(a).padStart(2,`0`);return new Date(`${o}-${s}-${c}T${l}:${u}:${d}+09:00`)}function zr(e=new Date){let{year:t,month:n,day:r}=Ir(e),i=Rr(t,n,Lr(t,n),0,0,0);if(e.getTime()>=i.getTime()){let e=n+1,r=t;e>12&&(e=1,r+=1);let i=Lr(r,e);return Rr(r,e,i,0,0,0)}return i}function Br(e){let{year:t,month:n,day:r}=Ir(e);return`${t}년 ${n}월 ${r}일`}var Vr={id:`saegyeol-2026-07-bisang`,slug:`2026-07-bisang`,title:`2026년 7월호`,theme:`비상`,displayTitle:`2026년 7월호 · 비상`,volume:`Vol.3`,label:`통권 3호`,archiveDate:`2026. 07`,archiveTitle:`비상`,archiveDescription:`통권 3호`,archiveSummary:`시 12편 · 비평문 2편 · 통권 3호`,badge:`현재 호`,status:`active`,publishDate:`2026-07-01`,nextIssueDate:`2026-08-13T00:00:00+09:00`,pdfPath:`/saegyeol-2026-07-bisang.pdf`,pdfActionLabel:`PDF로 읽기`,prefaceTitle:`머리말`,editors:[`양준희`,`박민준`],preface:``,editorNotes:[{author:`편집위원 박민준`,body:``},{author:`편집위원 양준희`,body:`우리는 유난히 무더운 여름의 한순간을 보내고 있습니다. 여러분의 일상에 늘 안녕이 함께하시길 간절히 소망합니다.
+`;if(e===null||Xn(e)!==`object`)throw Error(t);if(Object.keys(e).length===1&&typeof e.advancedFraudSignals==`boolean`)return e;throw Error(t)},_r=!1,vr=function(){var e=[...arguments];_r=!0;var t=Date.now();return pr(gr).then(function(n){return mr(n,e,t)})},vr.setLoadParameters=function(e){if(_r&&gr){var t=hr(e);if(Object.keys(t).reduce(function(t,n){return t&&e[n]===gr?.[n]},!0))return}if(_r)throw Error(`You cannot change load parameters after calling loadStripe`);gr=hr(e)}})),br=s(((e,t)=>{t.exports=(yr(),d(Yn))})),xr=y(),Sr=qn(),Cr=Jn();br();function wr(e){let{prefix:t,field:n,errors:r,...i}=e;if(r==null)return null;let a=n?r.getFieldErrors(n):r.getFormErrors();return a.length===0?null:w.createElement(`div`,{...i},t?`${t} `:null,a.map(e=>e.message).join(`, `))}var Tr=(0,w.createContext)({elements:null});function Er(){return(0,w.useContext)(Tr)}var Dr=w.createContext(null);function Or(){return(0,w.useContext)(Dr)??{client:(0,Cr.getDefaultClient)()}}var kr=`@formspree/react@3.0.0`;function Ar(e,t={}){let n=Or(),{client:r=n.client,extraData:i,origin:a}=t,{elements:o}=Er(),{stripe:s}=r;return async function(t){let n=jr(t)?Mr(t):t;if(typeof i==`object`)for(let[e,t]of Object.entries(i)){let r;r=typeof t==`function`?await t():t,r!==void 0&&(0,Cr.appendExtraData)(n,e,r)}let c=o?.getElement(Sr.CardElement),l=s&&c?()=>s.createPaymentMethod({type:`card`,card:c,billing_details:Nr(n)}):void 0;return r.submitForm(e,n,{endpoint:a,clientName:kr,createPaymentMethod:l})}}function jr(e){return`preventDefault`in e&&typeof e.preventDefault==`function`}function Mr(e){e.preventDefault();let t=e.currentTarget;if(t.tagName!=`FORM`)throw Error(`submit was triggered for a non-form element`);return new FormData(t)}function Nr(e){let t={address:Pr(e)};for(let n of[`name`,`email`,`phone`]){let r=e instanceof FormData?e.get(n):e[n];r&&typeof r==`string`&&(t[n]=r)}return t}function Pr(e){let t={};for(let[n,r]of[[`address_line1`,`line1`],[`address_line2`,`line2`],[`address_city`,`city`],[`address_country`,`country`],[`address_state`,`state`],[`address_postal_code`,`postal_code`]]){let i=e instanceof FormData?e.get(n):e[n];i&&typeof i==`string`&&(t[r]=i)}return t}function Fr(e,t={}){let[n,r]=(0,w.useState)(null),[i,a]=(0,w.useState)(null),[o,s]=(0,w.useState)(!1),[c,l]=(0,w.useState)(!1);if(!e)throw Error(`You must provide a form key or hashid (e.g. useForm("myForm") or useForm("123xyz")`);let u=Ar(e,{client:t.client,extraData:t.data,origin:t.endpoint});return[{errors:n,result:i,submitting:o,succeeded:c},async function(e){s(!0);let t=await u(e);s(!1),(0,Cr.isSubmissionError)(t)?(r(t),l(!1)):(r(null),a(t),l(!0))},function(){r(null),a(null),s(!1),l(!1)}]}function Ir(e){let t=new Intl.DateTimeFormat(`en-US`,{timeZone:`Asia/Seoul`,year:`numeric`,month:`numeric`,day:`numeric`,hour:`numeric`,minute:`numeric`,second:`numeric`,hour12:!1}).formatToParts(e),n={};return t.forEach(e=>{n[e.type]=e.value}),{year:Number(n.year),month:Number(n.month),day:Number(n.day),hour:Number(n.hour),minute:Number(n.minute),second:Number(n.second)}}function Lr(e,t){return new Date(Date.UTC(e,t,0)).getUTCDate()}function Rr(e,t,n,r=0,i=0,a=0){let o=String(e).padStart(4,`0`),s=String(t).padStart(2,`0`),c=String(n).padStart(2,`0`),l=String(r).padStart(2,`0`),u=String(i).padStart(2,`0`),d=String(a).padStart(2,`0`);return new Date(`${o}-${s}-${c}T${l}:${u}:${d}+09:00`)}function zr(e=new Date){let{year:t,month:n,day:r}=Ir(e),i=Rr(t,n,Lr(t,n),0,0,0);if(e.getTime()>=i.getTime()){let e=n+1,r=t;e>12&&(e=1,r+=1);let i=Lr(r,e);return Rr(r,e,i,0,0,0)}return i}function Br(e){let{year:t,month:n,day:r}=Ir(e);return`${t}년 ${n}월 ${r}일`}var Vr={id:`saegyeol-2026-07-bisang`,slug:`2026-07-bisang`,title:`2026년 7월호`,theme:`비상`,displayTitle:`2026년 7월호 · 비상`,volume:`Vol.3`,label:`통권 3호`,archiveDate:`2026. 07`,archiveTitle:`비상`,archiveDescription:`통권 3호`,archiveSummary:`시 14편 · 비평문 3편 · 통권 3호`,badge:`현재 호`,status:`active`,publishDate:`2026-07-01`,nextIssueDate:`2026-08-13T00:00:00+09:00`,pdfPath:`/saegyeol-2026-07-bisang.pdf`,pdfActionLabel:`PDF로 읽기`,prefaceTitle:`머리말`,editors:[`양준희`,`박민준`],preface:`문학은 언제나 하나의 질문에서 시작됩니다.
+
+답을 알고 있어서 쓰는 글보다, 아직 답을 찾지 못했기에 끝내 써 내려가는 글이 우리를 더 오래 붙잡습니다. 같은 하늘 아래에서도 서로 다른 의미를 발견하는 일. 문학은 그 서로 다른 시선들이 한자리에 모일 때 비로소 하나의 세계를 이루곤 합니다.
+
+이번 <새결> 통권 3호는 ‘비상’이라는 주제로 여러분을 찾아갑니다.
+
+비상은 반드시 높이 오르는 순간만을 의미하지 않습니다. 때로는 다시 일어나는 용기일 수도 있고, 끝이라고 믿었던 자리에서 다시 질문을 시작하는 일일 수도 있습니다. 아무도 알아주지 않는 시간을 묵묵히 견디는 일일 수도 있습니다.
+
+이번 호에 실린 작품들은 저마다 다른 언어와 리듬으로 비상을 이야기합니다. 누군가는 자신의 한계를 넘어서는 순간을, 누군가는 추락과 흔들림 속에서 다시 삶의 의미를 묻습니다. 또 누군가는 자신만의 세계를 향해 조용히 걸어갑니다.
+
+시는 삶의 가장 깊은 감정을 길어 올리고, 산문은 저마다의 경험과 사유를 담아냅니다. 비평은 문학이 오늘의 우리 곁에서 어떤 의미를 가질 수 있는지를 묻습니다. 서로 다른 작품들은 하나의 결론을 향하지 않습니다. 대신 서로 다른 질문들이 모여 하나의 문예지를 이루고 있습니다.
+
+<새결>은 완성된 답을 전하는 문예지가 아니라, 함께 질문하고 함께 사유하는 문예지가 되고자 합니다.
+
+부디 이 작은 문학의 공간에서 잠시 걸음을 늦추고, 작품마다 담긴 서로 다른 질문들을 천천히 만나 보시기를 바랍니다. 그리고 그 질문들이 여러분만의 비상과 조용히 맞닿기를 바랍니다.
+
+2026년 7월
+새결 일동`,editorNotes:[{author:`편집위원 박민준`,body:`사람은 잘 보이지 않는 곳에서 오래 변합니다.
+
+아침에 눈을 뜨고, 어제와 다르지 않은 하루를 보내고, 별다를 것 없는 하루를 마친 뒤 잠이 듭니다. 그렇게 며칠이 지나도 달라진 것은 없어 보입니다. 그런데 이상하게도 시간이 흐른 뒤 돌아보면, 가장 많이 변해 있는 것은 바로 그 아무 일도 없던 날들이었습니다.
+
+이번 호를 준비하면서도 비슷한 마음을 자주 느꼈습니다. 한 편씩 도착하는 글들은 모두 다른 얼굴을 하고 있었지만, 신기할 만큼 같은 방향을 오래 바라보고 있었습니다. 누군가는 아주 낮은 곳에서 다시 일어났고, 누군가는 끝이라고 생각했던 자리에서 조용히 걸음을 옮겼습니다. 크게 외치지 않는 문장들이 오히려 오래 마음에 남았습니다.
+
+우리는 살아가며 자꾸만 결과를 먼저 확인하려 합니다. 오늘이 괜찮은 날인지, 지금 걷는 길이 맞는 길인지, 이 시간이 의미 있는 시간인지. 하지만 그런 것들은 대부분 그날에는 알 수 없는 일입니다.
+
+그래서 이번 <새결>을 읽는 동안만큼은 조금 천천히 읽어 주셨으면 합니다. 한 편을 여러 번 나누어 읽어도 괜찮고, 한 문장에서 오래 머물러도 괜찮습니다. 누군가의 문장이 여러분의 하루와 잠시 나란히 걸어갈 수 있다면, 그것만으로도 이번 호는 충분합니다.
+
+어쩌면 우리가 지나고 있는 시간도 아직 이름을 다 갖지 못했을 뿐인지도 모르겠습니다. 여러분의 오늘이 훗날 어떤 계절로 기억될지는 아직 아무도 모릅니다.
+
+다만 언젠가 뒤돌아보았을 때, 지금 이 시간이 어떤 모습으로 남아 있을지 조용히 바라볼 수 있기를 바랍니다.
+
+그리고 이번 <새결>이 그 여정의 한 페이지로 오래 남기를 바랍니다.
+
+편집위원 박민준`},{author:`편집위원 양준희`,body:`우리는 유난히 무더운 여름의 한순간을 보내고 있습니다. 여러분의 일상에 늘 안녕이 함께하시길 간절히 소망합니다.
 
 저는 굉장히 바삐 시간을 보내고 있습니다. 해야 할 일, 해야 할 공부, 그리고 글 쓰는 일을 함께 병행하는 것은 쉬운 일이 아닙니다. 체력이 따라주지 않아 이른 시간에 잠이 들기도 하고, 문득 모든 것을 내려놓고 싶다는 생각이 스칠 때도 있었습니다. 그럼에도 저는 지금의 삶이 좋습니다. 쉴 틈도, 걱정도 없이 바쁘게 살아간다는 것은 굉장한 축복입니다. 아직 무엇을 해야 할지 갈피조차 잡지 못한 채 방황하는 사람이 적지 않기에, 저는 제 삶이 하나의 특권이라고 굳게 믿고 있습니다.
 
@@ -28,7 +61,26 @@ but received
 
 이번 호에 실린 글들이 독자 여러분께도 그러한 계기가 되기를 바랍니다. 잠시 걸음을 멈추고 자신을 돌아보는 시간, 그리고 다시 앞으로 나아갈 용기를 얻는 시간이 되기를 소망합니다. 무더운 여름 끝에서 여러분 모두가 저마다의 '비상'을 이루시기를 진심으로 기원합니다.
 
-편집위원 양준희`}],sections:[{title:`1부: 비상`,works:[{id:`wonui-chamsu`,title:`원의 참수`,author:`윤소민`,type:`시`,body:`원은 다정해서 사악하다.
+편집위원 양준희`}],sections:[{title:`1부: 비상`,works:[{id:`jujeoanjeun-jari`,title:`주저앉은 자리`,author:`박민준`,type:`시`,body:`되는 일이 하나도 없어서
+길가에 그냥 주저앉았다.
+
+손에 들고 있던 것을 내려놓고
+주머니에 있던 손도 꺼냈다.
+
+한동안
+고개를 들지 않았다.
+
+바람이 한 번 지나갔다.
+
+무릎에 닿아 있던 먼지가
+먼저 일어났다.
+
+조금 뒤에야
+나도 몸을 일으켰다.
+
+돌아보니
+내가 앉아 있던 자리는
+거기 있었다.`},{id:`wonui-chamsu`,title:`원의 참수`,author:`윤소민`,type:`시`,body:`원은 다정해서 사악하다.
 중심을 향해 구부러진 호(弧) 위에서
 우리는 무사히 늙어가는 법을 배웠다.
 
@@ -202,7 +254,92 @@ but received
 
 나를 바라보는 시선도
 
-그리 될 수 있을까?`}]},{title:`비평`,works:[{id:`munhagui-sae-jipyeong`,title:`문학의 새 지평 – 청소년 세대를 대변하는 리얼리즘적 문학`,author:`양준희`,type:`비평`,body:`21세기는 디지털 문화의 시대다. SNS 릴스, 숏츠, 이른바 ‘숏폼’이 인기를 끌며 점차 청소년 세대의 이목을 끌고 있는 한편, 고전적인 문화조류인 ‘문학’은 설 자리를 잃어 가고 있다. 이는 한국 사회의 문화적 지형이 재편되고 있음을 보여주는 대표적인 예시일 것이다.
+그리 될 수 있을까?`},{id:`oneuriraneun-ireumui-saram`,title:`오늘이라는 이름의 사람`,author:`박민준`,type:`시`,body:`나는 끝에 서 있지 않다
+다만 오늘에 서 있을 뿐이다
+
+수많은 어제들이
+나를 밀어 여기까지 데려왔고
+수많은 내일들이
+아직 이름 없이
+나를 부르고 있다
+
+나는 한때
+빠르게 빛나야 한다고 믿었고
+한때
+아무것도 되지 못할까 두려워
+스스로를 재촉했다
+
+그러나 지금의 나는 안다
+성장은 폭발이 아니라
+침묵의 축적이라는 것을
+
+보이지 않는 곳에서
+사람은 가장 많이 변한다
+
+울지 않은 날들,
+말하지 않은 생각들,
+아무에게도 증명하지 않아도
+스스로를 버리지 않았던
+그 조용한 선택들이
+오늘의 나를 만들었다
+
+나는 완성되지 않았기에
+무너지지 않았고
+불완전하기에
+계속 나아갈 수 있었다
+
+세상은 언제나
+더 빠른 사람을 불렀지만
+나는 더 깊은 사람이 되기로 했다
+
+넘어지지 않는 삶이 아니라
+넘어진 자리에서
+자신을 다시 부르는 삶을
+선택했기에
+
+오늘의 나는
+과거의 나에게
+부끄럽지 않고
+미래의 나에게
+도망치지 않는다
+
+이름 붙일 수 없는 불안 속에서도
+나는 나를 놓지 않았다
+
+그러므로
+나는 아직도 여기 있으며
+여기에 있다는 사실만으로
+이미 충분히 살아냈다
+
+오늘이라는 이 사람은
+완벽하지 않지만
+진실하다
+
+그리고 진실한 것은
+언제나
+다음 세계로
+건너갈 힘이 있다`}]},{title:`비평`,works:[{id:`bisangiraneun-mal`,title:`비상이라는 말`,author:`박민준`,type:`비평`,body:`한동안 나는 되는 일이 없다는 말을 자주 했다.
+
+애써 시작한 일은 마음처럼 풀리지 않았고, 하루를 버텨도 달라지는 것은 없어 보였다. 특별히 큰 실패가 있었던 것은 아니다. 오히려 더 견디기 어려웠던 것은 아무 일도 일어나지 않는 시간이었다. 어제와 오늘이 다르지 않은 날들이 오래 이어졌고, 그 시간은 생각보다 사람을 쉽게 지치게 했다.
+
+그 무렵 우연히 '비상'이라는 말을 오래 들여다보게 되었다.
+
+같은 소리를 가진 두 개의 한자가 있었다. 하나는 非常, 다른 하나는 飛上 이었다. 처음에는 단순한 언어의 우연이라고 생각했다. 그런데 시간이 지나면서 그 두 뜻을 자꾸 함께 읽게 되었다. 삶에서 맞닥뜨리는 비상한 순간들은 때로 가장 낮은 곳에서 시작되기도 했다. 모든 것이 어긋나고, 앞으로 나아갈 수 없다고 느껴지는 시간이었다. 그렇다고 그것이 곧 도약을 약속한다는 뜻은 아니었다. 다만 삶에는 한 방향으로만 읽히지 않는 순간들이 있다는 생각을 자주 하게 되었다.
+
+세옹지마를 다시 읽으면서도 비슷한 감각을 느꼈다. 좋은 일과 나쁜 일은 그 자리에서 끝나지 않는다. 오늘의 불행은 내일의 다행이 되기도 하고, 오늘의 다행은 또 다른 어려움의 시작이 되기도 한다. 그 이야기는 미래를 낙관하라는 말이라기보다, 지금의 순간만으로 삶을 모두 판단할 수는 없다는 사실을 조용히 들려주는 이야기처럼 느껴졌다.
+
+맹자의 문장도 오래 마음에 남았다. 하늘이 큰 일을 맡기려는 사람에게는 먼저 마음을 흔들고, 몸을 지치게 하며, 하는 일마다 뜻대로 되지 않게 만든다고 했다. 예전에는 그 문장을 견디라는 가르침으로 읽었다. 지금은 조금 다르게 읽는다. 사람은 고난을 통과한 뒤에 갑자기 달라지는 것이 아니라, 흔들리는 시간을 살아내는 동안 조금씩 이전과는 다른 사람이 되어 간다. 변화는 어느 한순간의 사건보다 오래 이어지는 시간 속에서 더 조용히 일어난다.
+
+생각해 보면 우리 삶도 대부분 그렇다. 무언가를 이룬 날보다 아무 일도 일어나지 않은 날이 훨씬 많고, 크게 달라진 것 같지 않은 하루가 어느새 한 사람을 바꾸어 놓기도 한다. 돌아보면 오래 남아 있는 것은 특별한 장면보다, 말없이 지나온 평범한 하루인 경우가 더 많았다.
+
+그래서 나는 무언가를 바라볼 때도 의미보다 장면을 오래 바라보려 한다. 설명보다 풍경을 남기고 싶고, 결론보다 움직임 하나를 남기고 싶다. 누군가는 그 장면을 지나 자신의 시간을 떠올릴 것이고, 또 다른 누군가는 전혀 다른 기억을 만나게 될 것이다. 위로도 대개 그런 곳에서 시작된다고 믿는다. 큰 문장보다 오래 바라본 풍경 하나가, 누군가에게는 더 오래 곁에 남는 일이 있으니까.
+
+돌아보면 삶은 내게 특별한 위로를 준 적이 거의 없었다. 다만 시간이 흐른 뒤에야 예전에는 보이지 않던 것들이 조금씩 보이기 시작했다. 끝이라고 생각했던 시간도 결국 지나왔고, 아무 의미 없어 보였던 하루들이 모여 지금의 나를 만들고 있었다.
+
+그래서 지금도 모든 것이 뜻대로 되지 않는 날이면, 그 시간을 너무 서둘러 이름 붙이지 않으려 한다.
+
+언젠가 다시 돌아보게 될 때,
+그날은 지금과는 다른 자리에 놓여 있을지도 모르기 때문이다.`},{id:`munhagui-sae-jipyeong`,title:`문학의 새 지평 – 청소년 세대를 대변하는 ‘리얼리즘’적 문학`,author:`양준희`,type:`비평`,body:`21세기는 디지털 문화의 시대다. SNS 릴스, 숏츠, 이른바 ‘숏폼’이 인기를 끌며 점차 청소년 세대의 이목을 끌고 있는 한편, 고전적인 문화조류인 ‘문학’은 설 자리를 잃어 가고 있다. 이는 한국 사회의 문화적 지형이 재편되고 있음을 보여주는 대표적인 예시일 것이다.
 
 대중들은 이 현상의 원인으로서 청소년 세대의 디지털 중독을 꼽곤 한다. 비록 틀린 진단은 아니나 이 요인이 대표적인 이유가 될 수는 없다. 결국 디지털 중독 역시 사회구조의 모순에서 비롯된 현상의 하나일 뿐이지, 근본적인 문제가 아니기 때문이다.
 
@@ -283,34 +420,7 @@ but received
 내 일생을 다시 살거든
 야윈 바람 몰고 오지 마시고
 큰 폭류
-족함 모르게 내리시오.`},{id:`naneun-deoreoun-gilgeoriga-geuriwo`,title:`나는 더러운 길거리가 그리워`,author:`해방구`,type:`시`,body:`나는 더러운 길거리가 그리워.
-엄마와 손 꼭 잡고 거닐던 그곳이 그리워.
-개똥 한 덩이만 봐도 킥킥댈 수 있던 그곳이 그리워.
-리어카만 봐도 반갑게 인사할 수 있던 그곳이 그리워.
-
-손바닥에 그린 꼬부랑 “사랑해!”,
-개똥 한 자락에서 핀 웃음꽃 민들레,
-리어카에 실린 꿈나라 동화책.
-
-너희, 도대체 어디로 갔어?
-달나라로 갔니, 별나라로 갔니?
-밤새우며 찾아도 찾을 수 없어.
-
-맞아, 길거리가 너무 깨끗한 탓이야.
-맞아, 길거리에 똥개가 사라진 탓이야.
-맞아, 길거리에 폐지가 사라진 탓이야.
-
-아니야.
-길거리에 사랑이 사라진 탓이야.
-꼬부랑 “사랑해!”도, 웃음꽃도, 꿈나라도
-사랑 없이 있을 수 없어.
-해설문
-
-1. 구체성과 추상성의 간극에서
-
-마르셀 프루스트가 『잃어버린 시간을 찾아서』에서 다루듯, 우리가 정녕 추억의 촉매로 삼는 것은 구체적 사물이 아닌 ‘감각’일 수 있습니다. [물론 감각이 순수 경험의 영역임을 주장하고자 함은 아닙니다.] 제가 다룬바 감각이라 함은, 이를 분석·현상하는 의식 활동을 의미하기보다 무의식 내지 생리 작용에 가깝다, 봄이 타당하겠습니다. 시대상이 아닌 시대상을 연상할 수 있는 공감각적 언어를 제시하기 위함이죠.
-2. 소박성을 다룰 데 대해
-도쿠다 엔켄(德田演鉉), 박목월 등의 소박성은 분명 비판받아 마땅하나, 소박성은 언제나 소박성 그 자체를 위함이 아닌 풍부한 인식으로 진일보하는 목적 역시 가집니다. 시상에서 ‘사랑’으로 성급히 결론지으며 은폐된 대상, 모종의 막연함은 역설적으로 (그것을 바로 보고자 하는) 청자의 의식과 긴장을 이루며 그 의미가 확장될 수 있음으로 역시 해석될 수 있습니다. 쉽게 말해, “해석은 청자를 비추는 거울이다.”라 볼 수 있겠습니다.`},{id:`nunmurui-ondo`,title:`눈물의 온도`,author:`윤소민`,type:`시`,body:`눈물은 마음이 차마 다 삼키지 못한
+족함 모르게 내리시오.`},{id:`nunmurui-ondo`,title:`눈물의 온도`,author:`윤소민`,type:`시`,body:`눈물은 마음이 차마 다 삼키지 못한
 투명한 혈액이자, 데일 듯 뜨거운 문장입니다.
 깊게 베인 자리마다 돋아나는 붉은 꽃잎은
 비명 대신 피어난 당신의 생,
@@ -374,7 +484,39 @@ but received
 다시 흰구름이 지나갔다
 
 남자는
-여전히 서 있었다`},{id:`geuneurui-yeonga`,title:`그늘의 연가`,author:`윤소민`,type:`시`,body:`자그만한 마음이라 얕보여도 좋아.
+여전히 서 있었다`},{id:`baramui-danmyeon`,title:`바람의 단면`,author:`박민준`,type:`시`,body:`바람은 손이 없다
+다만 지나간 자리마다
+결을 남긴다
+
+더운 날엔 입술이 갈라졌고
+추운 날엔 이음새가 벌어졌다
+
+그것들은 계절의 이름으로 정리되었지만
+몸은 늘 먼저 알았다
+
+통과는 이동이 아니었다
+마찰이었고
+삭제였다
+
+견딘 것이 아니라
+모서리가 먼저 사라졌다
+
+남은 것은
+제자리를 잃은 가루와
+닫히지 않는 틈
+
+막아선 적은 없었다
+열어둔 적도 없었다
+
+이미
+창이었고
+금이었고
+먼지였다
+
+바람은 떠나지 않았다
+
+살아남은 것은
+더 이상 긁힐 곳이 없는 표면뿐`},{id:`geuneurui-yeonga`,title:`그늘의 연가`,author:`윤소민`,type:`시`,body:`자그만한 마음이라 얕보여도 좋아.
 나 하나 온전히 쏟아 부어도
 너의 세상에선 소수점 아래의 변화조차 크게 없겠지만,
 그래도 나는 기어이 너의 오차범위 안에 머물래.
@@ -415,13 +557,15 @@ but received
 
 바람이 다시 뼛속까지 서늘하게 불어옵니다. 부러진 날개뼈가 비명을 지르는데도, 저는 또다시 절벽 끝으로 절뚝이며 걸어갑니다. 추락할 것을 알면서도 다시 허공으로 몸을 던지는 이 지독한 병.
 
-이것이 나의 비상이자, 나의 종말입니다.`}]},{title:`맺음말`,works:[{id:`maecheummal-2026-07`,title:`맺음말`,author:`새결 일동`,type:`맺음말`,body:`《새결》 7월호 원고에 마침표를 찍으며 그동안 읽었던 수많은 글들을 떠올립니다. 굉장히 수려한 문장으로 다양한 작가들이 저마다의 창의적인 세계를 펼쳐주셨습니다.
+이것이 나의 비상이자, 나의 종말입니다.`}]},{title:`맺음말`,works:[{id:`maecheummal-2026-07`,title:`맺음말`,author:`새결 일동`,type:`맺음말`,body:`우리는 비상을 꿈꾸었지만, 이번 호를 통해 다시 한 번 알게 되었습니다. 비상이란 언제나 올라가는 일이 아니라, 끝없이 자신에게 질문하는 과정이라는 것을.
+
+<새결> 7월호 원고에 마침표를 찍으며 그동안 읽었던 수많은 글들을 떠올립니다. 굉장히 수려한 문장으로 다양한 작가들이 저마다의 창의적인 세계를 펼쳐주셨습니다.
 
 시인은 죽어야만 한다는 충격적이고도 신선한 관점을 담은 비평부터, 가장 낮은 비상을 하며 살아온 소인의 이야기, 그리고 비상과 추락을 역설하는 산문시에 이르기까지, 이번 통권 제 3호는 기존의 고정관념을 깨부순 파괴와 창조, 그 자체였습니다.
 
-《새결》 이 꺼내는 문장은 불완전합니다. 그렇기에 우리는 그 문장들을 사랑합니다. 불완전하기에 더욱 날카롭고, 불완전하기에 더욱 부드럽습니다.
+<새결> 이 꺼내는 문장은 불완전합니다. 그렇기에 우리는 그 문장들을 사랑합니다. 불완전하기에 더욱 날카롭고, 불완전하기에 더욱 부드럽습니다.
 
-우리는 결코 포기하지 않겠습니다. 《새결》은 작심삼호로 종결하는 이름이 아닙니다. 끝없는 문학의 바다를 향해 돛을 올리고, 더 먼 곳을 향해 항해하겠습니다. 거친 풍랑을 맞딱뜨리더라도 결코 뒤집히지 않겠습니다. 이것은 우리 모두가 품고 있는 가장 당찬 포부이자, 문학을 향한 변치 않는 약속입니다.
+우리는 결코 포기하지 않겠습니다. <새결>은 작심삼호로 종결하는 이름이 아닙니다. 끝없는 문학의 바다를 향해 돛을 올리고, 더 먼 곳을 향해 항해하겠습니다. 거친 풍랑을 맞딱뜨리더라도 결코 뒤집히지 않겠습니다. 이것은 우리 모두가 품고 있는 가장 당찬 포부이자, 문학을 향한 변치 않는 약속입니다.
 
 앞으로도 저희의 불완전한 이야기가 독자 여러분의 마음에 작은 울림이 되기를 간절히 소망합니다.
 
