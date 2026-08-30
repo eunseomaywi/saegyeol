@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { getNextPublishDate, formatPublishDate } from "./utils/date";
+import august2026Issue from "./issues/august2026";
 import july2026Issue from "./issues/july2026";
 
 const DISQUS_SHORTNAME = import.meta.env.VITE_DISQUS_SHORTNAME || "saegyeol";
@@ -120,6 +121,7 @@ const getArchiveDescription = (issue) => {
 const getIssueMonthLabel = (issue) => issue.title.replace(/호$/, "");
 
 const issues = [
+  august2026Issue,
   july2026Issue,
   {
     id: "saegyeol-2026-06-yeoreum",
@@ -2132,13 +2134,6 @@ To an admiring Bog!                  자신을 찬미하는 늪을 향해 이름
       },
     ],
   },
-  {
-    id: "2026-08",
-    archiveDate: "2026. 08",
-    archiveTitle: "예정",
-    archiveDescription: "4호",
-    status: "upcoming",
-  },
 ];
 
 const navItems = [
@@ -2618,7 +2613,7 @@ function ContributorsSection() {
 }
 
 function IssuesPage() {
-  const orderedIssues = [...issues].sort((a, b) => (a.publishDate || a.id).localeCompare(b.publishDate || b.id));
+  const orderedIssues = [...issues].sort((a, b) => (b.publishDate || b.id).localeCompare(a.publishDate || a.id));
 
   return (
     <main>
