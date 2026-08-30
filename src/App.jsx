@@ -2613,7 +2613,7 @@ function ContributorsSection() {
 }
 
 function IssuesPage() {
-  const orderedIssues = [...issues].sort((a, b) => (b.publishDate || b.id).localeCompare(a.publishDate || a.id));
+  const orderedIssues = [...issues].sort((a, b) => (a.publishDate || a.id).localeCompare(b.publishDate || b.id));
 
   return (
     <main>
