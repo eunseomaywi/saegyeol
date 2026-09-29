@@ -4,6 +4,7 @@ import { Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from "
 import { getNextPublishDate, formatPublishDate } from "./utils/date";
 import august2026Issue from "./issues/august2026";
 import july2026Issue from "./issues/july2026";
+import september2026Issue from "./issues/september2026";
 
 const DISQUS_SHORTNAME = import.meta.env.VITE_DISQUS_SHORTNAME || "saegyeol";
 const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "mrejeyvg";
@@ -121,24 +122,7 @@ const getArchiveDescription = (issue) => {
 const getIssueMonthLabel = (issue) => issue.title.replace(/호$/, "");
 
 const issues = [
-  {
-    id: "saegyeol-2026-09-saek",
-    slug: "2026-09-saek",
-    title: "2026년 9월호",
-    theme: "색",
-    displayTitle: "2026년 9월호 · 색",
-    volume: "Vol.5",
-    label: "통권 5호",
-    archiveDate: "2026. 09",
-    archiveTitle: "색",
-    archiveSummary: "시 15편 · 비평 2편 · 수필 2편 · 통권 5호",
-    badge: "현재 호",
-    isCurrent: true,
-    pdfOnly: true,
-    status: "active",
-    publishDate: "2026-09-01",
-    pdfPath: "/saegyeol-2026-09-saek.pdf",
-  },
+  september2026Issue,
   august2026Issue,
   july2026Issue,
   {
@@ -2303,7 +2287,7 @@ function HomePage() {
             문학의 새로운 호흡, 새결
           </p>
           <div className="sg-hero-actions">
-            <a href={currentIssue.pdfPath}>이번 호 읽기</a>
+            <Link to={`/issue/${currentIssue.slug}`}>이번 호 읽기</Link>
             <Link to="/submit">투고 안내</Link>
           </div>
         </div>
@@ -2368,11 +2352,7 @@ function IssueCard({ issue }) {
     </>
   );
 
-  return issue.pdfOnly ? (
-    <a className="sg-featured-issue" href={issue.pdfPath}>{content}</a>
-  ) : (
-    <Link className="sg-featured-issue" to={`/issue/${issue.slug}`}>{content}</Link>
-  );
+  return <Link className="sg-featured-issue" to={`/issue/${issue.slug}`}>{content}</Link>;
 }
 
 function IssueShelfCard({ issue }) {
@@ -2385,14 +2365,6 @@ function IssueShelfCard({ issue }) {
       {issue.badge && currentIssue?.id === issue.id && <b>{issue.badge}</b>}
     </>
   );
-
-  if (issue.pdfOnly) {
-    return (
-      <a className="sg-shelf-card is-active" href={issue.pdfPath}>
-        {content}
-      </a>
-    );
-  }
 
   if (issue.status === "active") {
     return (
@@ -2594,6 +2566,8 @@ function WorkPage() {
             <p>{work.author}</p>
           </header>
           <TextBody text={work.body} variant={work.type === "시" ? "poem" : "prose"} />
+          {work.visualization === "rose-market-chart" && <RoseMarketMarks />}
+          {work.continuation && <TextBody text={work.continuation} variant="poem" />}
           <nav className="sg-work-nav" aria-label="작품 이동">
             {previous ? <Link to={`/issue/${issue.slug}/work/${previous.id}`}>이전 작품</Link> : <span />}
             <Link to={`/issue/${issue.slug}#toc`}>목차로 돌아가기</Link>
@@ -2602,6 +2576,23 @@ function WorkPage() {
         </div>
       </article>
     </main>
+  );
+}
+
+function RoseMarketMarks() {
+  const marks = [
+    [2, 2, 11, "red"], [8, 40, 8, "red"], [15, 78, 7, "red"],
+    [31, 78, 7, "red"], [61, 78, 8, "red"], [84, 78, 8, "red"],
+    [35, 116, 9, "blue"], [77, 116, 27, "blue"],
+    [96, 154, 26, "blue"], [126, 192, 29, "blue"],
+  ];
+
+  return (
+    <div className="sg-rose-market-marks" role="img" aria-label="붉은 선들이 푸른 선들로 바뀌며 아래로 이어지는 차트 모양">
+      {marks.map(([left, top, width, color], index) => (
+        <span key={index} className={`sg-rose-market-mark is-${color}`} style={{ left: `${left}px`, top: `${top}px`, width: `${width}px` }} />
+      ))}
+    </div>
   );
 }
 
