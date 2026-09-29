@@ -10,7 +10,6 @@ const july2026Issue = {
   archiveTitle: "비상",
   archiveDescription: "통권 3호",
   archiveSummary: "시 14편 · 비평문 3편 · 통권 3호",
-  badge: "현재 호",
   status: "active",
   publishDate: "2026-07-01",
   nextIssueDate: "2026-08-13T00:00:00+09:00",

@@ -10,7 +10,6 @@ const august2026Issue = {
   archiveTitle: "청춘",
   archiveDescription: "통권 4호",
   archiveSummary: "시 13편 · 비평 1편 · 수필 2편 · 통권 4호",
-  badge: "현재 호",
   status: "active",
   publishDate: "2026-08-30",
   nextIssueDate: "2026-09-30T00:00:00+09:00",

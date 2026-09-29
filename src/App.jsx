@@ -121,6 +121,24 @@ const getArchiveDescription = (issue) => {
 const getIssueMonthLabel = (issue) => issue.title.replace(/호$/, "");
 
 const issues = [
+  {
+    id: "saegyeol-2026-09-saek",
+    slug: "2026-09-saek",
+    title: "2026년 9월호",
+    theme: "색",
+    displayTitle: "2026년 9월호 · 색",
+    volume: "Vol.5",
+    label: "통권 5호",
+    archiveDate: "2026. 09",
+    archiveTitle: "색",
+    archiveSummary: "시 15편 · 비평 2편 · 수필 2편 · 통권 5호",
+    badge: "현재 호",
+    isCurrent: true,
+    pdfOnly: true,
+    status: "active",
+    publishDate: "2026-09-01",
+    pdfPath: "/saegyeol-2026-09-saek.pdf",
+  },
   august2026Issue,
   july2026Issue,
   {
@@ -135,7 +153,6 @@ const issues = [
     archiveTitle: "여름",
     archiveDescription: "통권 2호",
     archiveSummary: "시 19편 · 비평문 3편 · 통권 2호",
-    badge: "현재 호",
     status: "active",
     publishDate: "2026-06-01",
     nextIssueDate: "2026-07-13T00:00:00+09:00",
@@ -2274,7 +2291,7 @@ function Header() {
 }
 
 function HomePage() {
-  const currentIssue = issues.find((issue) => issue.status === "active");
+  const currentIssue = issues.find((issue) => issue.isCurrent);
   const nextPublishDate = getNextPublishDate();
 
   return (
@@ -2286,7 +2303,7 @@ function HomePage() {
             문학의 새로운 호흡, 새결
           </p>
           <div className="sg-hero-actions">
-            <Link to={`/issue/${currentIssue.slug}`}>이번 호 읽기</Link>
+            <a href={currentIssue.pdfPath}>이번 호 읽기</a>
             <Link to="/submit">투고 안내</Link>
           </div>
         </div>
@@ -2326,8 +2343,8 @@ function SectionTitle({ eyebrow, title, children }) {
 }
 
 function IssueCard({ issue }) {
-  return (
-    <Link className="sg-featured-issue" to={`/issue/${issue.slug}`}>
+  const content = (
+    <>
       <div className="sg-featured-copy">
         <p>새결</p>
         <h3>{issue.volume}</h3>
@@ -2348,12 +2365,18 @@ function IssueCard({ issue }) {
         <strong>{issue.theme}</strong>
         <small>{getArchiveDescription(issue)}</small>
       </div>
-    </Link>
+    </>
+  );
+
+  return issue.pdfOnly ? (
+    <a className="sg-featured-issue" href={issue.pdfPath}>{content}</a>
+  ) : (
+    <Link className="sg-featured-issue" to={`/issue/${issue.slug}`}>{content}</Link>
   );
 }
 
 function IssueShelfCard({ issue }) {
-  const currentIssue = issues.find((item) => item.status === "active");
+  const currentIssue = issues.find((item) => item.isCurrent);
   const content = (
     <>
       <span className="sg-shelf-date">{issue.archiveDate}</span>
@@ -2362,6 +2385,14 @@ function IssueShelfCard({ issue }) {
       {issue.badge && currentIssue?.id === issue.id && <b>{issue.badge}</b>}
     </>
   );
+
+  if (issue.pdfOnly) {
+    return (
+      <a className="sg-shelf-card is-active" href={issue.pdfPath}>
+        {content}
+      </a>
+    );
+  }
 
   if (issue.status === "active") {
     return (
