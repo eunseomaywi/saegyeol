@@ -1086,6 +1086,14 @@ dd {
   line-height: 2.15;
 }
 
+.work-borasaegui-gareuchim .sg-text-body.is-prose {
+  line-height: 2.15;
+}
+
+.work-borasaegui-gareuchim .sg-text-body.is-prose p {
+  margin-bottom: 2.15em;
+}
+
 .sg-rose-market-marks {
   position: relative;
   width: min(220px, 62vw);

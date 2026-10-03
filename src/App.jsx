@@ -2557,7 +2557,7 @@ function WorkPage() {
 
   return (
     <main className="sg-work-page">
-      <article className={`sg-work-reader ${work.type === "시" ? "is-poem" : "is-prose"}`}>
+      <article className={`sg-work-reader ${work.type === "시" ? "is-poem" : "is-prose"} work-${work.id}`}>
         <div className="sg-reading-shell">
           <p className="sg-work-kicker">{issue.displayTitle}</p>
           <header>
@@ -2600,7 +2600,7 @@ function WorkArticle({ work }) {
   const isProse = work.type !== "시";
 
   return (
-    <article id={work.id} className={`sg-work ${isProse ? "is-prose" : "is-poem"}`}>
+    <article id={work.id} className={`sg-work ${isProse ? "is-prose" : "is-poem"} work-${work.id}`}>
       <header>
         <span>{work.type}</span>
         <h3>{work.title}</h3>
