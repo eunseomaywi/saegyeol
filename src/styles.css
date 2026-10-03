@@ -800,6 +800,10 @@ dd {
   padding-bottom: 130px;
 }
 
+.sg-about .sg-section-title h2 {
+  max-width: 1000px;
+}
+
 .sg-about-copy {
   width: 100%;
   max-width: 1050px;
