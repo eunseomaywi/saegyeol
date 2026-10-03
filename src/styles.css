@@ -800,6 +800,11 @@ dd {
   padding-bottom: 130px;
 }
 
+.sg-about-copy {
+  width: 100%;
+  max-width: 1050px;
+}
+
 .sg-submit {
   width: min(100% - 40px, 1120px);
   max-width: 1120px;
