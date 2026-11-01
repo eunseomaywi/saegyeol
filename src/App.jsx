@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
-import { getNextPublishDate, formatPublishDate } from "./utils/date";
+import { formatPublishDate } from "./utils/date";
+import october2026Issue from "./issues/october2026";
 import august2026Issue from "./issues/august2026";
 import july2026Issue from "./issues/july2026";
 import september2026Issue from "./issues/september2026";
@@ -122,6 +123,7 @@ const getArchiveDescription = (issue) => {
 const getIssueMonthLabel = (issue) => issue.title.replace(/호$/, "");
 
 const issues = [
+  october2026Issue,
   september2026Issue,
   august2026Issue,
   july2026Issue,
@@ -2276,7 +2278,7 @@ function Header() {
 
 function HomePage() {
   const currentIssue = issues.find((issue) => issue.isCurrent);
-  const nextPublishDate = getNextPublishDate();
+  const nextPublishDate = currentIssue?.nextIssueDate ? new Date(currentIssue.nextIssueDate) : null;
 
   return (
     <main>
@@ -2297,7 +2299,7 @@ function HomePage() {
         <SectionTitle eyebrow="이번 호" title={currentIssue.displayTitle} />
         <div className="sg-main-grid">
           <IssueCard issue={currentIssue} />
-          <CountdownTimer targetDate={nextPublishDate} />
+          {nextPublishDate && <CountdownTimer targetDate={nextPublishDate} />}
         </div>
       </section>
 
@@ -2495,7 +2497,7 @@ function TextSection({ id, eyebrow, body }) {
 
 function TableOfContents({ issue }) {
   const editorEntries = issue.editorNotes.map((note) => ({
-    id: `editor-note-${slugify(note.author)}`,
+    id: note.id || `editor-note-${slugify(note.author)}`,
     title: "편집위원의 말",
     author: note.author,
   }));
@@ -2508,10 +2510,15 @@ function TableOfContents({ issue }) {
           <h2>여는 글</h2>
           <ol>
             <li>
-              <a href="#preface" onClick={(event) => scrollToAnchor(event, "preface")}>
+              {issue.openingEntry ? (
+                <Link to={`/issue/${issue.slug}/work/${issue.openingEntry.id}`}>
+                  <strong>{issue.prefaceTitle || "머릿말"}</strong>
+                  <span>{issue.openingEntry.author}</span>
+                </Link>
+              ) : <a href="#preface" onClick={(event) => scrollToAnchor(event, "preface")}>
                 <strong>{issue.prefaceTitle || "머릿말"}</strong>
                 <span>새결 일동</span>
-              </a>
+              </a>}
             </li>
             {editorEntries.map((entry) => (
               <li key={entry.id}>
@@ -2891,8 +2898,9 @@ function formatDate(value) {
 }
 
 function getIssueEntries(issue) {
+  const openingEntries = issue.openingEntry ? [issue.openingEntry] : [];
   const editorEntries = issue.editorNotes.map((note) => ({
-    id: `editor-note-${slugify(note.author)}`,
+    id: note.id || `editor-note-${slugify(note.author)}`,
     title: "편집위원의 말",
     author: note.author,
     type: "편집위원의 말",
@@ -2900,6 +2908,7 @@ function getIssueEntries(issue) {
   }));
 
   return [
+    ...openingEntries,
     ...editorEntries,
     ...issue.sections.flatMap((section) => section.works.map((work) => ({ ...work, sectionTitle: section.title }))),
   ];

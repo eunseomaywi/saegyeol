@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "validate:october": "node scripts/validate-october.mjs"
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",
