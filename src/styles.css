@@ -1759,3 +1759,7 @@ dd {
     padding: 28px 0;
   }
 }
+
+/* October prose is stored as reviewed paragraphs; earlier issues retain their layout. */
+.sg-text-body.is-normal p { white-space: normal; word-break: keep-all; overflow-wrap: break-word; }
+.sg-text-body.is-mixed p { white-space: pre-line; }

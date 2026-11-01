@@ -2434,7 +2434,7 @@ function IssuePage() {
     <main>
       <article className="sg-issue-page" id="issue-document">
         <IssueCover issue={issue} />
-        <TextSection id="preface" eyebrow={issue.prefaceTitle || "머릿말"} body={issue.preface} />
+        <TextSection id="preface" eyebrow={issue.prefaceTitle || "머릿말"} body={issue.preface} variant={issue.slug === "2026-10-nurak" ? "prose-normal" : "prose"} />
         <TableOfContents issue={issue} />
         <IssueActions issue={issue} onToggleComments={() => setCommentsOpen((value) => !value)} commentsOpen={commentsOpen} />
         {commentsOpen && <IssueComments issue={issue} />}
@@ -2492,12 +2492,12 @@ function IssueActions({ issue, onToggleComments, commentsOpen }) {
   );
 }
 
-function TextSection({ id, eyebrow, body }) {
+function TextSection({ id, eyebrow, body, variant = "prose" }) {
   return (
     <section id={id} className="sg-literary-section">
       <div className="sg-reading-shell">
         <p className="sg-section-eyebrow">{eyebrow}</p>
-        <TextBody text={body} variant="prose" />
+        <TextBody text={body} variant={variant} />
       </div>
     </section>
   );
@@ -2518,15 +2518,10 @@ function TableOfContents({ issue }) {
           <h2>여는 글</h2>
           <ol>
             <li>
-              {issue.openingEntry ? (
-                <Link to={`/issue/${issue.slug}/work/${issue.openingEntry.id}`} target="_self">
-                  <strong>{issue.prefaceTitle || "머릿말"}</strong>
-                  <span>{issue.openingEntry.author}</span>
-                </Link>
-              ) : <a href="#preface" onClick={(event) => scrollToAnchor(event, "preface")}>
+              <a href="#preface" onClick={(event) => scrollToAnchor(event, "preface")}>
                 <strong>{issue.prefaceTitle || "머릿말"}</strong>
                 <span>새결 일동</span>
-              </a>}
+              </a>
             </li>
             {editorEntries.map((entry) => (
               <li key={entry.id}>
@@ -2580,7 +2575,7 @@ function WorkPage() {
             <h1>{work.title}</h1>
             <p>{work.author}</p>
           </header>
-          <TextBody text={work.body} variant={work.type === "시" ? "poem" : "prose"} />
+          <TextBody text={work.body} variant={work.format === "poetry" ? "poem" : (work.format === "prose" ? "prose-normal" : work.format) || (work.type === "시" ? "poem" : "prose")} />
           {work.visualization === "rose-market-chart" && <RoseMarketMarks />}
           {work.continuation && <TextBody text={work.continuation} variant="poem" />}
           <nav className="sg-work-nav" aria-label="작품 이동">
@@ -2632,7 +2627,7 @@ function TextBody({ text, variant }) {
   }
 
   return (
-    <div className="sg-text-body is-prose">
+    <div className={`sg-text-body is-prose ${variant === "mixed" ? "is-mixed" : variant === "prose-normal" ? "is-normal" : ""}`}>
       {text.split(/\n{2,}/).map((paragraph, index) => (
         <p key={index}>{paragraph}</p>
       ))}
@@ -2913,6 +2908,7 @@ function getIssueEntries(issue) {
     author: note.author,
     type: "편집위원의 말",
     body: note.body,
+    format: note.format,
   }));
 
   return [

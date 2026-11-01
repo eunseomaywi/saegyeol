@@ -6,9 +6,10 @@ import { getNextPublishDate, formatPublishDate } from '../src/utils/date.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = fs.readFileSync(path.join(root, 'src/issues/october2026.js'), 'utf8');
-const match = source.match(/^const october2026Issue = ([\s\S]*);\n\nexport default october2026Issue;\n$/u);
+const match = source.match(/^const october2026Issue = ([\s\S]*);\n\noctober2026Issue.openingEntry.body = october2026Issue.preface;\n\nexport default october2026Issue;\n$/u);
 assert.ok(match, 'October issue data must remain a plain JSON object export');
 const issue = JSON.parse(match[1]);
+issue.openingEntry.body = issue.preface;
 
 const expectedSections = [
   ['1부: 누락', [
