@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
-import { formatPublishDate } from "./utils/date";
+import { getNextPublishDate, formatPublishDate } from "./utils/date";
 import october2026Issue from "./issues/october2026";
 import august2026Issue from "./issues/august2026";
 import july2026Issue from "./issues/july2026";
@@ -2278,7 +2278,7 @@ function Header() {
 
 function HomePage() {
   const currentIssue = issues.find((issue) => issue.isCurrent);
-  const nextPublishDate = currentIssue?.nextIssueDate ? new Date(currentIssue.nextIssueDate) : null;
+  const nextPublishDate = getNextPublishDate();
 
   return (
     <main>
@@ -2299,7 +2299,7 @@ function HomePage() {
         <SectionTitle eyebrow="이번 호" title={currentIssue.displayTitle} />
         <div className="sg-main-grid">
           <IssueCard issue={currentIssue} />
-          {nextPublishDate && <CountdownTimer targetDate={nextPublishDate} />}
+          <CountdownTimer targetDate={nextPublishDate} />
         </div>
       </section>
 

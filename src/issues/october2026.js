@@ -9,7 +9,7 @@ const october2026Issue = {
   "archiveDate": "2026. 10",
   "archiveTitle": "누락",
   "archiveDescription": "통권 6호",
-  "archiveSummary": "기억과 기록의 빈칸, 지나쳐 온 것들을 다시 바라봅니다 · 통권 6호",
+  "archiveSummary": "시 14편 · 비평 1편 · 수필 1편 · 특집 6편 · 통권 6호",
   "badge": "현재 호",
   "isCurrent": true,
   "status": "active",

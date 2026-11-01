@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { getNextPublishDate, formatPublishDate } from '../src/utils/date.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = fs.readFileSync(path.join(root, 'src/issues/october2026.js'), 'utf8');
@@ -35,10 +36,35 @@ assert.equal(issue.id, 'saegyeol-2026-10-nurak');
 assert.equal(issue.slug, '2026-10-nurak');
 assert.equal(issue.title, '2026년 10월호');
 assert.equal(issue.theme, '누락');
+assert.equal(issue.archiveSummary, '시 14편 · 비평 1편 · 수필 1편 · 특집 6편 · 통권 6호');
 assert.deepEqual(issue.editors, ['박민준', '양준희']);
 assert.equal(issue.pdfPath, '/saegyeol-2026-10-nurak.pdf');
 assert.ok(fs.existsSync(path.join(root, 'public', 'saegyeol-2026-10-nurak.pdf')));
 assert.equal(issue.sections.length, expectedSections.length);
+
+const workCounts = issue.sections.flatMap(({ title, works }) => works.map((work) => ({ section: title, type: work.type })));
+assert.equal(workCounts.filter(({ type }) => type === '시').length, 14, 'poem count');
+assert.equal(workCounts.filter(({ section }) => section === '비평').length, 1, 'criticism count');
+assert.equal(workCounts.filter(({ section }) => section === '수필').length, 1, 'essay count');
+assert.equal(workCounts.filter(({ section }) => section === '특집: 천일중학교').length, 6, 'special feature count');
+
+const appSource = fs.readFileSync(path.join(root, 'src', 'App.jsx'), 'utf8');
+assert.match(appSource, /import \{ getNextPublishDate, formatPublishDate \} from "\.\/utils\/date";/u);
+const homeSource = appSource.slice(appSource.indexOf('function HomePage()'), appSource.indexOf('function AnimatedTitle()'));
+assert.match(homeSource, /const nextPublishDate = getNextPublishDate\(\);/u);
+assert.match(homeSource, /<CountdownTimer targetDate=\{nextPublishDate\} \/>/u);
+assert.doesNotMatch(homeSource, /nextPublishDate\s*&&/u, 'countdown must not disappear when a dated issue field is absent');
+const nextPublishDate = getNextPublishDate(new Date('2026-11-02T00:00:00+09:00'));
+assert.equal(formatPublishDate(nextPublishDate), '2026년 11월 30일');
+assert.equal(nextPublishDate.toISOString(), '2026-11-29T15:00:00.000Z', 'monthly deadline is midnight KST');
+const timerSource = appSource.slice(appSource.indexOf('function CountdownTimer('), appSource.indexOf('function IssuePage()'));
+assert.match(timerSource, /window\.setInterval\([^,]+, 1000\)/u, 'timer must continue ticking');
+const remainingSource = appSource.slice(appSource.indexOf('function getRemainingTime('), appSource.indexOf('function getKoreaDateStart('));
+assert.match(remainingSource, /Math\.max\(0, diff\)/u, 'expired timer values must not become negative');
+const styleSource = fs.readFileSync(path.join(root, 'src', 'styles.css'), 'utf8');
+assert.match(styleSource, /\.sg-countdown\s*\{/u, 'legacy countdown styles must remain');
+assert.match(styleSource, /\.sg-countdown-grid,\s*\.sg-issue-shelf,[\s\S]*?grid-template-columns: 1fr/u,
+  'countdown and issue shelf retain their mobile layout');
 
 for (const [index, [title, expectedWorks]] of expectedSections.entries()) {
   const section = issue.sections[index];
