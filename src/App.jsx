@@ -2151,6 +2151,14 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    const parts = location.pathname.split("/").filter(Boolean);
+    const issue = parts[0] === "issue" ? issues.find((item) => item.slug === parts[1]) : null;
+    const work = issue && parts[2] === "work" ? getIssueEntries(issue).find((entry) => entry.id === parts[3]) : null;
+    const pageTitles = { issues: "문예지 모음", poets: "필진", submit: "투고 안내", about: "소개" };
+    document.title = work ? `새결 | ${work.title}` : issue ? `새결 | ${issue.displayTitle}` : pageTitles[parts[0]] ? `새결 | ${pageTitles[parts[0]]}` : "새결 | 문학의 새로운 호흡";
+  }, [location.pathname]);
+
+  useEffect(() => {
     let active = true;
     let intervalId = null;
     let correctiveIntervalId = null;
@@ -2186,7 +2194,7 @@ function App() {
         }
       }, intervalTime);
     } else {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, left: 0, behavior: /\/issue\/[^/]+\/work\//.test(location.pathname) ? "instant" : "smooth" });
     }
 
     return () => {
@@ -2511,7 +2519,7 @@ function TableOfContents({ issue }) {
           <ol>
             <li>
               {issue.openingEntry ? (
-                <Link to={`/issue/${issue.slug}/work/${issue.openingEntry.id}`}>
+                <Link to={`/issue/${issue.slug}/work/${issue.openingEntry.id}`} target="_self">
                   <strong>{issue.prefaceTitle || "머릿말"}</strong>
                   <span>{issue.openingEntry.author}</span>
                 </Link>
